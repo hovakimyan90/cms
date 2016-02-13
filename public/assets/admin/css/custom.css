@@ -1,13 +1,11 @@
-/**
- *
- * Apply Here your Custom CSS
- *
-*/
-
 body {
 	
 }
 
 .remember_me_block {
     float: left;
+}
+
+.export_excel {
+    float: right;
 }

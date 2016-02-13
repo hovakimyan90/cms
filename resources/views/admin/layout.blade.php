@@ -12,12 +12,14 @@
 
     <link rel="stylesheet" href="/public/assets/admin/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
     <link rel="stylesheet" href="/public/assets/admin/css/font-icons/entypo/css/entypo.css">
+    <link rel="stylesheet" href="/public/assets/admin/css/font-icons/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
     <link rel="stylesheet" href="/public/assets/admin/css/bootstrap.css">
     <link rel="stylesheet" href="/public/assets/admin/css/neon-core.css">
     <link rel="stylesheet" href="/public/assets/admin/css/neon-theme.css">
     <link rel="stylesheet" href="/public/assets/admin/css/neon-forms.css">
     <link rel="stylesheet" href="/public/assets/admin/css/custom.css">
+    <link rel="stylesheet" href="/public/assets/admin/css/skins/black.css">
 
     <script src="/public/assets/admin/js/jquery-1.11.0.min.js"></script>
 
@@ -32,7 +34,7 @@
 
 
 </head>
-<body class="page-body gray" data-url="http://neon.dev">
+<body class="page-body skin-black" data-url="http://neon.dev">
 
 <div class="page-container">
     <!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
@@ -153,6 +155,12 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="{{config('app.admin_path')}}/categories">
+                        <i class="entypo-menu"></i>
+                        <span class="title">Categories</span>
+                    </a>
                 </li>
                 <li>
                     <a href="layout-api.html">
@@ -1170,38 +1178,42 @@
 
         </footer>
     </div>
+</div>
+<!-- Imported styles on this page -->
+<link rel="stylesheet" href="/public/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.css">
+<link rel="stylesheet" href="/public/assets/admin/js/rickshaw/rickshaw.min.css">
 
-    <!-- Imported styles on this page -->
-    <link rel="stylesheet" href="/public/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.css">
-    <link rel="stylesheet" href="/public/assets/admin/js/rickshaw/rickshaw.min.css">
-
-    <!-- Bottom scripts (common) -->
-    <script src="/public/assets/admin/js/gsap/main-gsap.js"></script>
-    <script src="/public/assets/admin/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-    <script src="/public/assets/admin/js/bootstrap.js"></script>
-    <script src="/public/assets/admin/js/joinable.js"></script>
-    <script src="/public/assets/admin/js/resizeable.js"></script>
-    <script src="/public/assets/admin/js/neon-api.js"></script>
-    <script src="/public/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-
-
-    <!-- Imported scripts on this page -->
-    <script src="/public/assets/admin/js/jvectormap/jquery-jvectormap-europe-merc-en.js"></script>
-    <script src="/public/assets/admin/js/jquery.sparkline.min.js"></script>
-    <script src="/public/assets/admin/js/rickshaw/vendor/d3.v3.js"></script>
-    <script src="/public/assets/admin/js/rickshaw/rickshaw.min.js"></script>
-    <script src="/public/assets/admin/js/raphael-min.js"></script>
-    <script src="/public/assets/admin/js/morris.min.js"></script>
-    <script src="/public/assets/admin/js/toastr.js"></script>
-    <script src="/public/assets/admin/js/fullcalendar/fullcalendar.min.js"></script>
-    <script src="/public/assets/admin/js/neon-chat.js"></script>
+<!-- Bottom scripts (common) -->
+<script src="/public/assets/admin/js/gsap/main-gsap.js"></script>
+<script src="/public/assets/admin/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+<script src="/public/assets/admin/js/bootstrap.js"></script>
+<script src="/public/assets/admin/js/joinable.js"></script>
+<script src="/public/assets/admin/js/resizeable.js"></script>
+<script src="/public/assets/admin/js/neon-api.js"></script>
+<script src="/public/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
 
 
-    <!-- JavaScripts initializations and stuff -->
-    <script src="/public/assets/admin/js/neon-custom.js"></script>
+<!-- Imported scripts on this page -->
+<script src="/public/assets/admin/js/jvectormap/jquery-jvectormap-europe-merc-en.js"></script>
+<script src="/public/assets/admin/js/jquery.sparkline.min.js"></script>
+<script src="/public/assets/admin/js/rickshaw/vendor/d3.v3.js"></script>
+<script src="/public/assets/admin/js/rickshaw/rickshaw.min.js"></script>
+<script src="/public/assets/admin/js/raphael-min.js"></script>
+<script src="/public/assets/admin/js/morris.min.js"></script>
+<script src="/public/assets/admin/js/toastr.js"></script>
+<script src="/public/assets/admin/js/fullcalendar/fullcalendar.min.js"></script>
+<script src="/public/assets/admin/js/neon-chat.js"></script>
+<script src="/public/assets/admin/js/init.js"></script>
+<script src="/public/assets/admin/js/functions.js"></script>
+<script src="/public/assets/admin/js/custom.js"></script>
 
 
-    <!-- Demo Settings -->
-    <script src="/public/assets/admin/js/neon-demo.js"></script>
+<!-- JavaScripts initializations and stuff -->
+<script src="/public/assets/admin/js/neon-custom.js"></script>
+
+
+<!-- Demo Settings -->
+<script src="/public/assets/admin/js/neon-demo.js"></script>
+
 </body>
 </html>
