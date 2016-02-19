@@ -1,7 +1,7 @@
 @extends('admin.layout')
 @section('content')
     <a href="{{config('app.admin_path')}}/category/create" class="btn btn-primary">
-        <i class="fa fa-plus"></i> Add new category
+        <i class="fa fa-plus"></i> Create new category
     </a>
     <br/>
     <br/>

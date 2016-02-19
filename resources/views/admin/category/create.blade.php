@@ -2,13 +2,10 @@
 @section('content')
     <ol class="breadcrumb bc-3">
         <li>
-            <a href="index.html"><i class="fa-home"></i>Home</a>
-        </li>
-        <li>
-            <a href="forms-main.html">Forms</a>
+            <a href="{{config('app.admin_path')}}/categories">Categories</a>
         </li>
         <li class="active">
-            <strong>Basic Elements</strong>
+            <strong>Create Category</strong>
         </li>
     </ol>
     <h2>Create category</h2>
@@ -18,14 +15,7 @@
             <div class="panel panel-primary" data-collapsed="0">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        Default Form Inputs
-                    </div>
-                    <div class="panel-options">
-                        <a href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i
-                                    class="entypo-cog"></i></a>
-                        <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
-                        <a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
-                        <a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+                        Create category
                     </div>
                 </div>
                 <div class="panel-body">
@@ -47,6 +37,22 @@
                                 <input type="text" class="form-control" id="category_alias"
                                        placeholder="Category alias" name="alias">
                                 <p class="error">{{$errors->first('alias')}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="category_meta_keys" class="col-sm-3 control-label">Category meta
+                                keywords</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="category_meta_keys"
+                                       placeholder="Meta keys" name="meta_keys">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="category_publish" class="col-sm-3 control-label">Category meta
+                                description</label>
+                            <div class="col-sm-6">
+                                <textarea id="category_meta_desc" name="meta_desc"
+                                          placeholder="Meta description" class="form-control"></textarea>
                             </div>
                         </div>
                         @if(!empty($categories))

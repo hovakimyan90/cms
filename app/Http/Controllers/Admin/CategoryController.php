@@ -19,7 +19,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->method() == 'POST') {
+        if ($request->isMethod('post')) {
             $categories = Category::getCategories(10, $request->input('search'));
         } else {
             $categories = Category::getCategories(10);
@@ -35,7 +35,7 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-        if ($request->method() == 'POST') {
+        if ($request->isMethod('post')) {
             $rules = [
                 'name' => 'required|unique:categories',
                 'alias' => 'unique:categories'
@@ -48,6 +48,8 @@ class CategoryController extends Controller
                 $category = new Category();
                 $category->name = $request->input('name');
                 $category->alias = $request->input('alias');
+                $category->meta_keys = $request->input('meta_keys');
+                $category->meta_desc = $request->input('meta_desc');
                 if (!empty($request->input('parent'))) {
                     $category->parent = $request->input('parent');
                     $category->type = 'sub';
@@ -73,7 +75,7 @@ class CategoryController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        if ($request->method() == 'POST') {
+        if ($request->isMethod('post')) {
             $rules = [
                 'name' => 'required|unique:categories,name,' . $id,
                 'alias' => 'unique:categories,alias,' . $id
@@ -86,6 +88,8 @@ class CategoryController extends Controller
                 $category = Category::find($id);
                 $category->name = $request->input('name');
                 $category->alias = $request->input('alias');
+                $category->meta_keys = $request->input('meta_keys');
+                $category->meta_desc = $request->input('meta_desc');
                 if (!empty($request->input('parent'))) {
                     $category->parent = $request->input('parent');
                     $category->type = 'sub';
@@ -117,7 +121,7 @@ class CategoryController extends Controller
      */
     public function delete(Request $request, $id = 0)
     {
-        if ($request->method() == 'POST') {
+        if ($request->isMethod('post')) {
             foreach ($request->input('categories') as $category) {
                 $category = Category::getCategory($category);
                 if (!empty($category)) {
@@ -138,7 +142,7 @@ class CategoryController extends Controller
      */
     public function export()
     {
-        $data = array(array('Name', 'Alias', 'Parent', 'Publish', 'Type'));
+        $data = array(array('Name', 'Alias', 'Meta keywords', 'Meta description', 'Parent', 'Publish', 'Type'));
         $categories = Category::getCategories();
         foreach ($categories as $category) {
             $category_array = array();
@@ -150,6 +154,18 @@ class CategoryController extends Controller
                 $alias = $category['alias'];
             }
             array_push($category_array, $alias);
+            if (empty($category['meta_keys'])) {
+                $meta_keys = 'None';
+            } else {
+                $meta_keys = $category['meta_keys'];
+            }
+            array_push($category_array, $meta_keys);
+            if (empty($category['meta_desc'])) {
+                $meta_desc = 'None';
+            } else {
+                $meta_desc = $category['meta_desc'];
+            }
+            array_push($category_array, $meta_desc);
             if ($category['parent'] == 0) {
                 $parent = 'None';
             } else {
@@ -177,7 +193,7 @@ class CategoryController extends Controller
 
                 $sheet->fromArray($data, null, 'A1', false, false);
 
-                $sheet->cells('A1:E1', function ($cells) {
+                $sheet->cells('A1:G1', function ($cells) {
                     $cells->setFontWeight('bold');
                 });
             });
