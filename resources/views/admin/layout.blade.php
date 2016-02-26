@@ -1180,7 +1180,7 @@
         </footer>
     </div>
 </div>
-<!-- Imported styles on this page -->
+
 <link rel="stylesheet" href="/public/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.css">
 <link rel="stylesheet" href="/public/assets/admin/js/rickshaw/rickshaw.min.css">
 
@@ -1192,9 +1192,6 @@
 <script src="/public/assets/admin/js/resizeable.js"></script>
 <script src="/public/assets/admin/js/neon-api.js"></script>
 <script src="/public/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-
-
-<!-- Imported scripts on this page -->
 <script src="/public/assets/admin/js/jvectormap/jquery-jvectormap-europe-merc-en.js"></script>
 <script src="/public/assets/admin/js/jquery.sparkline.min.js"></script>
 <script src="/public/assets/admin/js/rickshaw/vendor/d3.v3.js"></script>
@@ -1203,15 +1200,16 @@
 <script src="/public/assets/admin/js/morris.min.js"></script>
 <script src="/public/assets/admin/js/toastr.js"></script>
 <script src="/public/assets/admin/js/fullcalendar/fullcalendar.min.js"></script>
+<script src="/public/assets/admin/js/tinymce/tinymce.min.js"></script>
+<script src="/public/assets/admin/js/tinymce/plugins/compat3x/plugin.min.js"></script>
+<script src="/public/assets/admin/js/bootbox/js/bootbox.min.js"></script>
 <script src="/public/assets/admin/js/neon-chat.js"></script>
 <script src="/public/assets/admin/js/init.js"></script>
 <script src="/public/assets/admin/js/functions.js"></script>
 <script src="/public/assets/admin/js/custom.js"></script>
 
-
 <!-- JavaScripts initializations and stuff -->
 <script src="/public/assets/admin/js/neon-custom.js"></script>
-
 
 <!-- Demo Settings -->
 <script src="/public/assets/admin/js/neon-demo.js"></script>

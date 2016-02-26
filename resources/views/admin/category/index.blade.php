@@ -51,8 +51,10 @@
                     <td>@if($category['type']=='parent') Parent  @else Sub category @endif</td>
                     <td><a href="{{config('app.admin_path')}}/category/edit/{{$category['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                        <a href="{{config('app.admin_path')}}/category/delete/{{$category['id']}}"
-                           class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> Delete</a></td>
+                        <button class="btn btn-danger delete" data-id="{{$category['id']}}"><i
+                                    class="glyphicon glyphicon-trash"></i> Delete
+                        </button>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

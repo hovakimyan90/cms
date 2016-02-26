@@ -1,4 +1,9 @@
-function deleteCategory(categories) {
+/**
+ * Delete selected categories
+ *
+ * @param categories
+ */
+function deleteCategories(categories) {
     $.ajax({
         url: admin_path + "/category/delete",
         type: 'POST',
