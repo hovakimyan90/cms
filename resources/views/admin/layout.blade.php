@@ -1203,6 +1203,7 @@
 <script src="/public/assets/admin/js/tinymce/tinymce.min.js"></script>
 <script src="/public/assets/admin/js/tinymce/plugins/compat3x/plugin.min.js"></script>
 <script src="/public/assets/admin/js/bootbox/js/bootbox.min.js"></script>
+<script src="/public/assets/admin/js/fileinput.js"></script>
 <script src="/public/assets/admin/js/neon-chat.js"></script>
 <script src="/public/assets/admin/js/init.js"></script>
 <script src="/public/assets/admin/js/functions.js"></script>

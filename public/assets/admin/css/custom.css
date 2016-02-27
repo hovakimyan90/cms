@@ -9,3 +9,12 @@ body {
 .export_excel {
     float: right;
 }
+
+.seo_part {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.post_alias_block {
+    margin-top: 15px;
+}

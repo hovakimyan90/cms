@@ -29,4 +29,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/admin/category/delete', 'Admin\CategoryController@delete');
     Route::get('/admin/category/export', 'Admin\CategoryController@export');
     Route::get('/admin/post/create', 'Admin\PostController@create');
+    Route::post('/admin/post/create', 'Admin\PostController@create');
 });
