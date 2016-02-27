@@ -19,32 +19,32 @@ $(document).ready(function () {
      * Delete selected categories
      */
     delete_all_button.click(function () {
-        bootbox.dialog({
-            message: "I am a custom dialog",
-            title: "Confirm delete?",
-            buttons: {
-                success: {
-                    label: "Cancel",
-                    callback: function () {
-                    }
-                },
-                danger: {
-                    label: "Delete",
-                    className: "btn-danger",
-                    callback: function () {
-                        categories = [];
-                        category_checkbox.each(function () {
-                            if ($(this).is(':checked')) {
-                                categories.push($(this).data('id'));
-                            }
-                        });
-                        if (categories.length > 0) {
+        categories = [];
+        category_checkbox.each(function () {
+            if ($(this).is(':checked')) {
+                categories.push($(this).data('id'));
+            }
+        });
+        if (categories.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
                             deleteCategories(categories);
                         }
                     }
                 }
-            }
-        });
+            });
+        }
     });
 
     /**

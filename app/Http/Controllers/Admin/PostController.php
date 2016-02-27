@@ -18,6 +18,12 @@ class PostController extends Controller
 
     }
 
+    /**
+     * Create post
+     *
+     * @param Request $request
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create(Request $request)
     {
         if ($request->isMethod('post')) {

@@ -5,6 +5,11 @@
     </a>
     <br/>
     <br/>
+    @if($search=='true')
+        <a href="" class="btn btn-primary"><i class="entypo-left-open"></i>Back</a>
+        <br/>
+        <br/>
+    @endif
     @if(empty($categories->total()))
         <p>No Categories</p>
     @else
