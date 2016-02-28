@@ -1,20 +1,15 @@
 @extends('admin.layout')
 @section('content')
     <h1 class="margin-bottom">Add New Post</h1>
-    <ol class="breadcrumb 2">
+    <ol class="breadcrumb bc-3">
         <li>
-            <a href="index.html"><i class="fa-home"></i>Home</a>
-        </li>
-        <li>
-
-            <a href="extra-icons.html">Extra</a>
+            <a href="{{config('app.admin_path')}}/posts">Posts</a>
         </li>
         <li class="active">
-
-            <strong>New Post</strong>
+            <strong>Create Post</strong>
         </li>
     </ol>
-
+    <h2>Create post</h2>
     <br/>
 
     <style>
