@@ -70,7 +70,7 @@ class PostController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $post = Post::getPostById($id);
+        $post = Post::getPostById($id); 
         if (empty($post)) {
             return redirect()->back();
         } else {
