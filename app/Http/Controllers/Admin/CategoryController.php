@@ -107,10 +107,9 @@ class CategoryController extends Controller
             if (empty($category)) {
                 return redirect()->back();
             } else {
-                $category = $category->toArray();
+                $categories = Category::getParentCategories($id);
+                return view('admin.category.edit')->with(compact('categories', 'category'));
             }
-            $categories = Category::getParentCategories($id);
-            return view('admin.category.edit')->with(compact('categories', 'category'));
         }
     }
 
