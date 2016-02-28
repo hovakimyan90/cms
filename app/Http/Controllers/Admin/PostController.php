@@ -70,7 +70,7 @@ class PostController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $post = Post::getPostById($id); 
+        $post = Post::getPostById($id);
         if (empty($post)) {
             return redirect()->back();
         } else {
@@ -111,5 +111,20 @@ class PostController extends Controller
                 return view('admin.post.edit', compact('post', 'categories'));
             }
         }
+    }
+
+    /**
+     * Delete post
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete($id)
+    {
+        $post = Post::getPostById($id);
+        if (!empty($post)) {
+            $post->delete();
+        }
+        return redirect()->back();
     }
 }
