@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('content')
-    <h1 class="margin-bottom">Add New Post</h1>
+    <h1 class="margin-bottom">Create New Post</h1>
     <ol class="breadcrumb bc-3">
         <li>
             <a href="{{config('app.admin_path')}}/posts">Posts</a>
@@ -9,7 +9,7 @@
             <strong>Create Post</strong>
         </li>
     </ol>
-    <h2>Create post</h2>
+    <h2>Create Post</h2>
     <br/>
 
     <style>
@@ -148,7 +148,7 @@
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-new thumbnail" style="max-width: 310px; height: 160px;"
                                  data-trigger="fileinput">
-                                <img src="http://placehold.it/320x160" alt="...">
+                                <img src="http://placehold.it/320x160">
                             </div>
                             <div class="fileinput-preview fileinput-exists thumbnail"
                                  style="max-width: 320px; max-height: 160px"></div>
