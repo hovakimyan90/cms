@@ -30,4 +30,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/category/export', 'Admin\CategoryController@export');
     Route::get('/admin/post/create', 'Admin\PostController@create');
     Route::post('/admin/post/create', 'Admin\PostController@create');
+    Route::get('/admin/post/edit/{id}', 'Admin\PostController@edit');
+    Route::post('/admin/post/edit/{id}', 'Admin\PostController@edit');
 });
