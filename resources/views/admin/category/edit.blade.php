@@ -79,7 +79,7 @@
                             <label for="category_publish" class="col-sm-3 control-label">Show in menu</label>
                             <div class="col-sm-6">
                                 <input type="checkbox" id="category_publish" name="publish"
-                                       @if($category['id']==1) checked @endif>
+                                       @if($category['publish']==1) checked @endif>
                             </div>
                         </div>
                         <div class="form-group">
