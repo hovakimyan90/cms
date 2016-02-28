@@ -9,6 +9,18 @@ class Category extends Model
     protected $table = 'categories';
 
     /**
+     * Get category by id
+     *
+     * @param $id
+     * @return mixed
+     */
+    public static function getCategoryById($id)
+    {
+        $category = Category::find($id);
+        return $category;
+    }
+
+    /**
      * Get all categories
      *
      * @param int $length
@@ -39,17 +51,5 @@ class Category extends Model
             $categories = Category::whereType('parent')->get()->toArray();
         }
         return $categories;
-    }
-
-    /**
-     * Get category by id
-     *
-     * @param $id
-     * @return mixed
-     */
-    public static function getCategoryById($id)
-    {
-        $category = Category::find($id);
-        return $category;
     }
 }
