@@ -7,4 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $table = 'posts';
+
+    public static function getPostById($id)
+    {
+        $post = Post::find($id);
+        return $post;
+    }
 }
