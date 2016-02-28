@@ -47,7 +47,7 @@ class Category extends Model
      * @param $id
      * @return mixed
      */
-    public static function getCategory($id)
+    public static function getCategoryById($id)
     {
         $category = Category::find($id);
         return $category;

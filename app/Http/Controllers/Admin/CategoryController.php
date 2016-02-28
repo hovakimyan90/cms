@@ -103,7 +103,7 @@ class CategoryController extends Controller
                 return redirect()->route('categories');
             }
         } else {
-            $category = Category::getCategory($id);
+            $category = Category::getCategoryById($id);
             if (empty($category)) {
                 return redirect()->back();
             } else {
@@ -125,13 +125,13 @@ class CategoryController extends Controller
     {
         if ($request->isMethod('post')) {
             foreach ($request->input('categories') as $category) {
-                $category = Category::getCategory($category);
+                $category = Category::getCategoryById($category);
                 if (!empty($category)) {
                     $category->delete();
                 }
             }
         } else {
-            $category = Category::getCategory($id);
+            $category = Category::getCategoryById($id);
             if (!empty($category)) {
                 $category->delete();
             }
@@ -171,7 +171,7 @@ class CategoryController extends Controller
             if ($category['parent'] == 0) {
                 $parent = 'None';
             } else {
-                $parent = Category::getCategory($category['parent'])['name'];
+                $parent = Category::getCategoryById($category['parent'])['name'];
             }
             array_push($category_array, $parent);
             if ($category['publish'] == 1) {
