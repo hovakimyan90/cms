@@ -29,7 +29,7 @@ class PostController extends Controller
         if ($request->isMethod('post')) {
             $rules = [
                 'title' => 'required',
-                'alias' => 'unique:posts',
+                'alias' => 'unique:posts,title',
                 'content' => 'required'
             ];
             $validator = Validator::make($request->all(), $rules);

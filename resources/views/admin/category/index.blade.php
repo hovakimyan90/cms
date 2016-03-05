@@ -5,11 +5,6 @@
     </a>
     <br/>
     <br/>
-    @if($search=='true')
-        <a href="" class="btn btn-primary"><i class="entypo-left-open"></i>Back</a>
-        <br/>
-        <br/>
-    @endif
     @if(empty($categories->total()))
         <p>No Categories</p>
     @else
@@ -28,7 +23,7 @@
             </div>
         </form>
         <br/>
-        <button class="btn btn-danger delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+        <button class="btn btn-danger categories_delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
         <a href="{{config('app.admin_path')}}/category/export" class="btn btn-primary export_excel"><i
                     class="entypo-export"></i>
             Export Excel</a>
@@ -47,11 +42,11 @@
             <tbody>
             @foreach($categories as $category)
                 <tr>
-                    <td><input type="checkbox" data-id="{{$category->id}}"></td>
+                    <td><input type="checkbox" data-id="{{$category['id']}}"></td>
                     <td>{{$category['name']}}</td>
                     <td>@if(empty($category['alias'])) None @else {{$category['alias']}} @endif</td>
                     <td>@if($category['parent']==0)
-                            None @else {{\App\Models\Category::getCategory($category['parent'])['name']}} @endif</td>
+                            None @else {{\App\Models\Category::getCategoryById($category['parent'])['name']}} @endif</td>
                     <td>@if($category['publish']==1) Published  @else Unpublished @endif</td>
                     <td>@if($category['type']=='parent') Parent  @else Sub category @endif</td>
                     <td><a href="{{config('app.admin_path')}}/category/edit/{{$category['id']}}"

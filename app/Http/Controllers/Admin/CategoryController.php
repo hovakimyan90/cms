@@ -19,14 +19,12 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $search = 'false';
         if ($request->isMethod('post')) {
-            $search = 'true';
             $categories = Category::getCategories(10, $request->input('search'));
         } else {
             $categories = Category::getCategories(10);
         }
-        return view('admin.category.index')->with(compact('categories', 'search'));
+        return view('admin.category.index')->with(compact('categories'));
     }
 
     /**
@@ -39,7 +37,7 @@ class CategoryController extends Controller
     {
         if ($request->isMethod('post')) {
             $rules = [
-                'name' => 'required|unique:categories',
+                'name' => 'required|unique:categories,name',
                 'alias' => 'unique:categories'
             ];
             $validator = Validator::make($request->all(), $rules);

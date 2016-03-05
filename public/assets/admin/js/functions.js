@@ -13,3 +13,19 @@ function deleteCategories(categories) {
         }
     });
 }
+
+/**
+ * Delete selected tags
+ *
+ * @param tags
+ */
+function deleteTags(tags) {
+    $.ajax({
+        url: admin_path + "/tag/delete",
+        type: 'POST',
+        data: {_token: $("input[name='_token']").val(), tags: tags},
+        success: function () {
+            window.location.reload();
+        }
+    });
+}

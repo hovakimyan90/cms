@@ -33,4 +33,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/post/edit/{id}', 'Admin\PostController@edit');
     Route::post('/admin/post/edit/{id}', 'Admin\PostController@edit');
     Route::get('/admin/post/delete/{id}', 'Admin\PostController@delete');
+    Route::get('/admin/tag/create', 'Admin\TagController@create');
+    Route::post('/admin/tag/create', 'Admin\TagController@create');
+    Route::get('/admin/tag/edit/{id}', 'Admin\TagController@edit');
+    Route::post('/admin/tag/edit/{id}', 'Admin\TagController@edit');
+    Route::get('/admin/tags/', 'Admin\TagController@index');
+    Route::post('/admin/tags/', 'Admin\TagController@index');
+    Route::get('/admin/tag/delete/{id}', 'Admin\TagController@delete');
+    Route::post('/admin/tag/delete', 'Admin\TagController@delete');
+    Route::get('/admin/tag/export', 'Admin\TagController@export');
 });

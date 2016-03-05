@@ -16,9 +16,25 @@ $(document).ready(function () {
     });
 
     /**
+     * Check selected tags
+     */
+    select_all_tags.click(function () {
+        if ($(this).is(":checked")) {
+            tag_checkbox.each(function () {
+                $(this).prop('checked', true);
+            });
+        } else {
+            tag_checkbox.each(function () {
+                $(this).prop('checked', false);
+                $(this).removeProp('checked');
+            });
+        }
+    });
+
+    /**
      * Delete selected categories
      */
-    delete_all_button.click(function () {
+    categories_delete_all_button.click(function () {
         categories = [];
         category_checkbox.each(function () {
             if ($(this).is(':checked')) {
@@ -48,9 +64,41 @@ $(document).ready(function () {
     });
 
     /**
+     * Delete selected categories
+     */
+    tags_delete_all_button.click(function () {
+        tags = [];
+        tag_checkbox.each(function () {
+            if ($(this).is(':checked')) {
+                tags.push($(this).data('id'));
+            }
+        });
+        if (tags.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            deleteTags(tags);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    /**
      * Delete category
      */
-    delete_button.click(function () {
+    category_delete_button.click(function () {
         bootbox.dialog({
             message: "I am a custom dialog",
             title: "Conform delete?",
@@ -72,6 +120,33 @@ $(document).ready(function () {
             }
         });
         $('.category_delete_confirm').attr('data-id', $(this).data('id'));
+    });
+
+    /**
+     * Delete category
+     */
+    tag_delete_button.click(function () {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Conform delete?",
+            className: "tag_delete_confirm",
+            buttons: {
+                success: {
+                    label: "Cancel",
+                    callback: function () {
+                        console.log("great success");
+                    }
+                },
+                danger: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function () {
+                        window.location = admin_path + '/tag/delete/' + $(this).data('id');
+                    }
+                }
+            }
+        });
+        $('.tag_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
     tinymce.init({
