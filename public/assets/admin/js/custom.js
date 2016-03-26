@@ -1,52 +1,20 @@
 $(document).ready(function () {
     /**
-     * Check selected categories
+     * Check selected items
      */
-    select_all_categories.click(function () {
+    select_all.click(function () {
         if ($(this).is(":checked")) {
-            category_checkbox.each(function () {
+            item.each(function () {
                 $(this).prop('checked', true);
             });
         } else {
-            category_checkbox.each(function () {
+            item.each(function () {
                 $(this).prop('checked', false);
                 $(this).removeProp('checked');
             });
         }
     });
 
-    /**
-     * Check selected tags
-     */
-    select_all_tags.click(function () {
-        if ($(this).is(":checked")) {
-            tag_checkbox.each(function () {
-                $(this).prop('checked', true);
-            });
-        } else {
-            tag_checkbox.each(function () {
-                $(this).prop('checked', false);
-                $(this).removeProp('checked');
-            });
-        }
-    });
-
-
-    /**
-     * Check selected posts
-     */
-    select_all_posts.click(function () {
-        if ($(this).is(":checked")) {
-            post_checkbox.each(function () {
-                $(this).prop('checked', true);
-            });
-        } else {
-            post_checkbox.each(function () {
-                $(this).prop('checked', false);
-                $(this).removeProp('checked');
-            });
-        }
-    });
     /**
      * Delete selected categories
      */
@@ -72,6 +40,38 @@ $(document).ready(function () {
                         className: "btn-danger",
                         callback: function () {
                             deleteCategories(categories);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    /**
+     * Delete selected posts
+     */
+    posts_delete_all_button.click(function () {
+        posts = [];
+        post_checkbox.each(function () {
+            if ($(this).is(':checked')) {
+                posts.push($(this).data('id'));
+            }
+        });
+        if (posts.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            deletePosts(posts);
                         }
                     }
                 }
@@ -112,37 +112,6 @@ $(document).ready(function () {
     });
 
     /**
-     * Delete selected posts
-     */
-    posts_delete_all_button.click(function () {
-        posts = [];
-        post_checkbox.each(function () {
-            if ($(this).is(':checked')) {
-                posts.push($(this).data('id'));
-            }
-        });
-        if (posts.length > 0) {
-            bootbox.dialog({
-                message: "I am a custom dialog",
-                title: "Confirm delete?",
-                buttons: {
-                    success: {
-                        label: "Cancel",
-                        callback: function () {
-                        }
-                    },
-                    danger: {
-                        label: "Delete",
-                        className: "btn-danger",
-                        callback: function () {
-                            deletePosts(posts);
-                        }
-                    }
-                }
-            });
-        }
-    });
-    /**
      * Delete category
      */
     category_delete_button.click(function () {
@@ -167,6 +136,33 @@ $(document).ready(function () {
             }
         });
         $('.category_delete_confirm').attr('data-id', $(this).data('id'));
+    });
+
+    /**
+     * Delete post
+     */
+    post_delete_button.click(function () {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Conform delete?",
+            className: "post_delete_confirm",
+            buttons: {
+                success: {
+                    label: "Cancel",
+                    callback: function () {
+                        console.log("great success");
+                    }
+                },
+                danger: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function () {
+                        window.location = admin_path + '/post/delete/' + $(this).data('id');
+                    }
+                }
+            }
+        });
+        $('.post_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
     /**
@@ -196,33 +192,11 @@ $(document).ready(function () {
         $('.tag_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
+    $(".tags").chosen();
+
     /**
-     * Delete post
+     * Initialize TinyMCE editor for post editor
      */
-    post_delete_button.click(function () {
-        bootbox.dialog({
-            message: "I am a custom dialog",
-            title: "Conform delete?",
-            className: "post_delete_confirm",
-            buttons: {
-                success: {
-                    label: "Cancel",
-                    callback: function () {
-                        console.log("great success");
-                    }
-                },
-                danger: {
-                    label: "Delete",
-                    className: "btn-danger",
-                    callback: function () {
-                        window.location = admin_path + '/post/delete/' + $(this).data('id');
-                    }
-                }
-            }
-        });
-        $('.post_delete_confirm').attr('data-id', $(this).data('id'));
-    });
-    $(".chosen-select").chosen();
     tinymce.init({
         selector: '#post_content',
         height: 500,

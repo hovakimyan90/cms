@@ -43,7 +43,7 @@
             <tbody>
             @foreach($categories as $category)
                 <tr>
-                    <td><input type="checkbox" data-id="{{$category['id']}}"></td>
+                    <td><input type="checkbox" data-id="{{$category['id']}}" class="item"></td>
                     <td>{{$category['name']}}</td>
                     <td>{{$category['alias']}}</td>
                     <td>@if($category['parent_id']==0)

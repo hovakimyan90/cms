@@ -230,7 +230,7 @@
                         $i = 0;
                         ?>
                         <select data-placeholder="Select tag" style="width:350px;" multiple
-                                class="chosen-select" name="tags[]">
+                                class="chosen-select tags" name="tags[]">
                             <?php
                             $i = 0;
                             ?>

@@ -220,7 +220,7 @@
                         @if(!empty($tags))
                             <p>Add Post Tags</p>
                             <select data-placeholder="Select tag" style="width:350px;" multiple
-                                    class="chosen-select" name="tags[]">
+                                    class="chosen-select tags" name="tags[]">
                                 @foreach($tags as $tag)
                                     <option value="{{$tag['id']}}">{{$tag['name']}}</option>
                                 @endforeach
