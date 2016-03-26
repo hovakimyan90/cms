@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $table = 'categories';
+    protected $table = "categories";
 
     /**
      * Get category by id
@@ -21,7 +21,7 @@ class Category extends Model
     }
 
     /**
-     * Get all categories
+     * Search and get categories
      *
      * @param int $length
      * @param string $search
@@ -30,9 +30,9 @@ class Category extends Model
     public static function getCategories($length = 0, $search = "")
     {
         if ($length > 0) {
-            $categories = Category::orderBy('id', 'desc')->where('name', 'like', '%' . $search . '%')->paginate($length);
+            $categories = Category::orderBy("id", "desc")->where("name", "like", "%" . $search . "%")->paginate($length);
         } else {
-            $categories = Category::orderBy('id', 'desc')->get()->toArray();
+            $categories = Category::orderBy("id", "desc")->get();
         }
         return $categories;
     }
@@ -46,10 +46,19 @@ class Category extends Model
     public static function getParentCategories($id = 0)
     {
         if ($id > 0) {
-            $categories = Category::whereType('parent')->where('id', '!=', $id)->get()->toArray();
+            $categories = Category::whereType("parent_id")->where("id", "!=", $id)->get();
         } else {
-            $categories = Category::whereType('parent')->get()->toArray();
+            $categories = Category::whereType("parent_id")->get();
         }
         return $categories;
+    }
+
+    /**
+     * Create relationship for category posts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function posts() {
+        return $this->belongsTo('App\Models\Post', "id","category_id");
     }
 }

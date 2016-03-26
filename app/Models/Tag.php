@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    protected $table = 'tags';
+    protected $table = "tags";
 
     /**
      * Get tag by id
@@ -20,12 +20,19 @@ class Tag extends Model
         return $tag;
     }
 
+    /**
+     * Search and get tags
+     *
+     * @param int $length
+     * @param string $search
+     * @return mixed
+     */
     public static function getTags($length = 0, $search = "")
     {
         if ($length > 0) {
-            $tags = Tag::orderBy('id', 'desc')->where('name', 'like', '%' . $search . '%')->paginate($length);
+            $tags = Tag::orderBy("id", "desc")->where("name", "like", "%" . $search . "%")->paginate($length);
         } else {
-            $tags = Tag::orderBy('id', 'desc')->get()->toArray();
+            $tags = Tag::orderBy("id", "desc")->get();
         }
         return $tags;
     }

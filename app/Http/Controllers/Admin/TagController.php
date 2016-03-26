@@ -12,6 +12,12 @@ use Maatwebsite\Excel\Facades\Excel;
 class TagController extends Controller
 {
 
+    /**
+     * Show all tags
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function index(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -26,7 +32,7 @@ class TagController extends Controller
      * Create tag
      *
      * @param Request $request
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return mixed
      */
     public function create(Request $request)
     {
@@ -52,10 +58,10 @@ class TagController extends Controller
      * Edit tag
      *
      * @param Request $request
-     * @param $id
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @param int $id
+     * @return mixed
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $id = 0)
     {
         $tag = Tag::getTagById($id);
         if (empty($tag)) {
@@ -79,6 +85,13 @@ class TagController extends Controller
         }
     }
 
+    /**
+     * Delete tag
+     *
+     * @param Request $request
+     * @param int $id
+     * @return mixed
+     */
     public function delete(Request $request, $id = 0)
     {
         if ($request->isMethod('post')) {
@@ -97,6 +110,9 @@ class TagController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Export tags
+     */
     public function export()
     {
         $data = array(array('Name'));

@@ -6,8 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserRole extends Model
 {
-    /**
-     * @var string
-     */
-    protected $table = 'user_roles';
+    protected $table = "user_roles";
 }

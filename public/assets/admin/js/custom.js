@@ -31,6 +31,22 @@ $(document).ready(function () {
         }
     });
 
+
+    /**
+     * Check selected posts
+     */
+    select_all_posts.click(function () {
+        if ($(this).is(":checked")) {
+            post_checkbox.each(function () {
+                $(this).prop('checked', true);
+            });
+        } else {
+            post_checkbox.each(function () {
+                $(this).prop('checked', false);
+                $(this).removeProp('checked');
+            });
+        }
+    });
     /**
      * Delete selected categories
      */
@@ -64,7 +80,7 @@ $(document).ready(function () {
     });
 
     /**
-     * Delete selected categories
+     * Delete selected tags
      */
     tags_delete_all_button.click(function () {
         tags = [];
@@ -96,6 +112,37 @@ $(document).ready(function () {
     });
 
     /**
+     * Delete selected posts
+     */
+    posts_delete_all_button.click(function () {
+        posts = [];
+        post_checkbox.each(function () {
+            if ($(this).is(':checked')) {
+                posts.push($(this).data('id'));
+            }
+        });
+        if (posts.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            deletePosts(posts);
+                        }
+                    }
+                }
+            });
+        }
+    });
+    /**
      * Delete category
      */
     category_delete_button.click(function () {
@@ -123,7 +170,7 @@ $(document).ready(function () {
     });
 
     /**
-     * Delete category
+     * Delete tag
      */
     tag_delete_button.click(function () {
         bootbox.dialog({
@@ -149,6 +196,33 @@ $(document).ready(function () {
         $('.tag_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
+    /**
+     * Delete post
+     */
+    post_delete_button.click(function () {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Conform delete?",
+            className: "post_delete_confirm",
+            buttons: {
+                success: {
+                    label: "Cancel",
+                    callback: function () {
+                        console.log("great success");
+                    }
+                },
+                danger: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function () {
+                        window.location = admin_path + '/post/delete/' + $(this).data('id');
+                    }
+                }
+            }
+        });
+        $('.post_delete_confirm').attr('data-id', $(this).data('id'));
+    });
+    $(".chosen-select").chosen();
     tinymce.init({
         selector: '#post_content',
         height: 500,

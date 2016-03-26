@@ -122,7 +122,7 @@
                         <div>
                             <input type="checkbox" @if($post->publish==1) {{'checked'}} @endif id="post_publish"
                                    name="publish">
-                            <label for="post_publish">Show in site</label>
+                            <label for="post_publish">Publish</label>
                         </div>
 
                     </div>
@@ -224,13 +224,20 @@
                             <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
                         </div>
                     </div>
-
                     <div class="panel-body">
-
                         <p>Add Post Tags</p>
-                        <input type="text" value="weekend,friday,happy,awesome,chill,healthy"
-                               class="form-control tagsinput"/>
-
+                        <?php
+                        $i = 0;
+                        ?>
+                        <select data-placeholder="Select tag" style="width:350px;" multiple
+                                class="chosen-select" name="tags[]">
+                            <?php
+                            $i = 0;
+                            ?>
+                            @foreach($tags as $tag)
+                                <option value="{{$tag->id}}" @if($post->tags->contains('id',$tag->id)) {{'selected'}} @endif>{{$tag->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                 </div>

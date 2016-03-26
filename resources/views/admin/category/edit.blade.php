@@ -60,23 +60,22 @@
                             </div>
                         </div>
                         @if(!empty($categories))
-                            <div class="form-group @if(!empty($errors->first('alias'))) has-error @endif">
-                                <label for="parent" class="col-sm-3 control-label">Select parent
-                                    category</label>
+                            <div class="form-group">
+                                <label for="parent_id" class="col-sm-3 control-label">Select parent category</label>
 
                                 <div class="col-sm-5">
-                                    <select name="parent" id="parent" class="form-control">
+                                    <select name="parent_id" id="parent_id" class="form-control">
                                         <option>Select parent</option>
                                         @foreach($categories as $cat)
                                             <option value="{{$cat['id']}}"
-                                                    @if($cat['id']==$category->parent) selected @endif>{{$cat['name']}}</option>
+                                                    @if($cat['id']==$category->parent_id) selected @endif>{{$cat['name']}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                         @endif
                         <div class="form-group">
-                            <label for="category_publish" class="col-sm-3 control-label">Show in menu</label>
+                            <label for="category_publish" class="col-sm-3 control-label">Publish</label>
                             <div class="col-sm-6">
                                 <input type="checkbox" id="category_publish" name="publish"
                                        @if($category->publish==1) checked @endif>

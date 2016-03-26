@@ -57,11 +57,11 @@
                         </div>
                         @if(!empty($categories))
                             <div class="form-group">
-                                <label for="category_parent" class="col-sm-3 control-label">Select parent
+                                <label for="category_parent_id" class="col-sm-3 control-label">Select parent
                                     category</label>
 
                                 <div class="col-sm-5">
-                                    <select name="parent" id="category_parent" class="form-control">
+                                    <select name="parent_id" id="category_parent_id" class="form-control">
                                         <option value="">Select parent</option>
                                         @foreach($categories as $category)
                                             <option value="{{$category['id']}}">{{$category['name']}}</option>
@@ -71,7 +71,7 @@
                             </div>
                         @endif
                         <div class="form-group">
-                            <label for="category_publish" class="col-sm-3 control-label">Show in menu</label>
+                            <label for="category_publish" class="col-sm-3 control-label">Publish</label>
                             <div class="col-sm-6">
                                 <input type="checkbox" id="category_publish" name="publish">
                             </div>

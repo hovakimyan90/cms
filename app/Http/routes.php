@@ -28,11 +28,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/category/delete/{id}', 'Admin\CategoryController@delete');
     Route::post('/admin/category/delete', 'Admin\CategoryController@delete');
     Route::get('/admin/category/export', 'Admin\CategoryController@export');
+    Route::get('/admin/posts', ['as' => 'posts', 'uses' => 'Admin\PostController@index']);
+    Route::post('/admin/posts', ['as' => 'posts', 'uses' => 'Admin\Admin\PostController@index']);
     Route::get('/admin/post/create', 'Admin\PostController@create');
     Route::post('/admin/post/create', 'Admin\PostController@create');
     Route::get('/admin/post/edit/{id}', 'Admin\PostController@edit');
     Route::post('/admin/post/edit/{id}', 'Admin\PostController@edit');
     Route::get('/admin/post/delete/{id}', 'Admin\PostController@delete');
+    Route::post('/admin/post/delete/{id}', 'Admin\PostController@delete');
+    Route::get('/admin/post/export', 'Admin\PostController@export');
     Route::get('/admin/tag/create', 'Admin\TagController@create');
     Route::post('/admin/tag/create', 'Admin\TagController@create');
     Route::get('/admin/tag/edit/{id}', 'Admin\TagController@edit');

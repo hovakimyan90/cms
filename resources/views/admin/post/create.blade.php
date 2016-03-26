@@ -118,7 +118,7 @@
 
                         <div>
                             <input type="checkbox" id="post_publish" name="publish">
-                            <label for="post_publish">Show in site</label>
+                            <label for="post_publish">Publish</label>
                         </div>
 
                     </div>
@@ -217,11 +217,17 @@
                     </div>
 
                     <div class="panel-body">
-
-                        <p>Add Post Tags</p>
-                        <input type="text" value="weekend,friday,happy,awesome,chill,healthy"
-                               class="form-control tagsinput"/>
-
+                        @if(!empty($tags))
+                            <p>Add Post Tags</p>
+                            <select data-placeholder="Select tag" style="width:350px;" multiple
+                                    class="chosen-select" name="tags[]">
+                                @foreach($tags as $tag)
+                                    <option value="{{$tag['id']}}">{{$tag['name']}}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <p>No tags</p>
+                        @endif
                     </div>
 
                 </div>

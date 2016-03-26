@@ -15,7 +15,7 @@ class CategoryController extends Controller
      * Show all categories
      *
      * @param Request $request
-     * @return $this
+     * @return mixed
      */
     public function index(Request $request)
     {
@@ -31,14 +31,14 @@ class CategoryController extends Controller
      * Create category
      *
      * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return mixed
      */
     public function create(Request $request)
     {
         if ($request->isMethod('post')) {
             $rules = [
                 'name' => 'required|unique:categories,name',
-                'alias' => 'unique:categories'
+                'alias' => 'required|unique:categories'
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -50,11 +50,11 @@ class CategoryController extends Controller
                 $category->alias = $request->input('alias');
                 $category->meta_keys = $request->input('meta_keys');
                 $category->meta_desc = $request->input('meta_desc');
-                if (!empty($request->input('parent'))) {
-                    $category->parent = $request->input('parent');
+                if (!empty($request->input('parent_id'))) {
+                    $category->parent_id = $request->input('parent_id');
                     $category->type = 'sub';
                 } else {
-                    $category->type = 'parent';
+                    $category->type = 'parent_id';
                 }
                 $category->publish = $request->has('publish');
                 $category->save();
@@ -67,18 +67,18 @@ class CategoryController extends Controller
     }
 
     /**
-     * Edit category by id
+     * Edit category
      *
      * @param Request $request
-     * @param $id
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @param int $id
+     * @return mixed
      */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $id = 0)
     {
         if ($request->isMethod('post')) {
             $rules = [
                 'name' => 'required|unique:categories,name,' . $id,
-                'alias' => 'unique:categories,alias,' . $id
+                'alias' => 'required|unique:categories,alias,' . $id
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -90,11 +90,11 @@ class CategoryController extends Controller
                 $category->alias = $request->input('alias');
                 $category->meta_keys = $request->input('meta_keys');
                 $category->meta_desc = $request->input('meta_desc');
-                if (!empty($request->input('parent'))) {
-                    $category->parent = $request->input('parent');
+                if (!empty($request->input('parent_id'))) {
+                    $category->parent_id = $request->input('parent_id');
                     $category->type = 'sub';
                 } else {
-                    $category->type = 'parent';
+                    $category->type = 'parent_id';
                 }
                 $category->publish = $request->has('publish');
                 $category->save();
@@ -112,11 +112,11 @@ class CategoryController extends Controller
     }
 
     /**
-     * Delete category by id
+     * Delete category
      *
      * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return mixed
      */
     public function delete(Request $request, $id = 0)
     {
@@ -132,26 +132,22 @@ class CategoryController extends Controller
             if (!empty($category)) {
                 $category->delete();
             }
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 
     /**
-     * Export all categories to excel
+     * Export categories
      */
     public function export()
     {
-        $data = array(array('Name', 'Alias', 'Meta keywords', 'Meta description', 'Parent', 'Publish', 'Type'));
+        $data = array(array('Name', 'Alias', 'Meta keywords', 'Meta description', 'Parent', 'Publish', 'Posts Count', 'Type'));
         $categories = Category::getCategories();
         foreach ($categories as $category) {
             $category_array = array();
             $name = $category['name'];
             array_push($category_array, $name);
-            if (empty($category['alias'])) {
-                $alias = "None";
-            } else {
-                $alias = $category['alias'];
-            }
+            $alias = $category['alias'];
             array_push($category_array, $alias);
             if (empty($category['meta_keys'])) {
                 $meta_keys = 'None';
@@ -165,10 +161,10 @@ class CategoryController extends Controller
                 $meta_desc = $category['meta_desc'];
             }
             array_push($category_array, $meta_desc);
-            if ($category['parent'] == 0) {
+            if ($category['parent_id'] == 0) {
                 $parent = 'None';
             } else {
-                $parent = Category::getCategoryById($category['parent'])['name'];
+                $parent = Category::getCategoryById($category['parent_id'])['name'];
             }
             array_push($category_array, $parent);
             if ($category['publish'] == 1) {
@@ -177,7 +173,9 @@ class CategoryController extends Controller
                 $publish = 'Unpublished';
             }
             array_push($category_array, $publish);
-            if ($category['type'] == 'parent') {
+            $posts_count = $category->posts()->count();
+            array_push($category_array, $posts_count);
+            if ($category['type'] == 'parent_id') {
                 $type = 'Parent';
             } else {
                 $type = 'Sub category';

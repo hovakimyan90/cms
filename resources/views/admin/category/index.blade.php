@@ -35,6 +35,7 @@
                 <th>Alias</th>
                 <th>Parent</th>
                 <th>Publish</th>
+                <th>Posts Count</th>
                 <th>Type</th>
                 <th>Actions</th>
             </tr>
@@ -44,11 +45,12 @@
                 <tr>
                     <td><input type="checkbox" data-id="{{$category['id']}}"></td>
                     <td>{{$category['name']}}</td>
-                    <td>@if(empty($category['alias'])) None @else {{$category['alias']}} @endif</td>
-                    <td>@if($category['parent']==0)
-                            None @else {{\App\Models\Category::getCategoryById($category['parent'])['name']}} @endif</td>
+                    <td>{{$category['alias']}}</td>
+                    <td>@if($category['parent_id']==0)
+                            None @else {{\App\Models\Category::getCategoryById($category['parent_id'])['name']}} @endif</td>
                     <td>@if($category['publish']==1) Published  @else Unpublished @endif</td>
-                    <td>@if($category['type']=='parent') Parent  @else Sub category @endif</td>
+                    <td>{{$category->posts()->count()}}</td>
+                    <td>@if($category['type']=='parent_id') Parent  @else Sub category @endif</td>
                     <td><a href="{{config('app.admin_path')}}/category/edit/{{$category['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                         <button class="btn btn-danger delete" data-id="{{$category['id']}}"><i
