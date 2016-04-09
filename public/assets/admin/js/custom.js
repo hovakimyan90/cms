@@ -192,7 +192,7 @@ $(document).ready(function () {
         $('.tag_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
-    $(".tags").chosen();
+    post_tags_input.chosen();
 
     /**
      * Initialize TinyMCE editor for post editor

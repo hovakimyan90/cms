@@ -47,7 +47,7 @@ class TagController extends Controller
                 $tag = new Tag();
                 $tag->name = $request->input('name');
                 $tag->save();
-                return redirect()->back();
+                return redirect()->route('tags');
             }
         } else {
             return view('admin.tag.create');
@@ -77,7 +77,7 @@ class TagController extends Controller
                 } else {
                     $tag->name = $request->input('name');
                     $tag->save();
-                    return redirect()->back();
+                    return redirect()->route('tags');
                 }
             } else {
                 return view('admin.tag.edit', compact('tag'));

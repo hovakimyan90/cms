@@ -30,7 +30,7 @@
         }
     </style>
 
-    <form method="post" role="form" enctype="multipart/form-data">
+    <form method="post" role="form" enctype="multipart/form-data" class="post_form">
         {!! csrf_field() !!}
                 <!-- Title and Publish Buttons -->
         <div class="row">
@@ -153,7 +153,7 @@
                             <div class="fileinput-new thumbnail" style="max-width: 310px; height: 160px;"
                                  data-trigger="fileinput">
                                 @if(empty($post->image))
-                                    <img src="http://placehold.it/320x160">
+                                    <img src="/public/assets/admin/images/320x160.png">
                                 @else
                                     <img src="/public//uploads/{{$post->image}}">
                                 @endif

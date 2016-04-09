@@ -17,6 +17,8 @@ var posts_table_tr = posts_table_tbody.find('tr');
 var posts_table_td = posts_table_tr.find('td');
 var post_delete_button = posts_table_td.find('button.delete');
 var post_checkbox = posts_table_td.find("input[type='checkbox']");
+var post_form = body.find('.post_form');
+var post_tags_input = post_form.find('select.tags');
 var posts = [];
 var tags_delete_all_button = body.find('button.tags_delete_all');
 var tags_table = body.find("table.tags");
