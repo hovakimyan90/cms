@@ -28,3 +28,5 @@ var tags_table_td = tags_table_tr.find('td');
 var tag_delete_button = tags_table_td.find('button.delete');
 var tag_checkbox = tags_table_td.find("input[type='checkbox']");
 var tags = [];
+var user_image_field = body.find('input#user_image');
+var user_image_button = body.find('#user_image_btn');

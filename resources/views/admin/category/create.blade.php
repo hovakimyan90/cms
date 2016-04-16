@@ -26,7 +26,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="category_name"
-                                       placeholder="Category name" name="name">
+                                       placeholder="Category name" name="name" value="{{old('name')}}">
                                 <p class="error">{{$errors->first('name')}}</p>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="category_alias"
-                                       placeholder="Category alias" name="alias">
+                                       placeholder="Category alias" name="alias" value="{{old('alias')}}">
                                 <p class="error">{{$errors->first('alias')}}</p>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                 keywords</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" id="category_meta_keys"
-                                       placeholder="Meta keys" name="meta_keys">
+                                       placeholder="Meta keys" name="meta_keys" value="{{old('meta_keys')}}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -52,7 +52,8 @@
                                 description</label>
                             <div class="col-sm-6">
                                 <textarea id="category_meta_desc" name="meta_desc"
-                                          placeholder="Meta description" class="form-control"></textarea>
+                                          placeholder="Meta description"
+                                          class="form-control">{{old('meta_desc')}}</textarea>
                             </div>
                         </div>
                         @if(!empty($categories))
@@ -64,7 +65,9 @@
                                     <select name="parent_id" id="category_parent_id" class="form-control">
                                         <option value="">Select parent</option>
                                         @foreach($categories as $category)
-                                            <option value="{{$category['id']}}">{{$category['name']}}</option>
+                                            <option value="{{$category['id']}}"
+                                                    @if(old('parent_id')==$category['id']) selected @endif>
+                                                {{$category['name']}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -73,7 +76,8 @@
                         <div class="form-group">
                             <label for="category_publish" class="col-sm-3 control-label">Publish</label>
                             <div class="col-sm-6">
-                                <input type="checkbox" id="category_publish" name="publish">
+                                <input type="checkbox" id="category_publish" name="publish"
+                                       @if(old('publish')) checked @endif>
                             </div>
                         </div>
                         <div class="form-group">

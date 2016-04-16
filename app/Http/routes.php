@@ -46,4 +46,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/tag/delete/{id}', 'Admin\TagController@delete');
     Route::post('/admin/tag/delete', 'Admin\TagController@delete');
     Route::get('/admin/tag/export', 'Admin\TagController@export');
+    Route::get('/admin/user/create', 'Admin\UserController@create');
+    Route::post('/admin/user/create', 'Admin\UserController@create');
 });

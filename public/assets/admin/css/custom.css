@@ -1,5 +1,5 @@
 body {
-	
+
 }
 
 .remember_me_block {
@@ -17,4 +17,21 @@ body {
 
 .post_alias_block {
     margin-top: 15px;
+}
+
+#user_profile_image_upload_block label {
+    float: left;
+}
+
+#user_profile_image_upload_block .fileinput {
+    width: 310px;
+    float: left;
+}
+
+p.error {
+    color: red;
+}
+
+#user_profile_image_upload_block p.error {
+    text-align: right;
 }

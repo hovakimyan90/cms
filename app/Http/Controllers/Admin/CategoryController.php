@@ -38,12 +38,12 @@ class CategoryController extends Controller
         if ($request->isMethod('post')) {
             $rules = [
                 'name' => 'required|unique:categories,name',
-                'alias' => 'required|unique:categories'
+                'alias' => 'required|unique:categories,alias'
             ];
             $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator);
+                return redirect()->back()->withErrors($validator)->withInput();
             } else {
                 $category = new Category();
                 $category->name = $request->input('name');

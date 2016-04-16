@@ -42,11 +42,13 @@
             </div>
 
             <div class="col-sm-10 @if(!empty($errors->first('title'))) has-error @endif">
-                <input type="text" class="form-control input-lg" id="post_title" name="title" placeholder="Post title"/>
+                <input type="text" class="form-control input-lg" id="post_title" name="title" placeholder="Post title"
+                       value="{{old('title')}}"/>
                 <p class="error">{{$errors->first('title')}}</p>
             </div>
             <div class="col-sm-10 post_alias_block @if(!empty($errors->first('alias'))) has-error @endif">
-                <input type="text" class="form-control input-lg" id="post_alias" name="alias" placeholder="Post Alias"/>
+                <input type="text" class="form-control input-lg" id="post_alias" name="alias" placeholder="Post Alias"
+                       value="{{old('alias')}}"/>
                 <p class="error">{{$errors->first('alias')}}</p>
             </div>
         </div>
@@ -57,7 +59,7 @@
         <div class="row">
             <div class="col-sm-12 @if(!empty($errors->first('content'))) has-error @endif">
                 <textarea class="form-control wysihtml5" rows="18" data-stylesheet-url="assets/css/wysihtml5-color.css"
-                          name="content" id="post_content"></textarea>
+                          name="content" id="post_content">{{old('content')}}</textarea>
                 <p class="error">{{$errors->first('content')}}</p>
             </div>
         </div>
@@ -82,7 +84,7 @@
 
                     <p>Meta keys</p>
                     <input type="text" placeholder="Meta keys" id="post_meta_keys" name="meta_keys"
-                           class="form-control"/>
+                           class="form-control" value="{{old('meta_keys')}}"/>
 
                 </div>
 
@@ -90,7 +92,7 @@
 
                     <p>Meta Description</p>
                     <textarea type="text" placeholder="Meta description" id="post_meta_desc" name="meta_desc"
-                              class="form-control"></textarea>
+                              class="form-control">{{old('meta_desc')}}</textarea>
 
                 </div>
             </div>
@@ -117,7 +119,7 @@
                     <div class="panel-body">
 
                         <div>
-                            <input type="checkbox" id="post_publish" name="publish">
+                            <input type="checkbox" id="post_publish" name="publish" @if(old('publish')) checked @endif>
                             <label for="post_publish">Publish</label>
                         </div>
 
@@ -167,7 +169,6 @@
                 </div>
 
             </div>
-
             <!-- Metabox :: Categories -->
             <div class="col-sm-4">
 
@@ -188,7 +189,9 @@
                             <select name="category" id="post_category" class="form-control">
                                 <option value="">Select category</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category['id']}}">{{$category['name']}}</option>
+                                    <option value="{{$category['id']}}"
+                                            @if(old('category')==$category['id']) selected @endif>
+                                        {{$category['name']}}</option>
                                 @endforeach
                             </select>
                         @else
@@ -222,7 +225,16 @@
                             <select data-placeholder="Select tag" style="width:350px;" multiple
                                     class="chosen-select tags" name="tags[]">
                                 @foreach($tags as $tag)
-                                    <option value="{{$tag['id']}}">{{$tag['name']}}</option>
+                                    <?php
+                                    $selected = false;
+                                    if (old('tags')) {
+                                        if (in_array($tag['id'], old('tags'))) {
+                                            $selected = true;
+                                        }
+                                    }
+                                    ?>
+                                    <option value="{{$tag['id']}}"
+                                            @if($selected) selected @endif>{{$tag['name']}}</option>
                                 @endforeach
                             </select>
                         @else

@@ -17,7 +17,8 @@
     "phpunit/phpunit": "~4.0",
     "phpspec/phpspec": "~2.1",
     "maatwebsite/excel": "~2.1.0",
-    "intervention/image": "*"
+    "intervention/image": "*",
+    "propaganistas/laravel-phone": "~2.0"
   },
   "autoload": {
     "classmap": [

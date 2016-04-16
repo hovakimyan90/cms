@@ -48,7 +48,7 @@ class PostController extends Controller
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator);
+                return redirect()->back()->withErrors($validator)->withInput();
             } else {
                 $post = new Post();
                 $post->title = $request->input("title");

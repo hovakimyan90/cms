@@ -192,6 +192,10 @@ $(document).ready(function () {
         $('.tag_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
+    user_image_button.click(function () {
+        user_image_field.click();
+    });
+
     post_tags_input.chosen();
 
     /**

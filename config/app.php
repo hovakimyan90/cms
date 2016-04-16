@@ -140,7 +140,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-
+        Propaganistas\LaravelPhone\LaravelPhoneServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
