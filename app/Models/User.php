@@ -18,4 +18,20 @@ class User extends Model implements AuthenticatableContract,
 
     protected $table = "users";
 
+    /**
+     * Search and get users
+     *
+     * @param int $length
+     * @param string $search
+     * @return mixed
+     */
+    public static function getUsers($length = 0, $search = "")
+    {
+        if ($length > 0) {
+            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->paginate($length);
+        } else {
+            $users = self::orderBy("id", "desc")->get();
+        }
+        return $users;
+    }
 }

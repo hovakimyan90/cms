@@ -48,4 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/tag/export', 'Admin\TagController@export');
     Route::get('/admin/user/create', 'Admin\UserController@create');
     Route::post('/admin/user/create', 'Admin\UserController@create');
+    Route::get('/admin/user/export', 'Admin\UserController@export');
+    Route::get('/admin/users', 'Admin\UserController@index');
+    Route::post('/admin/users', 'Admin\UserController@index');
 });

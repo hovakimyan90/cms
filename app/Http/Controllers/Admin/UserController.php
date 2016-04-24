@@ -10,17 +10,24 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show all users
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return mixed
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->isMethod('post')) {
+            $users = User::getUsers(10, $request->input('search'));
+        } else {
+            $users = User::getUsers(10);
+        }
+        return view('admin.user.index')->with(compact('users'));
     }
 
     public function create(Request $request)
@@ -67,6 +74,34 @@ class UserController extends Controller
         } else {
             return view('admin.user.create');
         }
+    }
+
+    /**
+     * Export users
+     */
+    public function export()
+    {
+        $data = array(array('Username'));
+        $users = User::getUsers();
+        foreach ($users as $user) {
+            $users_array = array();
+            $username = $user['username'];
+            array_push($users_array, $username);
+            array_push($data, $users_array);
+        }
+
+        Excel::create('Users', function ($excel) use ($data) {
+
+            $excel->sheet('Users', function ($sheet) use ($data) {
+
+                $sheet->fromArray($data, null, 'A1', false, false);
+
+                $sheet->cells('A1', function ($cells) {
+                    $cells->setFontWeight('bold');
+                });
+            });
+
+        })->export('xls');
     }
 
     /**
