@@ -175,6 +175,12 @@
                         <span class="title">Tags</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{config('app.admin_path')}}/users">
+                        <i class="entypo-users"></i>
+                        <span class="title">Users</span>
+                    </a>
+                </li>
                 {{--<li>--}}
                     {{--<a href="layout-api.html">--}}
                         {{--<i class="entypo-layout"></i>--}}

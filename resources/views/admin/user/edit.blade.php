@@ -2,13 +2,13 @@
 @section('content')
     <ol class="breadcrumb bc-3">
         <li>
-            <a href="{{config('app.admin_path')}}/users">Users</a>
+            <a href="{{config('app.admin_path')}}/categories">Users</a>
         </li>
         <li class="active">
             <strong>Create User</strong>
         </li>
     </ol>
-    <h2>Create User</h2>
+    <h2>Create user</h2>
     <br/>
     <div class="row">
         <div class="col-md-12">
@@ -28,7 +28,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_first_name"
-                                       placeholder="First name" name="first_name" value="{{old('first_name')}}">
+                                       placeholder="First name" name="first_name" value="{{$user['first_name']}}">
                                 <p class="error">{{$errors->first('first_name')}}</p>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_last_name"
-                                       placeholder="Last name" name="last_name" value="{{old('last_name')}}">
+                                       placeholder="Last name" name="last_name" value="{{$user['last_name']}}">
                                 <p class="error">{{$errors->first('last_name')}}</p>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_position"
-                                       placeholder="Position" name="position" value="{{old('position')}}">
+                                       placeholder="Position" name="position" value="{{$user['position']}}">
                                 <p class="error">{{$errors->first('position')}}</p>
                             </div>
                         </div>
@@ -56,8 +56,8 @@
                             <div class="col-sm-5">
                                 <select name="type" class="form-control">
                                     <option value="">Select User role</option>
-                                    <option value="1" @if(old('type')=='1') selected @endif>Admin</option>
-                                    <option value="2" @if(old('type')=='2') selected @endif>User</option>
+                                    <option value="1" @if($user['role_id']=='1') selected @endif>Admin</option>
+                                    <option value="2" @if($user['role_id']=='2') selected @endif>User</option>
                                 </select>
                                 <p class="error">{{$errors->first('type')}}</p>
                             </div>
@@ -67,7 +67,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_phone"
-                                       placeholder="Phone number" name="phone" value="{{old('phone')}}">
+                                       placeholder="Phone number" name="phone" value="{{$user['phone']}}">
                                 <p class="error">{{$errors->first('phone')}}</p>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_username"
-                                       placeholder="Username" name="username" value="{{old('username')}}">
+                                       placeholder="Username" name="username" value="{{$user['username']}}">
                                 <p class="error">{{$errors->first('username')}}</p>
                             </div>
                         </div>
@@ -95,7 +95,11 @@
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail" style="max-width: 310px; height: 160px;"
                                      data-trigger="fileinput">
-                                    <img src="/public/assets/admin/images/320x160.png">
+                                    @if(empty($user['image']))
+                                        <img src="/public/assets/admin/images/320x160.png">
+                                    @else
+                                        <img src="/public/uploads/{{$user['image']}}">
+                                    @endif
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
                                      style="max-width: 320px; max-height: 160px"></div>
@@ -114,7 +118,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-5">
-                                <button type="submit" class="btn btn-default create_category_btn">Create</button>
+                                <button type="submit" class="btn btn-default create_category_btn">Edit</button>
                             </div>
                         </div>
                     </form>

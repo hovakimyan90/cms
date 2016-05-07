@@ -45,3 +45,19 @@ function deletePosts(posts) {
         }
     });
 }
+
+/**
+ * Delete selected users
+ *
+ * @param users
+ */
+function deleteUsers(users) {
+    $.ajax({
+        url: admin_path + "/user/delete",
+        type: 'POST',
+        data: {_token: $("input[name='_token']").val(), users: users},
+        success: function () {
+            window.location.reload();
+        }
+    });
+}

@@ -48,38 +48,6 @@ $(document).ready(function () {
     });
 
     /**
-     * Delete selected posts
-     */
-    posts_delete_all_button.click(function () {
-        posts = [];
-        post_checkbox.each(function () {
-            if ($(this).is(':checked')) {
-                posts.push($(this).data('id'));
-            }
-        });
-        if (posts.length > 0) {
-            bootbox.dialog({
-                message: "I am a custom dialog",
-                title: "Confirm delete?",
-                buttons: {
-                    success: {
-                        label: "Cancel",
-                        callback: function () {
-                        }
-                    },
-                    danger: {
-                        label: "Delete",
-                        className: "btn-danger",
-                        callback: function () {
-                            deletePosts(posts);
-                        }
-                    }
-                }
-            });
-        }
-    });
-
-    /**
      * Delete selected tags
      */
     tags_delete_all_button.click(function () {
@@ -112,6 +80,70 @@ $(document).ready(function () {
     });
 
     /**
+     * Delete selected posts
+     */
+    posts_delete_all_button.click(function () {
+        posts = [];
+        post_checkbox.each(function () {
+            if ($(this).is(':checked')) {
+                posts.push($(this).data('id'));
+            }
+        });
+        if (posts.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            deletePosts(posts);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    /**
+     * Delete selected users
+     */
+    users_delete_all_button.click(function () {
+        users = [];
+        user_checkbox.each(function () {
+            if ($(this).is(':checked')) {
+                users.push($(this).data('id'));
+            }
+        });
+        if (users.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            deleteUsers(users);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    /**
      * Delete category
      */
     category_delete_button.click(function () {
@@ -123,7 +155,6 @@ $(document).ready(function () {
                 success: {
                     label: "Cancel",
                     callback: function () {
-                        console.log("great success");
                     }
                 },
                 danger: {
@@ -139,6 +170,32 @@ $(document).ready(function () {
     });
 
     /**
+     * Delete tag
+     */
+    tag_delete_button.click(function () {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Conform delete?",
+            className: "tag_delete_confirm",
+            buttons: {
+                success: {
+                    label: "Cancel",
+                    callback: function () {
+                    }
+                },
+                danger: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function () {
+                        window.location = admin_path + '/tag/delete/' + $(this).data('id');
+                    }
+                }
+            }
+        });
+        $('.tag_delete_confirm').attr('data-id', $(this).data('id'));
+    });
+
+    /**
      * Delete post
      */
     post_delete_button.click(function () {
@@ -150,7 +207,6 @@ $(document).ready(function () {
                 success: {
                     label: "Cancel",
                     callback: function () {
-                        console.log("great success");
                     }
                 },
                 danger: {
@@ -165,31 +221,27 @@ $(document).ready(function () {
         $('.post_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
-    /**
-     * Delete tag
-     */
-    tag_delete_button.click(function () {
+    user_delete_button.click(function () {
         bootbox.dialog({
             message: "I am a custom dialog",
             title: "Conform delete?",
-            className: "tag_delete_confirm",
+            className: "user_delete_confirm",
             buttons: {
                 success: {
                     label: "Cancel",
                     callback: function () {
-                        console.log("great success");
                     }
                 },
                 danger: {
                     label: "Delete",
                     className: "btn-danger",
                     callback: function () {
-                        window.location = admin_path + '/tag/delete/' + $(this).data('id');
+                        window.location = admin_path + '/user/delete/' + $(this).data('id');
                     }
                 }
             }
         });
-        $('.tag_delete_confirm').attr('data-id', $(this).data('id'));
+        $('.user_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
     user_image_button.click(function () {

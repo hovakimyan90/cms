@@ -19,6 +19,18 @@ class User extends Model implements AuthenticatableContract,
     protected $table = "users";
 
     /**
+     * Get user by id
+     *
+     * @param $id
+     * @return mixed
+     */
+    public static function getUserById($id)
+    {
+        $user = self::find($id);
+        return $user;
+    }
+
+    /**
      * Search and get users
      *
      * @param int $length
@@ -34,4 +46,5 @@ class User extends Model implements AuthenticatableContract,
         }
         return $users;
     }
+
 }
