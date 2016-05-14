@@ -152,14 +152,16 @@
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-new thumbnail" style="max-width: 310px; height: 160px;"
                                  data-trigger="fileinput">
+
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"
+                                 style="max-width: 320px; max-height: 160px">
                                 @if(empty($post->image))
                                     <img src="/public/assets/admin/images/320x160.png">
                                 @else
-                                    <img src="/public//uploads/{{$post->image}}">
+                                    <img src="/public/uploads/{{$post->image}}">
                                 @endif
                             </div>
-                            <div class="fileinput-preview fileinput-exists thumbnail"
-                                 style="max-width: 320px; max-height: 160px"></div>
                             <div>
 									<span class="btn btn-white btn-file">
 										<span class="fileinput-new">Select image</span>

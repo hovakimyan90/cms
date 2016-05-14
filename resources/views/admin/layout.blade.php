@@ -181,6 +181,24 @@
                         <span class="title">Users</span>
                     </a>
                 </li>
+                <li>
+                    <a href="">
+                        <i class="entypo-cog"></i>
+                        <span class="title">Settings</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/settings/site">
+                                <span class="title">Site Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/settings/admin">
+                                <span class="title">Admin Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 {{--<li>--}}
                     {{--<a href="layout-api.html">--}}
                         {{--<i class="entypo-layout"></i>--}}

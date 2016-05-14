@@ -44,7 +44,8 @@ class PostController extends Controller
             $rules = [
                 "title" => "required",
                 "alias" => "required|unique:posts,title",
-                "content" => "required"
+                "content" => "required",
+                'image' => 'mimes:jpeg|png'
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -59,11 +60,11 @@ class PostController extends Controller
                 if (!empty($request->file("image"))) {
                     $generated_string = str_random(12);
                     $extension = $request->file("image")->getClientOriginalExtension();
-                    $new_file = "uploads/" . $generated_string . "." . $extension;
+                    $new_file = "uploads/" . $generated_string . ".png";
                     File::move($request->file("image"), $new_file);
                     $img = Image::make($new_file);
-                    $img->save("uploads/" . $generated_string . $img->crop(200, 200) . "." . $extension);
-                    $post->image = $generated_string . '.' . $extension;
+                    $img->save("uploads/" . $generated_string . $img->crop(200, 200) . ".png");
+                    $post->image = $generated_string . '.png';
                 }
                 if ($request->has("category")) {
                     $post->category_id = $request->input("category");

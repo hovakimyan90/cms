@@ -98,11 +98,13 @@
                                     @if(empty($user['image']))
                                         <img src="/public/assets/admin/images/320x160.png">
                                     @else
-                                        <img src="/public/uploads/{{$user['image']}}">
+                                        {{--<img src="/public/uploads/{{$user['image']}}">--}}
                                     @endif
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
-                                     style="max-width: 320px; max-height: 160px"></div>
+                                     style="max-width: 320px; max-height: 160px">
+                                    <img src="/public/uploads/{{$user['image']}}" style="max-height:320px;">
+                                </div>
                                 <div>
 									<span class="btn btn-white btn-file">
 										<span class="fileinput-new">Select image</span>
