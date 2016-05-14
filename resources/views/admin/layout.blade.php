@@ -188,12 +188,12 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="/settings/site">
+                            <a href="{{config('app.admin_path')}}/settings/site">
                                 <span class="title">Site Settings</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/settings/admin">
+                            <a href="{{config('app.admin_path')}}/settings/admin">
                                 <span class="title">Admin Settings</span>
                             </a>
                         </li>
