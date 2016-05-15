@@ -31,8 +31,8 @@
     </style>
 
     <form method="post" role="form" enctype="multipart/form-data" class="post_form">
-        {!! csrf_field() !!}
-                <!-- Title and Publish Buttons -->
+    {!! csrf_field() !!}
+    <!-- Title and Publish Buttons -->
         <div class="row">
             <div class="col-sm-2 post-save-changes">
                 <button type="submit" class="btn btn-green btn-lg btn-block btn-icon">
@@ -148,7 +148,7 @@
                     <div class="panel-body">
 
                         <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-new thumbnail" style="max-width: 310px; height: 160px;"
+                            <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                  data-trigger="fileinput">
                                 <img src="/public/assets/admin/images/320x160.png">
                             </div>

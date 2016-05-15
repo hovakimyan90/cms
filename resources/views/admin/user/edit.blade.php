@@ -93,17 +93,15 @@
                              id="user_profile_image_upload_block">
                             <label class="col-sm-3 control-label">Profile picture</label>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-new thumbnail" style="max-width: 310px; height: 160px;"
+                                <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                      data-trigger="fileinput">
                                     @if(empty($user['image']))
                                         <img src="/public/assets/admin/images/320x160.png">
                                     @else
-                                        {{--<img src="/public/uploads/{{$user['image']}}">--}}
+                                        <img src="/public/uploads/{{$user['image']}}">
                                     @endif
                                 </div>
-                                <div class="fileinput-preview fileinput-exists thumbnail"
-                                     style="max-width: 320px; max-height: 160px">
-                                    <img src="/public/uploads/{{$user['image']}}" style="max-height:320px;">
+                                <div class="fileinput-preview fileinput-exists thumbnail">
                                 </div>
                                 <div>
 									<span class="btn btn-white btn-file">

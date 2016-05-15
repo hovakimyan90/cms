@@ -150,7 +150,7 @@
                     <div class="panel-body">
 
                         <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-new thumbnail" style="max-width: 310px; height: 160px;"
+                            <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                  data-trigger="fileinput">
 
                             </div>

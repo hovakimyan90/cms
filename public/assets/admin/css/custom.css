@@ -2,6 +2,10 @@ body {
 
 }
 
+textarea {
+    resize: none;
+}
+
 .remember_me_block {
     float: left;
 }
@@ -19,6 +23,10 @@ body {
     margin-top: 15px;
 }
 
+p.error {
+    color: red;
+}
+
 #user_profile_image_upload_block label {
     float: left;
 }
@@ -26,20 +34,37 @@ body {
 #user_profile_image_upload_block .fileinput {
     width: 310px;
     float: left;
-}
-
-p.error {
-    color: red;
+    margin-left: 15px;
 }
 
 #user_profile_image_upload_block p.error {
     text-align: right;
 }
 
-.fileinput-preview img::before {
-    content: 'Note';
+#site_settings_image_upload_block label {
+    float: left;
 }
 
-.fileinput-preview img::after {
-    content: 'Note';
+#site_settings_image_upload_block .fileinput {
+    width: 310px;
+    float: left;
+    margin-left: 15px;
+}
+
+#site_settings_image_upload_block p.error {
+    text-align: right;
+}
+
+#site_settings_favicon_upload_block label {
+    float: left;
+}
+
+#site_settings_favicon_upload_block .fileinput {
+    width: 310px;
+    float: left;
+    margin-left: 15px;
+}
+
+#site_settings_favicon_upload_block p.error {
+    text-align: right;
 }

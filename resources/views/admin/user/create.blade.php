@@ -93,7 +93,7 @@
                              id="user_profile_image_upload_block">
                             <label class="col-sm-3 control-label">Profile picture</label>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <div class="fileinput-new thumbnail" style="max-width: 310px; height: 160px;"
+                                <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                      data-trigger="fileinput">
                                     <img src="/public/assets/admin/images/320x160.png">
                                 </div>

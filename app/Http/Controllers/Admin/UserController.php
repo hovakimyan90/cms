@@ -109,6 +109,7 @@ class UserController extends Controller
                         $user->phone = $request->input('phone');
                     }
                     if (!empty($request->file("image"))) {
+                        File::delete('/uploads/' . $user->image);
                         $generated_string = str_random(12);
                         $extension = $request->file("image")->getClientOriginalExtension();
                         $new_file = "uploads/" . $generated_string . "." . $extension;

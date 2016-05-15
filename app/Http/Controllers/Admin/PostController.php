@@ -60,11 +60,11 @@ class PostController extends Controller
                 if (!empty($request->file("image"))) {
                     $generated_string = str_random(12);
                     $extension = $request->file("image")->getClientOriginalExtension();
-                    $new_file = "uploads/" . $generated_string . ".png";
+                    $new_file = "uploads/" . $generated_string . $extension;
                     File::move($request->file("image"), $new_file);
                     $img = Image::make($new_file);
-                    $img->save("uploads/" . $generated_string . $img->crop(200, 200) . ".png");
-                    $post->image = $generated_string . '.png';
+                    $img->save("uploads/" . $generated_string . $img->crop(200, 200) . $extension);
+                    $post->image = $generated_string . $extension;
                 }
                 if ($request->has("category")) {
                     $post->category_id = $request->input("category");
