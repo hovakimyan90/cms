@@ -90,16 +90,16 @@
                                 <p class="error">{{$errors->first('email')}}</p>
                             </div>
                         </div>
-                        <div class="form-group @if($errors->has('image')) has-error @endif"
-                             id="site_settings_image_upload_block">
+                        <div class="form-group @if($errors->has('logo')) has-error @endif"
+                             id="site_settings_logo_upload_block">
                             <label class="col-sm-3 control-label">Image</label>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                      data-trigger="fileinput">
-                                    @if(empty($settings['image']))
+                                    @if(empty($settings['logo']))
                                         <img src="/public/assets/admin/images/320x160.png">
                                     @else
-                                        <img src="/public/uploads/{{$settings['image']}}">
+                                        <img src="/public/uploads/{{$settings['logo']}}">
                                     @endif
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
@@ -108,13 +108,13 @@
 									<span class="btn btn-white btn-file">
 										<span class="fileinput-new">Select image</span>
 										<span class="fileinput-exists">Change</span>
-										<input type="file" name="image" id="site_settings_image" accept="image/*">
+										<input type="file" name="logo" id="site_settings_logo" accept="image/*">
 									</span>
                                     <a href="#" class="btn btn-orange fileinput-exists"
                                        data-dismiss="fileinput">Remove</a>
                                 </div>
                             </div>
-                            <p class="error col-sm-6">{{$errors->first('image')}}</p>
+                            <p class="error col-sm-6">{{$errors->first('logo')}}</p>
                         </div>
                         <div class="form-group @if($errors->has('favicon')) has-error @endif"
                              id="site_settings_favicon_upload_block">

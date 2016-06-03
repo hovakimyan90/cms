@@ -55,6 +55,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/user/delete/{id}', 'Admin\UserController@delete');
     Route::post('/admin/user/delete', 'Admin\UserController@delete');
     Route::get('/admin/user/export', 'Admin\UserController@export');
-    Route::get('/admin/settings/site', 'Admin\SettingsController@site');
-    Route::post('/admin/settings/site', 'Admin\SettingsController@site');
+    Route::get('/admin/settings', 'Admin\SettingsController@index');
+    Route::post('/admin/settings', 'Admin\SettingsController@index');
 });

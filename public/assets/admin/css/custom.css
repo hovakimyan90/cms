@@ -27,25 +27,25 @@ p.error {
     color: red;
 }
 
-#user_profile_image_upload_block label {
+#user_profile_logo_upload_block label {
     float: left;
 }
 
-#user_profile_image_upload_block .fileinput {
+#user_profile_logo_upload_block .fileinput {
     width: 310px;
     float: left;
     margin-left: 15px;
 }
 
-#user_profile_image_upload_block p.error {
+#user_profile_logo_upload_block p.error {
     text-align: right;
 }
 
-#site_settings_image_upload_block label {
+#site_settings_logo_upload_block label {
     float: left;
 }
 
-#site_settings_image_upload_block .fileinput {
+#site_settings_logo_upload_block .fileinput {
     width: 310px;
     float: left;
     margin-left: 15px;

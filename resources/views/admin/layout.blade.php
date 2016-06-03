@@ -182,6 +182,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{config('app.admin_path')}}/settings">
+                        <i class="entypo-cog"></i>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+                <li>
                     <a href="">
                         <i class="entypo-cog"></i>
                         <span class="title">Settings</span>

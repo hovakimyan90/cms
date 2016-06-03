@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\SiteSettings;
+use App\Models\Settings;
 use Illuminate\Database\Seeder;
 
-class SiteSettingsTableSeeder extends Seeder
+class SettingsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class SiteSettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        SiteSettings::create([
+        Settings::create([
             'url' => 'http://localhost',
             'email' => 'john@doe.com',
             'title' => 'CMS',

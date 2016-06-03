@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSiteSettingsTable extends Migration
+class CreateSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSiteSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('site_settings', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('url');
             $table->string('email');
@@ -21,7 +21,7 @@ class CreateSiteSettingsTable extends Migration
             $table->string('desc');
             $table->string('keys');
             $table->string('favicon')->nullable();
-            $table->string('image')->nullable();
+            $table->string('logo')->nullable();
             $table->boolean('site')->default(1);
             $table->timestamps();
         });
@@ -34,6 +34,6 @@ class CreateSiteSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('site_settings');
+        Schema::drop('settings');
     }
 }
