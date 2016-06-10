@@ -29,7 +29,7 @@ class SettingsController extends Controller
                 'desc' => 'required',
                 'keys' => 'required',
                 'logo' => 'mimes:jpeg,png',
-                'favicon' => 'mimes:ico',
+                'favicon' => 'mimes:jpeg,png',
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -41,13 +41,13 @@ class SettingsController extends Controller
                 $settings->desc = $request->input('desc');
                 $settings->keys = $request->input('keys');
                 if (!empty($request->file("logo"))) {
-                    File::delete('uploads/' . $settings->image);
+                    File::delete('uploads/' . $settings->logo);
                     $generated_string = str_random(12);
                     $extension = $request->file("logo")->getClientOriginalExtension();
                     $new_file = "uploads/" . $generated_string . "." . $extension;
                     File::move($request->file("logo"), $new_file);
                     $img = Image::make($new_file);
-                    $img->save("uploads/" . $generated_string . $img->crop(100, 100) . "." . $extension);
+                    $img->save("uploads/" . $generated_string . $img->crop(200, 26) . "." . $extension);
                     $settings->logo = $generated_string . '.' . $extension;
                 }
                 if (!empty($request->file("favicon"))) {

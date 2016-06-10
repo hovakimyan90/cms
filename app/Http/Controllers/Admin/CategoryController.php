@@ -62,6 +62,7 @@ class CategoryController extends Controller
             }
         } else {
             $categories = Category::getParentCategories();
+//            print_r($categories);exit;
             return view('admin.category.create')->with(compact('categories'));
         }
     }
