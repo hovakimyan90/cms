@@ -152,15 +152,14 @@
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                  data-trigger="fileinput">
-
-                            </div>
-                            <div class="fileinput-preview fileinput-exists thumbnail"
-                                 style="max-width: 320px; max-height: 160px">
                                 @if(empty($post->image))
                                     <img src="/public/assets/admin/images/320x160.png">
                                 @else
                                     <img src="/public/uploads/{{$post->image}}">
                                 @endif
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"
+                                 style="max-width: 320px; max-height: 160px">
                             </div>
                             <div>
 									<span class="btn btn-white btn-file">
@@ -194,7 +193,7 @@
                     </div>
 
                     <div class="panel-body">
-                        @if(!empty($categories))
+                        @if(!$categories->isEmpty())
                             <select name="category" id="post_category" class="form-control">
                                 <option value="">Select category</option>
                                 @foreach($categories as $category)
@@ -227,19 +226,24 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <p>Add Post Tags</p>
-                        <?php
-                        $i = 0;
-                        ?>
-                        <select data-placeholder="Select tag" style="width:350px;" multiple
-                                class="chosen-select tags" name="tags[]">
-                            <?php
-                            $i = 0;
-                            ?>
-                            @foreach($tags as $tag)
-                                <option value="{{$tag->id}}" @if($post->tags->contains('id',$tag->id)) {{'selected'}} @endif>{{$tag->name}}</option>
-                            @endforeach
-                        </select>
+                        @if(!$tags->isEmpty())
+                            <p>Add Post Tags</p>
+                            <select data-placeholder="Select tag" style="width:350px;" multiple
+                                    class="chosen-select tags" name="tags[]">
+                                @foreach($tags as $tag)
+                                    <?php
+                                    $selected = false;
+                                    if ($post->tags->contains(1)) {
+                                        $selected = true;
+                                    }
+                                    ?>
+                                    <option value="{{$tag['id']}}"
+                                            @if($selected) selected @endif>{{$tag['name']}}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <p>No tags</p>
+                        @endif
                     </div>
 
                 </div>

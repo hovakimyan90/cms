@@ -5,7 +5,7 @@
     </a>
     <br/>
     <br/>
-    @if(empty($categories->total()))
+    @if(!$categories->total())
         <p>No Categories</p>
     @else
         <form method="post">

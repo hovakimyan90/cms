@@ -59,7 +59,7 @@
                                            class="form-control">{{$category->meta_desc}}</textarea>
                             </div>
                         </div>
-                        @if(!empty($categories))
+                        @if(!$categories->isEmpty())
                             <div class="form-group">
                                 <label for="parent_id" class="col-sm-3 control-label">Select parent category</label>
 

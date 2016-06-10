@@ -5,7 +5,7 @@
     </a>
     <br/>
     <br/>
-    @if(empty($tags->total()))
+    @if(!$tags->total())
         <p>No Tags</p>
     @else
         <form method="post">

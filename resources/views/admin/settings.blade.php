@@ -97,7 +97,7 @@
                                 <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                      data-trigger="fileinput">
                                     @if(empty($settings['logo']))
-                                        <img src="/public/assets/admin/images/320x160.png">
+                                        <img src="/public/assets/admin/images/default_logo.png">
                                     @else
                                         <img src="/public/uploads/{{$settings['logo']}}">
                                     @endif
@@ -123,7 +123,7 @@
                                 <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                      data-trigger="fileinput">
                                     @if(empty($settings['favicon']))
-                                        <img src="/public/assets/admin/images/16x16.png">
+                                        <img src="/public/assets/admin/images/default_favicon.png">
                                     @else
                                         <img src="/public/uploads/{{$settings['favicon']}}">
                                     @endif

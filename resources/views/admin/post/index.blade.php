@@ -5,7 +5,7 @@
     </a>
     <br/>
     <br/>
-    @if(empty($posts->total()))
+    @if(!$posts->total())
         <p>No Posts</p>
     @else
         <form method="post">
@@ -54,9 +54,13 @@
                         @endif
                     </td>
                     <td>
-                        @foreach($post->tags as $tag)
-                            <span>{{$tag['name']}}</span>
-                        @endforeach
+                        @if(!$post->tags->isEmpty())
+                            @foreach($post->tags as $tag)
+                                <span>{{$tag['name']}}</span>
+                            @endforeach
+                        @else
+                            <p>None</p>
+                        @endif
                     </td>
                     <td>@if(empty($post['category_id']))
                             None @else {{\App\Models\Category::getCategoryById($post['category_id'])['name']}}@endif</td>

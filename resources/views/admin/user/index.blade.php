@@ -5,7 +5,7 @@
     </a>
     <br/>
     <br/>
-    @if(empty($users->total()))
+    @if(!$users->total())
         <p>No Users</p>
     @else
         <form method="post">

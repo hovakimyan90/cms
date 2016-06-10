@@ -185,7 +185,7 @@
                     </div>
 
                     <div class="panel-body">
-                        @if(!empty($categories))
+                        @if(!$categories->isEmpty())
                             <select name="category" id="post_category" class="form-control">
                                 <option value="">Select category</option>
                                 @foreach($categories as $category)
@@ -220,7 +220,7 @@
                     </div>
 
                     <div class="panel-body">
-                        @if(!empty($tags))
+                        @if(!$tags->isEmpty())
                             <p>Add Post Tags</p>
                             <select data-placeholder="Select tag" style="width:350px;" multiple
                                     class="chosen-select tags" name="tags[]">
