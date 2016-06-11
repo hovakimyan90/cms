@@ -47,6 +47,7 @@ class UserController extends Controller
                 'phone' => 'phone:AM',
                 'username' => 'required|unique:users,username',
                 'pass' => 'required|min:6|max:12',
+                'pass_confirmation' => 'required|confirmed:pass',
                 'image' => 'mimes:jpeg,png',
             ];
             $validator = Validator::make($request->all(), $rules);
@@ -95,6 +96,7 @@ class UserController extends Controller
                     'phone' => 'phone:AM',
                     'username' => 'required|unique:users,username,' . $id,
                     'pass' => 'min:6|max:12',
+                    'pass_confirmation' => 'confirmed:pass',
                     'image' => 'mimes:jpeg,png',
                 ];
                 $validator = Validator::make($request->all(), $rules);

@@ -89,6 +89,15 @@
                                 <p class="error">{{$errors->first('pass')}}</p>
                             </div>
                         </div>
+                        <div class="form-group @if($errors->has('pass')) has-error @endif">
+                            <label for="user_pass_confirmation" class="col-sm-3 control-label">Confirm Password</label>
+
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" id="user_pass_confirmation"
+                                       placeholder="Confirm Password" name="pass_confirmation">
+                                <p class="error">{{$errors->first('pass_confirmation')}}</p>
+                            </div>
+                        </div>
                         <div class="form-group @if($errors->has('image')) has-error @endif"
                              id="user_profile_image_upload_block">
                             <label class="col-sm-3 control-label">Profile picture</label>
