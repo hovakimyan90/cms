@@ -83,6 +83,13 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Edit users
+     *
+     * @param Request $request
+     * @param $id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function edit(Request $request, $id)
     {
         $user = User::getUserById($id);
