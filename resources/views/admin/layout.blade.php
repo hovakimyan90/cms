@@ -10,22 +10,22 @@
 
     <title>Neon | Gallery</title>
 
-    <link rel="stylesheet" href="/public/assets/admin/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/font-icons/entypo/css/entypo.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/font-icons/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/admin/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="/assets/admin/css/font-icons/entypo/css/entypo.css">
+    <link rel="stylesheet" href="/assets/admin/css/font-icons/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
-    <link rel="stylesheet" href="/public/assets/admin/css/chosen.min.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/bootstrap.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/neon-core.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/neon-theme.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/neon-forms.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/custom.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/skins/black.css">
+    <link rel="stylesheet" href="/assets/admin/css/chosen.min.css">
+    <link rel="stylesheet" href="/assets/admin/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/admin/css/neon-core.css">
+    <link rel="stylesheet" href="/assets/admin/css/neon-theme.css">
+    <link rel="stylesheet" href="/assets/admin/css/neon-forms.css">
+    <link rel="stylesheet" href="/assets/admin/css/custom.css">
+    <link rel="stylesheet" href="/assets/admin/css/skins/black.css">
 
-    <script src="/public/assets/admin/js/jquery-1.11.0.min.js"></script>
+    <script src="/assets/admin/js/jquery-1.11.0.min.js"></script>
 
     <!--[if lt IE 9]>
-    <script src="/public/assets/admin/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/assets/admin/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -49,7 +49,7 @@
                 <!-- logo -->
                 <div class="logo">
                     <a href="index.html">
-                        <img src="/public/assets/admin/images/logo@2x.png" width="120" alt=""/>
+                        <img src="/assets/admin/images/logo@2x.png" width="120" alt=""/>
                     </a>
                 </div>
 
@@ -763,7 +763,7 @@
                         <!-- add class "pull-right" if you want to place this from right -->
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/public/assets/admin/images/thumb-1@2x.png" alt="" class="img-circle" width="44"/>
+                            <img src="/assets/admin/images/thumb-1@2x.png" alt="" class="img-circle" width="44"/>
                             John Henderson
                         </a>
 
@@ -943,7 +943,7 @@
                                     <li class="active">
                                         <a href="#">
 											<span class="image pull-right">
-												<img src="/public/assets/admin/images/thumb-1.png" alt=""
+												<img src="/assets/admin/images/thumb-1.png" alt=""
                                                      class="img-circle"/>
 											</span>
 
@@ -961,7 +961,7 @@
                                     <li class="active">
                                         <a href="#">
 											<span class="image pull-right">
-												<img src="/public/assets/admin/images/thumb-1.png" alt=""
+												<img src="/assets/admin/images/thumb-1.png" alt=""
                                                      class="img-circle"/>
 											</span>
 
@@ -979,7 +979,7 @@
                                     <li>
                                         <a href="#">
 											<span class="image pull-right">
-												<img src="/public/assets/admin/images/thumb-1.png" alt=""
+												<img src="/assets/admin/images/thumb-1.png" alt=""
                                                      class="img-circle"/>
 											</span>
 
@@ -997,7 +997,7 @@
                                     <li>
                                         <a href="#">
 											<span class="image pull-right">
-												<img src="/public/assets/admin/images/thumb-1.png" alt=""
+												<img src="/assets/admin/images/thumb-1.png" alt=""
                                                      class="img-circle"/>
 											</span>
 
@@ -1146,37 +1146,37 @@
 
                         Language: &nbsp;
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
-                            <img src="/public/assets/admin/images/flag-uk.png"/>
+                            <img src="/assets/admin/images/flag-uk.png"/>
                         </a>
 
                         <ul class="dropdown-menu pull-right">
                             <li>
                                 <a href="#">
-                                    <img src="/public/assets/admin/images/flag-de.png"/>
+                                    <img src="/assets/admin/images/flag-de.png"/>
                                     <span>Deutsch</span>
                                 </a>
                             </li>
                             <li class="active">
                                 <a href="#">
-                                    <img src="/public/assets/admin/images/flag-uk.png"/>
+                                    <img src="/assets/admin/images/flag-uk.png"/>
                                     <span>English</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/public/assets/admin/images/flag-fr.png"/>
+                                    <img src="/assets/admin/images/flag-fr.png"/>
                                     <span>François</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/public/assets/admin/images/flag-al.png"/>
+                                    <img src="/assets/admin/images/flag-al.png"/>
                                     <span>Shqip</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <img src="/public/assets/admin/images/flag-es.png"/>
+                                    <img src="/assets/admin/images/flag-es.png"/>
                                     <span>Español</span>
                                 </a>
                             </li>
@@ -1224,40 +1224,40 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="/public/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.css">
-<link rel="stylesheet" href="/public/assets/admin/js/rickshaw/rickshaw.min.css">
+<link rel="stylesheet" href="/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.css">
+<link rel="stylesheet" href="/assets/admin/js/rickshaw/rickshaw.min.css">
 
 <!-- Bottom scripts (common) -->
-<script src="/public/assets/admin/js/gsap/main-gsap.js"></script>
-<script src="/public/assets/admin/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-<script src="/public/assets/admin/js/bootstrap.js"></script>
-<script src="/public/assets/admin/js/joinable.js"></script>
-<script src="/public/assets/admin/js/resizeable.js"></script>
-<script src="/public/assets/admin/js/neon-api.js"></script>
-<script src="/public/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="/public/assets/admin/js/jvectormap/jquery-jvectormap-europe-merc-en.js"></script>
-<script src="/public/assets/admin/js/jquery.sparkline.min.js"></script>
-<script src="/public/assets/admin/js/rickshaw/vendor/d3.v3.js"></script>
-<script src="/public/assets/admin/js/rickshaw/rickshaw.min.js"></script>
-<script src="/public/assets/admin/js/raphael-min.js"></script>
-<script src="/public/assets/admin/js/morris.min.js"></script>
-<script src="/public/assets/admin/js/toastr.js"></script>
-<script src="/public/assets/admin/js/fullcalendar/fullcalendar.min.js"></script>
-<script src="/public/assets/admin/js/tinymce/tinymce.min.js"></script>
-<script src="/public/assets/admin/js/tinymce/plugins/compat3x/plugin.min.js"></script>
-<script src="/public/assets/admin/js/bootbox/js/bootbox.min.js"></script>
-<script src="/public/assets/admin/js/fileinput.js"></script>
-<script src="/public/assets/admin/js/neon-chat.js"></script>
-<script src="/public/assets/admin/js/chosen.jquery.min.js"></script>
-<script src="/public/assets/admin/js/init.js"></script>
-<script src="/public/assets/admin/js/functions.js"></script>
-<script src="/public/assets/admin/js/custom.js"></script>
+<script src="/assets/admin/js/gsap/main-gsap.js"></script>
+<script src="/assets/admin/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+<script src="/assets/admin/js/bootstrap.js"></script>
+<script src="/assets/admin/js/joinable.js"></script>
+<script src="/assets/admin/js/resizeable.js"></script>
+<script src="/assets/admin/js/neon-api.js"></script>
+<script src="/assets/admin/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="/assets/admin/js/jvectormap/jquery-jvectormap-europe-merc-en.js"></script>
+<script src="/assets/admin/js/jquery.sparkline.min.js"></script>
+<script src="/assets/admin/js/rickshaw/vendor/d3.v3.js"></script>
+<script src="/assets/admin/js/rickshaw/rickshaw.min.js"></script>
+<script src="/assets/admin/js/raphael-min.js"></script>
+<script src="/assets/admin/js/morris.min.js"></script>
+<script src="/assets/admin/js/toastr.js"></script>
+<script src="/assets/admin/js/fullcalendar/fullcalendar.min.js"></script>
+<script src="/assets/admin/js/tinymce/tinymce.min.js"></script>
+<script src="/assets/admin/js/tinymce/plugins/compat3x/plugin.min.js"></script>
+<script src="/assets/admin/js/bootbox/js/bootbox.min.js"></script>
+<script src="/assets/admin/js/fileinput.js"></script>
+<script src="/assets/admin/js/neon-chat.js"></script>
+<script src="/assets/admin/js/chosen.jquery.min.js"></script>
+<script src="/assets/admin/js/init.js"></script>
+<script src="/assets/admin/js/functions.js"></script>
+<script src="/assets/admin/js/custom.js"></script>
 
 <!-- JavaScripts initializations and stuff -->
-<script src="/public/assets/admin/js/neon-custom.js"></script>
+<script src="/assets/admin/js/neon-custom.js"></script>
 
 <!-- Demo Settings -->
-<script src="/public/assets/admin/js/neon-demo.js"></script>
+<script src="/assets/admin/js/neon-demo.js"></script>
 
 </body>
 </html>

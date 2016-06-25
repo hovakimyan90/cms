@@ -45,7 +45,7 @@ class PostController extends Controller
                 "title" => "required",
                 "alias" => "required|unique:posts,title",
                 "content" => "required",
-                'image' => 'mimes:jpeg|png'
+                'image' => 'mimes:jpeg,png'
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -105,7 +105,8 @@ class PostController extends Controller
                 $rules = [
                     "title" => "required",
                     "alias" => "required|unique:posts,alias," . $id,
-                    "content" => "required"
+                    "content" => "required",
+                    'image' => 'mimes:jpeg,png'
                 ];
                 $validator = Validator::make($request->all(), $rules);
 
@@ -134,6 +135,7 @@ class PostController extends Controller
                     $post->save();
                     $new_tags = [];
                     if ($request->has("tags")) {
+                        echo 'asdasd';
                         $tags = $request->input("tags");
                         foreach ($tags as $tag) {
                             array_push($new_tags, $tag);

@@ -50,7 +50,7 @@ class CategoryController extends Controller
                 $category->alias = $request->input('alias');
                 $category->meta_keys = $request->input('meta_keys');
                 $category->meta_desc = $request->input('meta_desc');
-                if (!empty($request->input('parent_id'))) {
+                if ($request->input('parent_id') != '0') {
                     $category->parent_id = $request->input('parent_id');
                     $category->type = 'sub';
                 } else {
@@ -91,7 +91,7 @@ class CategoryController extends Controller
                 $category->alias = $request->input('alias');
                 $category->meta_keys = $request->input('meta_keys');
                 $category->meta_desc = $request->input('meta_desc');
-                if (!empty($request->input('parent_id'))) {
+                if ($request->input('parent_id') != '0') {
                     $category->parent_id = $request->input('parent_id');
                     $category->type = 'sub';
                 } else {

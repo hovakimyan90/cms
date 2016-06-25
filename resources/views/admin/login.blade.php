@@ -10,19 +10,19 @@
 
     <title>Neon | Login</title>
 
-    <link rel="stylesheet" href="/public/assets/admin/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/font-icons/entypo/css/entypo.css">
+    <link rel="stylesheet" href="/assets/admin/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="/assets/admin/css/font-icons/entypo/css/entypo.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic">
-    <link rel="stylesheet" href="/public/assets/admin/css/bootstrap.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/neon-core.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/neon-theme.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/neon-forms.css">
-    <link rel="stylesheet" href="/public/assets/admin/css/custom.css">
+    <link rel="stylesheet" href="/assets/admin/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/admin/css/neon-core.css">
+    <link rel="stylesheet" href="/assets/admin/css/neon-theme.css">
+    <link rel="stylesheet" href="/assets/admin/css/neon-forms.css">
+    <link rel="stylesheet" href="/assets/admin/css/custom.css">
 
-    <script src="/public/assets/admin/js/jquery-1.11.0.min.js"></script>
+    <script src="/assets/admin/js/jquery-1.11.0.min.js"></script>
 
     <!--[if lt IE 9]>
-    <script src="/public/assets/admin/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="/assets/admin/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -47,7 +47,7 @@
         <div class="login-content">
 
             <a href="index.html" class="logo">
-                <img src="/public/assets/admin/images/logo@2x.png" width="120" alt=""/>
+                <img src="/assets/admin/images/logo@2x.png" width="120" alt=""/>
             </a>
 
             <p class="description">Dear user, log in to access the admin area!</p>
@@ -148,22 +148,22 @@
 
 
 <!-- Bottom scripts (common) -->
-<script src="/public/assets/admin/js/gsap/main-gsap.js"></script>
-<script src="/public/assets/admin/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
-<script src="/public/assets/admin/js/bootstrap.js"></script>
-<script src="/public/assets/admin/js/joinable.js"></script>
-<script src="/public/assets/admin/js/resizeable.js"></script>
-<script src="/public/assets/admin/js/neon-api.js"></script>
-<script src="/public/assets/admin/js/jquery.validate.min.js"></script>
-<script src="/public/assets/admin/js/neon-login.js"></script>
+<script src="/assets/admin/js/gsap/main-gsap.js"></script>
+<script src="/assets/admin/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js"></script>
+<script src="/assets/admin/js/bootstrap.js"></script>
+<script src="/assets/admin/js/joinable.js"></script>
+<script src="/assets/admin/js/resizeable.js"></script>
+<script src="/assets/admin/js/neon-api.js"></script>
+<script src="/assets/admin/js/jquery.validate.min.js"></script>
+<script src="/assets/admin/js/neon-login.js"></script>
 
 
 <!-- JavaScripts initializations and stuff -->
-<script src="/public/assets/admin/js/neon-custom.js"></script>
+<script src="/assets/admin/js/neon-custom.js"></script>
 
 
 <!-- Demo Settings -->
-<script src="/public/assets/admin/js/neon-demo.js"></script>
+<script src="/assets/admin/js/neon-demo.js"></script>
 
 </body>
 </html>

@@ -31,8 +31,8 @@
     </style>
 
     <form method="post" role="form" enctype="multipart/form-data" class="post_form">
-        {!! csrf_field() !!}
-                <!-- Title and Publish Buttons -->
+    {!! csrf_field() !!}
+    <!-- Title and Publish Buttons -->
         <div class="row">
             <div class="col-sm-2 post-save-changes">
                 <button type="submit" class="btn btn-green btn-lg btn-block btn-icon">
@@ -153,9 +153,9 @@
                             <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                  data-trigger="fileinput">
                                 @if(empty($post->image))
-                                    <img src="/public/assets/admin/images/320x160.png">
+                                    <img src="/assets/admin/images/320x160.png">
                                 @else
-                                    <img src="/public/uploads/{{$post->image}}">
+                                    <img src="/uploads/{{$post->image}}">
                                 @endif
                             </div>
                             <div class="fileinput-preview fileinput-exists thumbnail"
@@ -170,6 +170,7 @@
                                 <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput">Remove</a>
                             </div>
                         </div>
+                        <p class="error">{{$errors->first('image')}}</p>
 
                     </div>
 
@@ -233,7 +234,7 @@
                                 @foreach($tags as $tag)
                                     <?php
                                     $selected = false;
-                                    if ($post->tags->contains(1)) {
+                                    if ($post->tags->contains($tag['id'])) {
                                         $selected = true;
                                     }
                                     ?>

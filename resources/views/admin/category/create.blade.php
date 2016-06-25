@@ -63,7 +63,7 @@
 
                                 <div class="col-sm-5">
                                     <select name="parent_id" id="category_parent_id" class="form-control">
-                                        <option value="">Select parent</option>
+                                        <option value="0">Select parent</option>
                                         @foreach($categories as $category)
                                             <option value="{{$category['id']}}"
                                                     @if(old('parent_id')==$category['id']) selected @endif>
