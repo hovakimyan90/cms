@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin', 'Admin\AuthController@login');
 Route::post('/admin', 'Admin\AuthController@login');
 Route::get('/admin/logout', 'Admin\AuthController@logout');
-Route::get('/', 'Site\HomeController@index');
+Route::get('/', ['as' => 'home', 'uses' => 'Site\HomeController@index']);
 Route::get('/register', 'Site\AuthController@register');
 Route::post('/register', 'Site\AuthController@register');
+Route::get('/user/activation/{token}', 'Site\AuthController@activation');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/dashboard', 'Admin\DashboardController@index');
     Route::get('/admin/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);
