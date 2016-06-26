@@ -47,9 +47,15 @@ class User extends Model implements AuthenticatableContract,
         return $users;
     }
 
-    public static function getUserByVerifyToken($code = "")
+    /**
+     * Get user by verification token
+     *
+     * @param string $token
+     * @return mixed
+     */
+    public static function getUserByVerifyToken($token = "")
     {
-        $user = self::whereVerify_token($code)->first();
+        $user = self::whereVerify_token($token)->first();
         return $user;
     }
 }
