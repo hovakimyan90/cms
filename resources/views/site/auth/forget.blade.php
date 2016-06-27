@@ -13,5 +13,9 @@
             </div>
             <input type="submit" class="btn btn-default" value="Reset Password">
         </div>
+        @if(session('success'))
+            <div class="alert alert-success" role="alert"><strong>Well done!</strong> Please check your E-mail
+            </div>
+        @endif
     </form>
 @stop

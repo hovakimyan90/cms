@@ -75,27 +75,76 @@ class AuthController extends Controller
     public function activation($token)
     {
         $user = User::getUserByVerifyToken($token);
-        $user->verify = 1;
-        $user->verify_token = "";
-        $user->save();
+        if (!empty($user)) {
+            $user->verify = 1;
+            $user->verify_token = "";
+            $user->save();
+        }
         return redirect()->route('home');
     }
 
+    /**
+     * User forgot password
+     *
+     * @param Request $request
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function forget(Request $request)
     {
         $title = "Forget Password";
         if ($request->isMethod('post')) {
             $rules = [
-                'email' => 'required|email'
+                'email' => 'required|email|exists:users,email'
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput($request->all());
             } else {
-
+                $email = $request->input('email');
+                $user = User::getUserByEmail($email);
+                $user->reset_password_token = str_random(32);
+                $user->reset_password = 1;
+                $user->save();
+                $request->session()->flash('success', 'success');
+                return redirect()->back();
             }
         } else {
             return view('site.auth.forget', compact('title'));
+        }
+    }
+
+    /**
+     * Reset Password
+     *
+     * @param Request $request
+     * @param $token
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function reset(Request $request, $token)
+    {
+        $title = "Reset Password";
+        $user = User::getUserByResetPasswordToken($token);
+        if (!empty($user)) {
+            if ($request->isMethod('post')) {
+                $rules = [
+                    'pass' => 'required|min:6|max:12',
+                    'pass_confirmation' => 'required|min:6|max:12|same:pass'
+                ];
+                $validator = Validator::make($request->all(), $rules);
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator);
+                } else {
+                    $user->password = Hash::make($request->input('password'));
+                    $user->reset_password_token = '';
+                    $user->reset_password = 0;
+                    $user->save();
+                    return redirect()->route('home');
+                }
+            } else {
+                return view('site.auth.reset', compact('title'));
+            }
+        } else {
+            return redirect()->route('home');
         }
     }
 }

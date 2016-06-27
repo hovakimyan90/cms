@@ -59,9 +59,21 @@ class User extends Model implements AuthenticatableContract,
         return $user;
     }
 
+    /**
+     * Get user by email
+     *
+     * @param $email
+     * @return mixed
+     */
     public static function getUserByEmail($email)
     {
         $user = self::whereEmail($email)->first();
+        return $user;
+    }
+
+    public static function getUserByResetPasswordToken($token)
+    {
+        $user = self::whereReset_password_token($token)->first();
         return $user;
     }
 }
