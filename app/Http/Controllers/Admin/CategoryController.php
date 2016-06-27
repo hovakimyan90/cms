@@ -50,7 +50,7 @@ class CategoryController extends Controller
                 $category->alias = $request->input('alias');
                 $category->meta_keys = $request->input('meta_keys');
                 $category->meta_desc = $request->input('meta_desc');
-                if ($request->input('parent_id') != '0') {
+                if ($request->has('parent_id')) {
                     $category->parent_id = $request->input('parent_id');
                     $category->type = 'sub';
                 } else {
@@ -91,7 +91,7 @@ class CategoryController extends Controller
                 $category->alias = $request->input('alias');
                 $category->meta_keys = $request->input('meta_keys');
                 $category->meta_desc = $request->input('meta_desc');
-                if ($request->input('parent_id') != '0') {
+                if ($request->has('parent_id')) {
                     $category->parent_id = $request->input('parent_id');
                     $category->type = 'sub';
                 } else {
@@ -174,7 +174,7 @@ class CategoryController extends Controller
                 $publish = 'Unpublished';
             }
             array_push($category_array, $publish);
-            $posts_count = $category->posts()->count();
+            $posts_count = (string)$category->posts()->count();
             array_push($category_array, $posts_count);
             if ($category['type'] == 'parent_id') {
                 $type = 'Parent';
@@ -191,7 +191,7 @@ class CategoryController extends Controller
 
                 $sheet->fromArray($data, null, 'A1', false, false);
 
-                $sheet->cells('A1:G1', function ($cells) {
+                $sheet->cells('A1:H1', function ($cells) {
                     $cells->setFontWeight('bold');
                 });
             });

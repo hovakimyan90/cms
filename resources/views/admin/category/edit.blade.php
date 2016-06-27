@@ -65,7 +65,7 @@
 
                                 <div class="col-sm-5">
                                     <select name="parent_id" id="parent_id" class="form-control">
-                                        <option value="0">Select parent</option>
+                                        <option value="">Select parent</option>
                                         @foreach($categories as $cat)
                                             <option value="{{$cat['id']}}"
                                                     @if($cat['id']==$category->parent_id) selected @endif>{{$cat['name']}}</option>
