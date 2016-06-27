@@ -38,6 +38,7 @@
                 <th>Position</th>
                 <th>Type</th>
                 <th>Username</th>
+                <th>E-mail</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -49,7 +50,7 @@
                     <td>{{$user['last_name']}}</td>
                     <td>
                         @if(!empty($user['image']))
-                            <img src="/public/uploads/{{$user['image']}}"/>
+                            <img src="/uploads/{{$user['image']}}"/>
                         @else None
                         @endif
                     </td>
@@ -57,6 +58,7 @@
                     <td>{{$user['position']}}</td>
                     <td>@if($user['role_id']==1) Admin @else User @endif</td>
                     <td>{{$user['username']}}</td>
+                    <td>{{$user['email']}}</td>
                     <td><a href="{{config('app.admin_path')}}/user/edit/{{$user['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                         <button class="btn btn-danger delete" data-id="{{$user['id']}}"><i

@@ -97,9 +97,9 @@
                                 <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                      data-trigger="fileinput">
                                     @if(empty($settings['logo']))
-                                        <img src="/public/assets/admin/images/default_logo.png">
+                                        <img src="/assets/admin/images/default_logo.png">
                                     @else
-                                        <img src="/public/uploads/{{$settings['logo']}}">
+                                        <img src="/uploads/{{$settings['logo']}}">
                                     @endif
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
@@ -123,9 +123,9 @@
                                 <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                      data-trigger="fileinput">
                                     @if(empty($settings['favicon']))
-                                        <img src="/public/assets/admin/images/default_favicon.png">
+                                        <img src="/assets/admin/images/default_favicon.png">
                                     @else
-                                        <img src="/public/uploads/{{$settings['favicon']}}">
+                                        <img src="/uploads/{{$settings['favicon']}}">
                                     @endif
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"

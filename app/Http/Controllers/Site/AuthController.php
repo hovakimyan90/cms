@@ -29,6 +29,7 @@ class AuthController extends Controller
                 'position' => 'required',
                 'phone' => 'phone:AM',
                 'username' => 'required|unique:users,username',
+                'email' => 'required|email',
                 'password' => 'required|min:6|max:12',
                 'password_confirmation' => 'required|min:6|max:12|same:pass',
                 'image' => 'mimes:jpeg,png',
@@ -61,7 +62,7 @@ class AuthController extends Controller
                 return redirect('/');
             }
         } else {
-            return view('site.register')->with(compact('title'));
+            return view('site.auth.register')->with(compact('title'));
         }
     }
 
@@ -78,5 +79,23 @@ class AuthController extends Controller
         $user->verify_token = "";
         $user->save();
         return redirect()->route('home');
+    }
+
+    public function forget(Request $request)
+    {
+        $title = "Forget Password";
+        if ($request->isMethod('post')) {
+            $rules = [
+                'email' => 'required|email'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput($request->all());
+            } else {
+
+            }
+        } else {
+            return view('site.auth.forget', compact('title'));
+        }
     }
 }

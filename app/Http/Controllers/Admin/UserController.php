@@ -46,8 +46,9 @@ class UserController extends Controller
                 'type' => 'required',
                 'phone' => 'phone:AM',
                 'username' => 'required|unique:users,username',
+                'email' => 'required|email',
                 'pass' => 'required|min:6|max:12',
-                'pass_confirmation' => 'required|confirmed:pass',
+                'pass_confirmation' => 'required|min:6|max:12|same:pass',
                 'image' => 'mimes:jpeg,png',
             ];
             $validator = Validator::make($request->all(), $rules);
@@ -72,6 +73,7 @@ class UserController extends Controller
                     $user->image = $generated_string . '.' . $extension;
                 }
                 $user->username = $request->input('username');
+                $user->email = $request->input('email');
                 $user->password = Hash::make($request->input('pass'));
                 $user->approve = 1;
                 $user->verify = 1;
@@ -102,8 +104,9 @@ class UserController extends Controller
                     'type' => 'required',
                     'phone' => 'phone:AM',
                     'username' => 'required|unique:users,username,' . $id,
+                    'email' => 'required|email',
                     'pass' => 'min:6|max:12',
-                    'pass_confirmation' => 'confirmed:pass',
+                    'pass_confirmation' => 'min:6|max:12|same:pass',
                     'image' => 'mimes:jpeg,png',
                 ];
                 $validator = Validator::make($request->all(), $rules);
@@ -128,6 +131,7 @@ class UserController extends Controller
                         $user->image = $generated_string . '.' . $extension;
                     }
                     $user->username = $request->input('username');
+                    $user->email = $request->input('email');
                     if ($request->has('pass')) {
                         $user->password = Hash::make($request->input('pass'));
                     }
@@ -174,7 +178,7 @@ class UserController extends Controller
      */
     public function export()
     {
-        $data = array(array('First name', 'Last name', 'Phone number', 'Position', 'Type', 'Username'));
+        $data = array(array('First name', 'Last name', 'Phone number', 'Position', 'Type', 'Username', 'E-mail'));
         $users = User::getUsers();
         foreach ($users as $user) {
             $users_array = array();
@@ -198,6 +202,8 @@ class UserController extends Controller
             array_push($users_array, $type);
             $username = $user['username'];
             array_push($users_array, $username);
+            $email = $user['email'];
+            array_push($users_array, $email);
             array_push($data, $users_array);
         }
 
@@ -207,7 +213,7 @@ class UserController extends Controller
 
                 $sheet->fromArray($data, null, 'A1', false, false);
 
-                $sheet->cells('A1:F1', function ($cells) {
+                $sheet->cells('A1:G1', function ($cells) {
                     $cells->setFontWeight('bold');
                 });
             });

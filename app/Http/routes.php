@@ -20,6 +20,8 @@ Route::get('/', ['as' => 'home', 'uses' => 'Site\HomeController@index']);
 Route::get('/register', 'Site\AuthController@register');
 Route::post('/register', 'Site\AuthController@register');
 Route::get('/user/activation/{token}', 'Site\AuthController@activation');
+Route::get('/forget/password', 'Site\AuthController@forget');
+Route::post('/forget/password', 'Site\AuthController@forget');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/dashboard', 'Admin\DashboardController@index');
     Route::get('/admin/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);

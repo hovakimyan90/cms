@@ -80,6 +80,15 @@
                                 <p class="error">{{$errors->first('username')}}</p>
                             </div>
                         </div>
+                        <div class="form-group @if($errors->has('email')) has-error @endif">
+                            <label for="user_email" class="col-sm-3 control-label">E-mail</label>
+
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="user_email"
+                                       placeholder="E-mail" name="email" value="{{$user['email']}}">
+                                <p class="error">{{$errors->first('email')}}</p>
+                            </div>
+                        </div>
                         <div class="form-group @if($errors->has('pass')) has-error @endif">
                             <label for="user_pass" class="col-sm-3 control-label">Password</label>
 
@@ -105,9 +114,9 @@
                                 <div class="fileinput-new thumbnail" style="max-width: 310px;"
                                      data-trigger="fileinput">
                                     @if(empty($user['image']))
-                                        <img src="/public/assets/admin/images/320x160.png">
+                                        <img src="/assets/admin/images/320x160.png">
                                     @else
-                                        <img src="/public/uploads/{{$user['image']}}">
+                                        <img src="/uploads/{{$user['image']}}">
                                     @endif
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail">
