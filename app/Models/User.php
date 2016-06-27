@@ -71,6 +71,12 @@ class User extends Model implements AuthenticatableContract,
         return $user;
     }
 
+    /**
+     * Get user by reset password token
+     *
+     * @param $token
+     * @return mixed
+     */
     public static function getUserByResetPasswordToken($token)
     {
         $user = self::whereReset_password_token($token)->first();
