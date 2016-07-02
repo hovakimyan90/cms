@@ -40,7 +40,7 @@ class User extends Model implements AuthenticatableContract,
     public static function getUsers($length = 0, $search = "")
     {
         if ($length > 0) {
-            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->paginate($length);
+            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->whereRole_id(2)->paginate($length);
         } else {
             $users = self::orderBy("id", "desc")->get();
         }
