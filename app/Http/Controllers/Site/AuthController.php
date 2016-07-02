@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -29,9 +30,9 @@ class AuthController extends Controller
                 'position' => 'required',
                 'phone' => 'phone:AM',
                 'username' => 'required|unique:users,username',
-                'email' => 'required|email',
-                'password' => 'required|min:6|max:12',
-                'password_confirmation' => 'required|min:6|max:12|same:pass',
+                'email' => 'required|unique:users,email',
+                'pass' => 'required|min:6|max:12',
+                'pass_confirmation' => 'required|min:6|max:12|same:pass',
                 'image' => 'mimes:jpeg,png',
             ];
             $validator = Validator::make($request->all(), $rules);
@@ -56,6 +57,7 @@ class AuthController extends Controller
                     $user->image = $generated_string . '.' . $extension;
                 }
                 $user->username = $request->input('username');
+                $user->email = $request->input('email');
                 $user->password = Hash::make($request->input('pass'));
                 $user->verify_token = str_random(32);
                 $user->save();
@@ -103,7 +105,6 @@ class AuthController extends Controller
                 $email = $request->input('email');
                 $user = User::getUserByEmail($email);
                 $user->reset_password_token = str_random(32);
-                $user->reset_password = 1;
                 $user->save();
                 $request->session()->flash('success', 'success');
                 return redirect()->back();
@@ -114,7 +115,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Reset Password
+     * User reset password
      *
      * @param Request $request
      * @param $token
@@ -134,9 +135,8 @@ class AuthController extends Controller
                 if ($validator->fails()) {
                     return redirect()->back()->withErrors($validator);
                 } else {
-                    $user->password = Hash::make($request->input('password'));
+                    $user->password = Hash::make($request->input('pass'));
                     $user->reset_password_token = '';
-                    $user->reset_password = 0;
                     $user->save();
                     return redirect()->route('home');
                 }
@@ -146,5 +146,41 @@ class AuthController extends Controller
         } else {
             return redirect()->route('home');
         }
+    }
+
+    /**
+     * User login
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+    public function login(Request $request)
+    {
+        $title = "Login";
+        if ($request->isMethod('post')) {
+            $email = $request->input('email');
+            $password = $request->input('pass');
+            $remember = $request->has('remember');
+            if (Auth::attempt(['email' => $email, 'password' => $password, 'role_id' => 2, 'verify' => 1], $remember)) {
+                $user = User::getUserById(Auth::user()->id);
+                $user->online = 1;
+                $user->save();
+                return redirect('/sd');
+            } else {
+                $request->session()->flash('error', 'error');
+                return redirect()->back()->withInput($request->except('pass'));
+            }
+        } else {
+            return view('site.auth.login', compact('title'));
+        }
+    }
+
+    public function logout()
+    {
+        $user = User::getUserById(Auth::user()->id);
+        $user->online = 0;
+        $user->save();
+        Auth::logout();
+        return redirect()->route('home');
     }
 }

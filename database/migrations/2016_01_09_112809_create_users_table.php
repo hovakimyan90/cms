@@ -24,11 +24,11 @@ class CreateUsersTable extends Migration
             $table->string('image')->nullable();
             $table->string('password');
             $table->integer('role_id');
+            $table->boolean('online')->default(0);
             $table->boolean('approve')->default(0);
             $table->string('verify_token')->nullable();
             $table->boolean('verify')->default(0);
             $table->string('reset_password_token')->nullable();
-            $table->boolean('reset_password')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

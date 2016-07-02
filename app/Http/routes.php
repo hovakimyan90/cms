@@ -13,8 +13,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/admin', 'Admin\AuthController@login');
-Route::post('/admin', 'Admin\AuthController@login');
+Route::get('/' . config('app.admin_route_name'), 'Admin\AuthController@login');
+Route::post('/' . config('app.admin_route_name'), 'Admin\AuthController@login');
 Route::get('/' . config('app.admin_route_name') . '/logout', 'Admin\AuthController@logout');
 Route::get('/', ['as' => 'home', 'uses' => 'Site\HomeController@index']);
 Route::get('/register', 'Site\AuthController@register');
@@ -24,6 +24,9 @@ Route::get('/forget/password', 'Site\AuthController@forget');
 Route::post('/forget/password', 'Site\AuthController@forget');
 Route::get('/reset/password/{token}', 'Site\AuthController@reset');
 Route::post('/reset/password/{token}', 'Site\AuthController@reset');
+Route::get('/login', 'Site\AuthController@login');
+Route::post('/login', 'Site\AuthController@login');
+Route::get('/logout', 'Site\AuthController@logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/dashboard', 'Admin\DashboardController@index');
     Route::get('/' . config('app.admin_route_name') . '/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);

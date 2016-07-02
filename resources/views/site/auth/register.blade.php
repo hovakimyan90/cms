@@ -63,8 +63,8 @@
 
             <div class="col-sm-5">
                 <input type="password" class="form-control" id="register_pass"
-                       placeholder="Password" name="password">
-                <p class="error">{{$errors->first('password')}}</p>
+                       placeholder="Password" name="pass">
+                <p class="error">{{$errors->first('pass')}}</p>
             </div>
         </div>
         <div class="form-group @if($errors->has('pass_confirmation')) has-error @endif">
@@ -72,8 +72,8 @@
 
             <div class="col-sm-5">
                 <input type="password" class="form-control" id="register_pass_confirmation"
-                       placeholder="Confirm Password" name="password_confirmation">
-                <p class="error">{{$errors->first('password_confirmation')}}</p>
+                       placeholder="Confirm Password" name="pass_confirmation">
+                <p class="error">{{$errors->first('pass_confirmation')}}</p>
             </div>
         </div>
         <div class="form-group @if($errors->has('image')) has-error @endif"
