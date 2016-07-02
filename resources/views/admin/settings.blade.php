@@ -145,15 +145,15 @@
                         <div class="form-group">
                             <label for="site_settings_on_site" class="col-sm-3 control-label">On Site</label>
                             <div class="col-sm-6">
-                                <input type="radio" id="site_settings_on_site" name="site" value="1"
-                                       @if($settings['site']==1) checked @endif>
+                                <input type="radio" id="site_settings_on_site" name="maintenance" value="1"
+                                       @if($settings['maintenance']==1) checked @endif>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="site_settings_off_site" class="col-sm-3 control-label">Off Site</label>
                             <div class="col-sm-6">
-                                <input type="radio" id="site_settings_off_site" name="site" value="0"
-                                       @if($settings['site']==0) checked @endif>
+                                <input type="radio" id="site_settings_off_site" name="maintenance" value="0"
+                                       @if($settings['maintenance']==0) checked @endif>
                             </div>
                         </div>
 

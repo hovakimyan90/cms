@@ -61,12 +61,12 @@ class SettingsController extends Controller
                     $img->save("uploads/" . $generated_string . $img->crop(16, 16) . "." . $extension);
                     $settings->favicon = $generated_string . '.' . $extension;
                 }
-                if ($request->input('site') == '0') {
+                if ($request->input('maintenance') == '0') {
                     Artisan::call('down');
                 } else {
                     Artisan::call('up');
                 }
-                $settings->site = $request->input('site');
+                $settings->maintenance = $request->input('maintenance');
                 $settings->save();
                 return redirect()->back();
             }

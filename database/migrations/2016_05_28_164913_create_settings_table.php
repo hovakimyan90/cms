@@ -22,7 +22,7 @@ class CreateSettingsTable extends Migration
             $table->string('keys');
             $table->string('favicon')->nullable();
             $table->string('logo')->nullable();
-            $table->boolean('site')->default(1);
+            $table->boolean('maintenance')->default(1);
             $table->timestamps();
         });
     }
