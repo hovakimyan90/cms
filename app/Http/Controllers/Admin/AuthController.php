@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -29,7 +28,7 @@ class AuthController extends Controller
             }
         } else {
             if (Auth::check()) {
-                return redirect(config('app.admin_path') . '/dashboard');
+                return redirect(config('app.admin_route_name') . '/dashboard');
             } else {
                 return view('admin.login');
             }
@@ -39,11 +38,11 @@ class AuthController extends Controller
     /**
      * Admin logout
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function logout()
     {
         Auth::logout();
-        return redirect()->guest(config('app.admin_path'));
+        return redirect(config('app.admin_route_name'));
     }
 }

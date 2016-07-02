@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('content')
-    <a href="{{config('app.admin_path')}}/tag/create" class="btn btn-primary">
+    <a href="/{{config('app.admin_route_name')}}/tag/create" class="btn btn-primary">
         <i class="fa fa-plus"></i> Create new tag
     </a>
     <br/>
@@ -24,7 +24,7 @@
         </form>
         <br/>
         <button class="btn btn-danger tags_delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-        <a href="{{config('app.admin_path')}}/tag/export" class="btn btn-primary export_excel"><i
+        <a href="/{{config('app.admin_route_name')}}/tag/export" class="btn btn-primary export_excel"><i
                     class="entypo-export"></i>
             Export Excel</a>
         <table class="table table-striped tags">
@@ -40,7 +40,7 @@
                 <tr>
                     <td><input type="checkbox" data-id="{{$tag['id']}}"></td>
                     <td>{{$tag['name']}}</td>
-                    <td><a href="{{config('app.admin_path')}}/tag/edit/{{$tag['id']}}"
+                    <td><a href="/{{config('app.admin_route_name')}}/tag/edit/{{$tag['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                         <button class="btn btn-danger delete" data-id="{{$tag['id']}}"><i
                                     class="glyphicon glyphicon-trash"></i> Delete

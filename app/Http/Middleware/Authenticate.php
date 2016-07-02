@@ -38,7 +38,7 @@ class Authenticate
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest(config('app.admin_path'));
+                return redirect()->guest(config('app.admin_route_name'));
             }
         }
 

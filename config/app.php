@@ -28,7 +28,7 @@ return [
 
     'url' => 'http://localhost',
 
-    'admin_path' => '/admin',
+    'admin_route_name' => 'admin',
 
     /*
     |--------------------------------------------------------------------------

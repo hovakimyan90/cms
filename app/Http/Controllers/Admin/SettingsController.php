@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Settings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
@@ -59,6 +60,11 @@ class SettingsController extends Controller
                     $img = Image::make($new_file);
                     $img->save("uploads/" . $generated_string . $img->crop(16, 16) . "." . $extension);
                     $settings->favicon = $generated_string . '.' . $extension;
+                }
+                if ($request->input('site') == '0') {
+                    Artisan::call('down');
+                } else {
+                    Artisan::call('up');
                 }
                 $settings->site = $request->input('site');
                 $settings->save();

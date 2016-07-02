@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('content')
-    <a href="{{config('app.admin_path')}}/post/create" class="btn btn-primary">
+    <a href="/{{config('app.admin_route_name')}}/post/create" class="btn btn-primary">
         <i class="fa fa-plus"></i> Create new post
     </a>
     <br/>
@@ -24,7 +24,7 @@
         </form>
         <br/>
         <button class="btn btn-danger posts_delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-        <a href="{{config('app.admin_path')}}/post/export" class="btn btn-primary export_excel"><i
+        <a href="/{{config('app.admin_route_name')}}/post/export" class="btn btn-primary export_excel"><i
                     class="entypo-export"></i>
             Export Excel</a>
         <table class="table table-striped posts">
@@ -65,7 +65,7 @@
                     <td>@if(empty($post['category_id']))
                             None @else {{\App\Models\Category::getCategoryById($post['category_id'])['name']}}@endif</td>
                     <td>@if($post['publish']==1) Published  @else Unpublished @endif</td>
-                    <td><a href="{{config('app.admin_path')}}/post/edit/{{$post['id']}}"
+                    <td><a href="/{{config('app.admin_route_name')}}/post/edit/{{$post['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                         <button class="btn btn-danger delete" data-id="{{$post['id']}}"><i
                                     class="glyphicon glyphicon-trash"></i> Delete

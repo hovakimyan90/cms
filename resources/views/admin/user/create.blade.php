@@ -2,7 +2,7 @@
 @section('content')
     <ol class="breadcrumb bc-3">
         <li>
-            <a href="{{config('app.admin_path')}}/users">Users</a>
+            <a href="/{{config('app.admin_route_name')}}/users">Users</a>
         </li>
         <li class="active">
             <strong>Create User</strong>

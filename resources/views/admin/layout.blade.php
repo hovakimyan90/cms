@@ -158,31 +158,31 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{config('app.admin_path')}}/categories">
+                    <a href="/{{config('app.admin_route_name')}}/categories">
                         <i class="entypo-menu"></i>
                         <span class="title">Categories</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{config('app.admin_path')}}/posts">
+                    <a href="/{{config('app.admin_route_name')}}/posts">
                         <i class="entypo-menu"></i>
                         <span class="title">Posts</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{config('app.admin_path')}}/tags">
+                    <a href="/{{config('app.admin_route_name')}}/tags">
                         <i class="entypo-menu"></i>
                         <span class="title">Tags</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{config('app.admin_path')}}/users">
+                    <a href="/{{config('app.admin_route_name')}}/users">
                         <i class="entypo-users"></i>
                         <span class="title">Users</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{config('app.admin_path')}}/settings">
+                    <a href="/{{config('app.admin_route_name')}}/settings">
                         <i class="entypo-cog"></i>
                         <span class="title">Settings</span>
                     </a>
@@ -194,12 +194,12 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{config('app.admin_path')}}/settings/site">
+                            <a href="/{{config('app.admin_route_name')}}/settings/site">
                                 <span class="title">Site Settings</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{config('app.admin_path')}}/settings/admin">
+                            <a href="/{{config('app.admin_route_name')}}/settings/admin">
                                 <span class="title">Admin Settings</span>
                             </a>
                         </li>
@@ -1199,7 +1199,7 @@
                     <li class="sep"></li>
 
                     <li>
-                        <a href="{{config('app.admin_path')}}/logout">
+                        <a href="/{{config('app.admin_route_name')}}/logout">
                             Log Out <i class="entypo-logout right"></i>
                         </a>
                     </li>
