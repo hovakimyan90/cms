@@ -187,24 +187,6 @@
                         <span class="title">Settings</span>
                     </a>
                 </li>
-                <li>
-                    <a href="">
-                        <i class="entypo-cog"></i>
-                        <span class="title">Settings</span>
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="/{{config('app.admin_route_name')}}/settings/site">
-                                <span class="title">Site Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/{{config('app.admin_route_name')}}/settings/admin">
-                                <span class="title">Admin Settings</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
                 {{--<li>--}}
                     {{--<a href="layout-api.html">--}}
                         {{--<i class="entypo-layout"></i>--}}
