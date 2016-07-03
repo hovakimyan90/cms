@@ -27,6 +27,10 @@ Route::post('/reset/password/{token}', 'Site\AuthController@reset');
 Route::get('/login', 'Site\AuthController@login');
 Route::post('/login', 'Site\AuthController@login');
 Route::get('/logout', 'Site\AuthController@logout');
+Route::get('/profile', function () {
+    $title = "dsad";
+    return view('site.profile', compact('title'));
+});
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/dashboard', 'Admin\DashboardController@index');
     Route::get('/' . config('app.admin_route_name') . '/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);
