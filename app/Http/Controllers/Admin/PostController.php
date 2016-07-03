@@ -97,6 +97,7 @@ class PostController extends Controller
      */
     public function edit(Request $request, $id = 0)
     {
+//        echo $_SERVER["DOCUMENT_ROOT"];exit;
         $post = Post::getPostById($id);
         if (empty($post)) {
             return redirect()->back();
