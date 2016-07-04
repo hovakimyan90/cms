@@ -152,7 +152,7 @@ class AuthController extends Controller
      * User login
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function login(Request $request)
     {
@@ -171,7 +171,11 @@ class AuthController extends Controller
                 return redirect()->back()->withInput($request->except('pass'));
             }
         } else {
-            return view('site.auth.login', compact('title'));
+            if (Auth::check() && Auth::user()->role_id == 2) {
+                return redirect('profile');
+            } else {
+                return view('site.auth.login', compact('title'));
+            }
         }
     }
 

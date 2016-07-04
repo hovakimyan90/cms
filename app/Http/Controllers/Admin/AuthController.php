@@ -27,7 +27,7 @@ class AuthController extends Controller
                 return response()->json(['message' => 'failed'], 422);
             }
         } else {
-            if (Auth::check()) {
+            if (Auth::check() && Auth::user()->role_id == 1) {
                 return redirect(config('app.admin_route_name') . '/dashboard');
             } else {
                 return view('admin.login');

@@ -17,6 +17,7 @@ Route::get('/' . config('app.admin_route_name'), 'Admin\AuthController@login');
 Route::post('/' . config('app.admin_route_name'), 'Admin\AuthController@login');
 Route::get('/' . config('app.admin_route_name') . '/logout', 'Admin\AuthController@logout');
 Route::get('/', ['as' => 'home', 'uses' => 'Site\HomeController@index']);
+
 Route::get('/register', 'Site\AuthController@register');
 Route::post('/register', 'Site\AuthController@register');
 Route::get('/user/activation/{token}', 'Site\AuthController@activation');
@@ -27,11 +28,13 @@ Route::post('/reset/password/{token}', 'Site\AuthController@reset');
 Route::get('/login', 'Site\AuthController@login');
 Route::post('/login', 'Site\AuthController@login');
 Route::get('/logout', 'Site\AuthController@logout');
-Route::get('/profile', function () {
-    $title = "dsad";
-    return view('site.profile', compact('title'));
+Route::group(['middleware' => 'site_auth'], function () {
+    Route::get('/profile', function () {
+        $title = "dsad";
+        return view('site.profile', compact('title'));
+    });
 });
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/dashboard', 'Admin\DashboardController@index');
     Route::get('/' . config('app.admin_route_name') . '/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);
     Route::post('/' . config('app.admin_route_name') . '/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);

@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Auth;
 
-class Authenticate
+class AdminAuthenticate
 {
     /**
      * The Guard implementation.
@@ -39,6 +40,10 @@ class Authenticate
                 return response('Unauthorized.', 401);
             } else {
                 return redirect()->guest(config('app.admin_route_name'));
+            }
+        } else {
+            if (Auth::user()->role_id != 1) {
+                return redirect(config('app.admin_route_name'));
             }
         }
 
