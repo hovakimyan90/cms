@@ -155,7 +155,7 @@ class AuthController extends Controller
      * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function login(Request $request)
-    {
+    { 
         $title = "Login";
         if ($request->isMethod('post')) {
             $email = $request->input('email');
