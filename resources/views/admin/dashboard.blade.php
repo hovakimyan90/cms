@@ -230,11 +230,29 @@
 
             <div class="tile-stats tile-primary">
                 <div class="icon"><i class="entypo-users"></i></div>
-                <div class="num" data-start="0" data-end="213" data-postfix="" data-duration="1400" data-delay="0">0
+                <div class="num" data-start="0" data-end="{{$registered_user_count}}" data-postfix=""
+                     data-duration="1400" data-delay="0">{{$registered_user_count}}
                 </div>
 
-                <h3>New Followers</h3>
-                <p>Statistics this week</p>
+                <h3>Registered Users</h3>
+            </div>
+
+            <div class="tile-stats tile-green">
+                <div class="icon"><i class="entypo-check"></i></div>
+                <div class="num" data-start="0" data-end="{{$approved_posts_count}}" data-postfix=""
+                     data-duration="1400" data-delay="0">{{$approved_posts_count}}
+                </div>
+
+                <h3>Approved Posts</h3>
+            </div>
+
+            <div class="tile-stats tile-red">
+                <div class="icon"><i class="entypo-cancel"></i></div>
+                <div class="num" data-start="0" data-end="{{$disapproved_posts_count}}" data-postfix=""
+                     data-duration="1400" data-delay="0">{{$disapproved_posts_count}}
+                </div>
+
+                <h3>Approved Posts</h3>
             </div>
 
 

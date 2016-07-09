@@ -23,11 +23,13 @@ class Post extends Model
     /**
      * Search and get posts
      *
+     * @param int $approve
      * @param int $length
      * @param string $search
+     * @param int $author_id
      * @return mixed
      */
-    public static function getPosts($length = 0, $search = "", $author_id = 0)
+    public static function getPosts($approve = 1, $length = 0, $search = "", $author_id = 0)
     {
         if ($length > 0) {
             if ($author_id > 0) {
@@ -36,7 +38,7 @@ class Post extends Model
                 $posts = Post::orderBy("id", "desc")->where("title", "like", "%" . $search . "%")->paginate($length);
             }
         } else {
-            $posts = Post::orderBy("id", "desc")->get();
+            $posts = Post::orderBy("id", "desc")->whereApprove($approve)->get();
         }
         return $posts;
     }
@@ -51,6 +53,11 @@ class Post extends Model
         return $this->belongsToMany('App\Models\Tag', "post_tags", "post_id", "tag_id");
     }
 
+    /**
+     * Create relationship for post category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function category()
     {
         return $this->hasOne('App\Models\Category', 'id', 'category_id');
