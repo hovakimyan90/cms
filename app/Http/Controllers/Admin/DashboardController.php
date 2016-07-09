@@ -9,6 +9,11 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
+    /**
+     * Dashboard
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $registered_user_count = User::getUsers()->count();
