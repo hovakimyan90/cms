@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Model implements AuthenticatableContract,
     AuthorizableContract,
@@ -33,16 +34,17 @@ class User extends Model implements AuthenticatableContract,
     /**
      * Search and get users
      *
+     * @param int $role_id
      * @param int $length
      * @param string $search
      * @return mixed
      */
-    public static function getUsers($length = 0, $search = "")
+    public static function getUsers($length = 0, $search = "", $role_id = 2)
     {
         if ($length > 0) {
-            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->whereRole_id(2)->whereVerify(1)->paginate($length);
+            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereVerify(1)->paginate($length);
         } else {
-            $users = self::orderBy("id", "desc")->whereRole_id(2)->whereVerify(1)->get();
+            $users = self::orderBy("id", "desc")->whereRole_id($role_id)->whereVerify(1)->get();
         }
         return $users;
     }

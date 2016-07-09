@@ -83,4 +83,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/user/export', 'Admin\UserController@export');
     Route::get('/' . config('app.admin_route_name') . '/settings', 'Admin\SettingsController@index');
     Route::post('/' . config('app.admin_route_name') . '/settings', 'Admin\SettingsController@index');
+    Route::get('/' . config('app.admin_route_name') . '/notifications', 'Admin\NotificationController@index');
+    Route::get('/' . config('app.admin_route_name') . '/notifications/count', 'Admin\NotificationController@count');
+    Route::get('/' . config('app.admin_route_name') . '/notifications/seen', 'Admin\NotificationController@seen');
 });

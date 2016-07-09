@@ -23,13 +23,12 @@ class Post extends Model
     /**
      * Search and get posts
      *
-     * @param int $approve
      * @param int $length
      * @param string $search
      * @param int $author_id
      * @return mixed
      */
-    public static function getPosts($approve = 1, $length = 0, $search = "", $author_id = 0)
+    public static function getPosts($author_id = 0, $length = 0, $search = "")
     {
         if ($length > 0) {
             if ($author_id > 0) {
@@ -38,8 +37,24 @@ class Post extends Model
                 $posts = Post::orderBy("id", "desc")->where("title", "like", "%" . $search . "%")->paginate($length);
             }
         } else {
-            $posts = Post::orderBy("id", "desc")->whereApprove($approve)->get();
+            if ($author_id > 0) {
+                $posts = Post::orderBy("id", "desc")->whereAuthor_id($author_id)->get();
+            } else {
+                $posts = Post::orderBy("id", "desc")->get();
+            }
         }
+        return $posts;
+    }
+
+    /**
+     * Get post by status
+     *
+     * @param int $approve
+     * @return mixed
+     */
+    public static function getPostsByStatus($approve = 1)
+    {
+        $posts = Post::orderBy("id", "desc")->whereApprove($approve)->get();
         return $posts;
     }
 

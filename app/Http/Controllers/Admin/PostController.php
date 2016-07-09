@@ -26,9 +26,9 @@ class PostController extends Controller
     public function index(Request $request)
     {
         if ($request->isMethod('post')) {
-            $posts = Post::getPosts(4, $request->input('search'));
+            $posts = Post::getPosts(0, 4, $request->input('search'));
         } else {
-            $posts = Post::getPosts(4);
+            $posts = Post::getPosts(0, 4);
         }
         return view('admin.post.index')->with(compact('posts'));
     }
@@ -138,7 +138,6 @@ class PostController extends Controller
                     $post->save();
                     $new_tags = [];
                     if ($request->has("tags")) {
-                        echo 'asdasd';
                         $tags = $request->input("tags");
                         foreach ($tags as $tag) {
                             array_push($new_tags, $tag);

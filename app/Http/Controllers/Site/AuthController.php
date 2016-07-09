@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,6 +82,14 @@ class AuthController extends Controller
             $user->verify = 1;
             $user->verify_token = "";
             $user->save();
+            $admins = User::getUsers(1);
+            foreach ($admins as $admin) {
+                $notification = new Notification();
+                $notification->from = $user->id;
+                $notification->to = $admin->id;
+                $notification->type = 2;
+                $notification->save();
+            }
         }
         return redirect()->route('home');
     }

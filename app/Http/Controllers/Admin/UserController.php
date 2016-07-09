@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -78,6 +79,13 @@ class UserController extends Controller
                 $user->approve = 1;
                 $user->verify = 1;
                 $user->save();
+                if ($user->role_id == 1) {
+                    $notification = new Notification();
+                    $notification->from = 1;
+                    $notification->to = $user->id;
+                    $notification->type = 1;
+                    $notification->save();
+                }
                 return redirect()->route('users');
             }
         } else {
@@ -138,6 +146,21 @@ class UserController extends Controller
                     $user->approve = 1;
                     $user->verify = 1;
                     $user->save();
+                    $notifications = Notification::getNotificationBySenderId($user->id);
+                    foreach ($notifications as $notification) {
+                        $notification->delete();
+                    }
+                    $notifications = Notification::getNotificationByReaderId($user->id);
+                    foreach ($notifications as $notification) {
+                        $notification->delete();
+                    }
+                    if ($user->role_id == 1) {
+                        $notification = new Notification();
+                        $notification->from = 1;
+                        $notification->to = $user->id;
+                        $notification->type = 1;
+                        $notification->save();
+                    }
                     return redirect()->route('users');
                 }
             } else {

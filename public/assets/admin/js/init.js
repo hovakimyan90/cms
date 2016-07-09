@@ -38,3 +38,6 @@ var users_table_td = users_table_tr.find('td');
 var user_delete_button = users_table_td.find('button.delete');
 var user_checkbox = users_table_td.find("input[type='checkbox']");
 var users = [];
+var notification_tab = body.find('li.notifications.dropdown');
+var notifications_count = notification_tab.find('.badge-info');
+var notifications_list = notification_tab.find('.dropdown-menu-list');

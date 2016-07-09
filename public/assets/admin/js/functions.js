@@ -61,3 +61,34 @@ function deleteUsers(users) {
         }
     });
 }
+
+function getNotificationsCount() {
+    $.ajax({
+        url: admin_path + "/notifications/count",
+        async: false,
+        success: function (count) {
+            if (parseInt(notifications_count.text()) < count) {
+                var sound = $('#notification_sound')[0];
+                sound.play();
+            }
+            notifications_count.text(count);
+        }
+    });
+}
+
+function getNotifications() {
+    $.ajax({
+        url: admin_path + "/notifications",
+        async: false,
+        success: function (notifications) {
+            notifications_list.html(notifications);
+            $.ajax({
+                url: admin_path + "/notifications/seen",
+                async: false,
+                success: function () {
+                    notifications_count.text(0);
+                }
+            });
+        }
+    });
+}

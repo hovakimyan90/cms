@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Category;
+use App\Models\Notification;
 use App\Models\Post;
 use App\Models\PostTag;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -27,9 +29,9 @@ class PostController extends Controller
     {
         $title = "All Posts";
         if ($request->isMethod('post')) {
-            $posts = Post::getPosts(4, $request->input('search'), Auth::user()->id);
+            $posts = Post::getPosts(Auth::user()->id, 4, $request->input('search'));
         } else {
-            $posts = Post::getPosts(4, '', Auth::user()->id);
+            $posts = Post::getPosts(Auth::user()->id, 4);
         }
         return view('site.post.index')->with(compact('posts', 'title'));
     }
@@ -82,6 +84,14 @@ class PostController extends Controller
                         $post_tag->tag_id = $tag;
                         $post_tag->save();
                     }
+                }
+                $admins = User::getUsers(1);
+                foreach ($admins as $admin) {
+                    $notification = new Notification();
+                    $notification->from = Auth::user()->id;
+                    $notification->to = $admin->id;
+                    $notification->type = 3;
+                    $notification->save();
                 }
                 return redirect()->route('posts');
             }
