@@ -29,6 +29,8 @@ Route::get('/login', 'Site\AuthController@login');
 Route::post('/login', 'Site\AuthController@login');
 Route::get('/logout', 'Site\AuthController@logout');
 Route::group(['middleware' => 'site_auth'], function () {
+    Route::get('/edit', 'Site\UserController@edit');
+    Route::post('/edit', 'Site\UserController@edit');
     Route::get('/posts', ['as' => 'posts', 'uses' => 'Site\PostController@index']);
     Route::post('/posts', ['as' => 'posts', 'uses' => 'Site\PostController@index']);
     Route::get('/post/create', 'Site\PostController@create');
