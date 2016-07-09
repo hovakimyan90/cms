@@ -1,10 +1,5 @@
-@extends('admin.layout')
+@extends('site.layout')
 @section('content')
-    <a href="/{{config('app.admin_route_name')}}/post/create" class="btn btn-primary">
-        <i class="fa fa-plus"></i> Create new post
-    </a>
-    <br/>
-    <br/>
     @if(!$posts->total())
         <p>No Posts</p>
     @else
@@ -24,7 +19,7 @@
         </form>
         <br/>
         <button class="btn btn-danger posts_delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-        <a href="/{{config('app.admin_route_name')}}/post/export" class="btn btn-primary export_excel"><i
+        <a href="/post/export" class="btn btn-primary export_excel"><i
                     class="entypo-export"></i>
             Export Excel</a>
         <table class="table table-striped posts">
@@ -36,7 +31,7 @@
                 <th>Image</th>
                 <th>Tags</th>
                 <th>Category</th>
-                <th>Author</th>
+                <th>Status</th>
                 <th>Publish</th>
                 <th>Actions</th>
             </tr>
@@ -65,17 +60,16 @@
                     </td>
                     <td>@if(empty($post['category_id']))
                             None @else {{$post->category->name}}@endif</td>
-                    <td>{{$post->author->first_name}} {{$post->author->last_name}}</td>
+                    <td>
+                        @if($post['approve']==1)
+                            Approved
+                        @else
+                            Not approved
+                        @endif
+                    </td>
                     <td>@if($post['publish']==1) Published  @else Unpublished @endif</td>
                     <td><a href="/{{config('app.admin_route_name')}}/post/edit/{{$post['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                        @if($post['approve']==1)
-                            <a href="/{{config('app.admin_route_name')}}/post/disapprove/{{$post['id']}}"
-                               class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i> Disapprove</a>
-                        @else
-                            <a href="/{{config('app.admin_route_name')}}/post/approve/{{$post['id']}}"
-                               class="btn btn-green"><i class="glyphicon glyphicon-ok"></i> Approve</a>
-                        @endif
                         <button class="btn btn-danger delete" data-id="{{$post['id']}}"><i
                                     class="glyphicon glyphicon-trash"></i> Delete
                         </button>

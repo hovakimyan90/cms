@@ -1,12 +1,17 @@
 <html>
 <head>
     <title>{{$title}}</title>
-    <link rel="stylesheet" href="/assets/site/css/bootstrap.min.css" type="text/css">
     @if(!empty(\App\Models\Settings::getSettings()['favicon']))
         <link rel="icon" type="img/ico" href="/uploads/<?= \App\Models\Settings::getSettings()['favicon'] ?>">
     @else
         <link rel="icon" type="img/ico" href="/assets/admin/images/default_favicon.png">
     @endif
+
+    <link rel="stylesheet" href="/assets/site/css/chosen.min.css">
+    <link rel="stylesheet" href="/assets/site/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/site/css/custom.css">
+    {{--<link rel="stylesheet" href="/assets/site/css/neon-forms.css">--}}
+
     <script src="/assets/site/js/jquery-1.11.0.min.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,5 +45,13 @@
 </nav>
 @yield('content')
 <script src="/assets/site/js/bootstrap.min.js"></script>
+<script src="/assets/admin/js/tinymce/tinymce.min.js"></script>
+<script src="/assets/admin/js/tinymce/plugins/compat3x/plugin.min.js"></script>
+<script src="/assets/site/js/chosen.jquery.min.js"></script>
+<script src="/assets/site/js/fileinput.js"></script>
+<script src="/assets/site/js/bootbox/js/bootbox.min.js"></script>
+<script src="/assets/site/js/init.js"></script>
+<script src="/assets/site/js/functions.js"></script>
+<script src="/assets/site/js/custom.js"></script>
 </body>
 </html>

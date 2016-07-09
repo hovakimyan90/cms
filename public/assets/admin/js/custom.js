@@ -257,7 +257,7 @@ $(document).ready(function () {
         selector: '#post_content',
         height: 500,
         theme: 'modern',
-        plugins: [ 
+        plugins: [
             'advlist autolink lists link image moxiemanager charmap print preview hr anchor pagebreak',
             'searchreplace wordcount visualblocks visualchars code fullscreen',
             'insertdatetime media nonbreaking save table contextmenu directionality',

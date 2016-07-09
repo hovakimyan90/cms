@@ -23,7 +23,10 @@ class CreatePostsTable extends Migration
             $table->string('image')->nullable();
             $table->integer('category_id')->unsigned()->index()->nullable();
             $table->boolean('publish');
+            $table->integer('author_id')->unsigned()->index();
+            $table->boolean('approve')->default(0);
             $table->timestamps();
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
@@ -25,22 +25,24 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+        $title = "All Posts";
         if ($request->isMethod('post')) {
-            $posts = Post::getPosts(4, $request->input('search'));
+            $posts = Post::getPosts(4, $request->input('search'), Auth::user()->id);
         } else {
-            $posts = Post::getPosts(4);
+            $posts = Post::getPosts(4, '', Auth::user()->id);
         }
-        return view('admin.post.index')->with(compact('posts'));
+        return view('site.post.index')->with(compact('posts', 'title'));
     }
 
     /**
      * Create post
      *
      * @param Request $request
-     * @return mixed
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function create(Request $request)
     {
+        $title = 'Create Post';
         if ($request->isMethod("post")) {
             $rules = [
                 "title" => "required",
@@ -72,7 +74,6 @@ class PostController extends Controller
                 }
                 $post->publish = $request->has("publish");
                 $post->author_id = Auth::user()->id;
-                $post->approve = 1;
                 $post->save();
                 if ($request->has("tags")) {
                     foreach ($request->input("tags") as $tag) {
@@ -82,12 +83,12 @@ class PostController extends Controller
                         $post_tag->save();
                     }
                 }
-                return redirect()->route('admin_posts');
+                return redirect()->route('posts');
             }
         } else {
             $categories = Category::getCategories();
             $tags = Tag::getTags();
-            return view("admin.post.create", compact("categories", "tags", "post"));
+            return view("site.post.create", compact("categories", "tags", "post", "title"));
         }
     }
 
@@ -96,10 +97,11 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function edit(Request $request, $id = 0)
     {
+        $title = 'Edit Post';
         $post = Post::getPostById($id);
         if (empty($post)) {
             return redirect()->back();
@@ -145,12 +147,12 @@ class PostController extends Controller
                         }
                     }
                     $post->tags()->sync($new_tags);
-                    return redirect()->route('admin_posts');
+                    return redirect()->route('posts');
                 }
             } else {
                 $categories = Category::getCategories();
                 $tags = Tag::getTags();
-                return view("admin.post.edit", compact("post", "categories", "tags"));
+                return view("site.post.edit", compact("post", "categories", "tags", "title"));
             }
         }
     }
@@ -160,7 +162,7 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function delete(Request $request, $id = 0)
     {
@@ -181,44 +183,12 @@ class PostController extends Controller
     }
 
     /**
-     * Approve post
-     *
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function approve($id)
-    {
-        $post = Post::getPostById($id);
-        if ($post) {
-            $post->approve = 1;
-            $post->save();
-        }
-        return redirect()->route('admin_posts');
-    }
-
-    /**
-     * Disapprove post
-     *
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function disapprove($id)
-    {
-        $post = Post::getPostById($id);
-        if ($post) {
-            $post->approve = 0;
-            $post->save();
-        }
-        return redirect()->route('admin_posts');
-    }
-
-    /**
      * Export posts
      */
     public function export()
     {
-        $data = array(array('Name', 'Alias', 'Tags', 'Category', 'Author', 'Publish'));
-        $posts = Post::getPosts();
+        $data = array(array('Name', 'Alias', 'Tags', 'Category', 'Status', 'Publish'));
+        $posts = Post::getPosts(Auth::user()->id);
         foreach ($posts as $post) {
             $post_array = array();
             $title = $post['title'];
@@ -240,8 +210,12 @@ class PostController extends Controller
                 $category = Category::getCategoryById($post['category_id'])['name'];
             }
             array_push($post_array, $category);
-            $author = $post->author->first_name . ' ' . $post->author->last_name;
-            array_push($post_array, $author);
+            if ($post['approve'] == 1) {
+                $status = 'Approved';
+            } else {
+                $status = 'Not approved';
+            }
+            array_push($post_array, $status);
             if (empty($post['publish'])) {
                 $publish = 'Unpublished';
             } else {

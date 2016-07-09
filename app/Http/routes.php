@@ -29,10 +29,15 @@ Route::get('/login', 'Site\AuthController@login');
 Route::post('/login', 'Site\AuthController@login');
 Route::get('/logout', 'Site\AuthController@logout');
 Route::group(['middleware' => 'site_auth'], function () {
-    Route::get('/profile', function () {
-        $title = "dsad";
-        return view('site.profile', compact('title'));
-    });
+    Route::get('/posts', ['as' => 'posts', 'uses' => 'Site\PostController@index']);
+    Route::post('/posts', ['as' => 'posts', 'uses' => 'Site\PostController@index']);
+    Route::get('/post/create', 'Site\PostController@create');
+    Route::post('/post/create', 'Site\PostController@create');
+    Route::get('/post/edit/{id}', 'Site\PostController@edit');
+    Route::post('/post/edit/{id}', 'Site\PostController@edit');
+    Route::get('/post/delete/{id}', 'Admin\PostController@delete');
+    Route::post('/post/delete', 'Admin\PostController@delete');
+    Route::get('/post/export', 'Site\PostController@export');
 });
 Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/dashboard', 'Admin\DashboardController@index');
@@ -54,14 +59,16 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/tag/delete/{id}', 'Admin\TagController@delete');
     Route::post('/' . config('app.admin_route_name') . '/tag/delete', 'Admin\TagController@delete');
     Route::get('/' . config('app.admin_route_name') . '/tag/export', 'Admin\TagController@export');
-    Route::get('/' . config('app.admin_route_name') . '/posts', ['as' => 'posts', 'uses' => 'Admin\PostController@index']);
-    Route::post('/' . config('app.admin_route_name') . '/posts', ['as' => 'posts', 'uses' => 'Admin\PostController@index']);
+    Route::get('/' . config('app.admin_route_name') . '/posts', ['as' => 'admin_posts', 'uses' => 'Admin\PostController@index']);
+    Route::post('/' . config('app.admin_route_name') . '/posts', ['as' => 'admin_posts', 'uses' => 'Admin\PostController@index']);
     Route::get('/' . config('app.admin_route_name') . '/post/create', 'Admin\PostController@create');
     Route::post('/' . config('app.admin_route_name') . '/post/create', 'Admin\PostController@create');
     Route::get('/' . config('app.admin_route_name') . '/post/edit/{id}', 'Admin\PostController@edit');
     Route::post('/' . config('app.admin_route_name') . '/post/edit/{id}', 'Admin\PostController@edit');
     Route::get('/' . config('app.admin_route_name') . '/post/delete/{id}', 'Admin\PostController@delete');
     Route::post('/' . config('app.admin_route_name') . '/post/delete', 'Admin\PostController@delete');
+    Route::get('/' . config('app.admin_route_name') . '/post/approve/{id}', 'Admin\PostController@approve');
+    Route::get('/' . config('app.admin_route_name') . '/post/disapprove/{id}', 'Admin\PostController@disapprove');
     Route::get('/' . config('app.admin_route_name') . '/post/export', 'Admin\PostController@export');
     Route::get('/' . config('app.admin_route_name') . '/users', ['as' => 'users', 'uses' => 'Admin\UserController@index']);
     Route::post('/' . config('app.admin_route_name') . '/users', ['as' => 'users', 'uses' => 'Admin\UserController@index']);
