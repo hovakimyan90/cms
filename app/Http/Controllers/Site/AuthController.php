@@ -82,7 +82,7 @@ class AuthController extends Controller
             $user->verify = 1;
             $user->verify_token = "";
             $user->save();
-            $admins = User::getUsers(1);
+            $admins = User::getUsers(0, '', 1);
             foreach ($admins as $admin) {
                 $notification = new Notification();
                 $notification->from = $user->id;

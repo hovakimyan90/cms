@@ -85,7 +85,7 @@ class PostController extends Controller
                         $post_tag->save();
                     }
                 }
-                $admins = User::getUsers(1);
+                $admins = User::getUsers(0, '', 1);
                 foreach ($admins as $admin) {
                     $notification = new Notification();
                     $notification->from = Auth::user()->id;
