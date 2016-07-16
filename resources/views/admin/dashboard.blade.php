@@ -39,7 +39,25 @@
                 spotRadius: 2,
                 drawNormalOnTop: true
             });
+            var area_chart_demo = $("#area-chart-demo");
 
+            area_chart_demo.parent().show();
+
+            var area_chart = Morris.Area({
+                element: 'area-chart-demo',
+                data: [
+                    {y: '2006', a: 100, b: 90},
+                    {y: '2006', a: 75, b: 65},
+                    {y: '2009', a: 75, b: 65},
+                    {y: '2010', a: 50, b: 40},
+                    {y: '2011', a: 75, b: 65},
+                    {y: '2012', a: 100, b: 90}
+                ],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Series A', 'Series B'],
+                lineColors: ['#303641', '#576277']
+            });
             $(".monthly-sales").sparkline([1, 5, 6, 7, 10, 12, 16, 11, 9, 8.9, 8.7, 7, 8, 7, 6, 5.6, 5, 7, 5, 4, 5, 6, 7, 8, 6, 7, 6, 3, 2], {
                 type: 'bar',
                 barColor: '#ff4e50',
@@ -148,6 +166,7 @@
     <br/>
 
     <div class="row">
+
         <div class="col-md-9">
 
             <script type="text/javascript">
@@ -262,6 +281,25 @@
     <br/>
 
     <div class="row">
+        <div class="panel-body">
+
+            <div class="tab-content">
+
+                <div class="tab-pane" id="area-chart">
+                    <div id="area-chart-demo" class="morrischart" style="height: 300px"></div>
+                </div>
+
+                <div class="tab-pane active" id="line-chart">
+                    <div id="line-chart-demo" class="morrischart" style="height: 300px"></div>
+                </div>
+
+                <div class="tab-pane" id="pie-chart">
+                    <div id="donut-chart-demo" class="morrischart" style="height: 300px;"></div>
+                </div>
+
+            </div>
+
+        </div>
         <div class="col-sm-8">
             <div class="panel panel-primary panel-table">
                 <div class="panel-heading">

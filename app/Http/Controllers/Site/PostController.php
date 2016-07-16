@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Models\Category;
 use App\Models\Notification;
 use App\Models\Post;
@@ -29,9 +28,9 @@ class PostController extends Controller
     {
         $title = "All Posts";
         if ($request->isMethod('post')) {
-            $posts = Post::getPosts(Auth::user()->id, 4, $request->input('search'));
+            $posts = Post::getPosts(4, $request->input('search'), Auth::user()->id);
         } else {
-            $posts = Post::getPosts(Auth::user()->id, 4);
+            $posts = Post::getPosts(4, '', Auth::user()->id);
         }
         return view('site.post.index')->with(compact('posts', 'title'));
     }
@@ -87,16 +86,18 @@ class PostController extends Controller
                 }
                 $admins = User::getUsers(0, '', 1);
                 foreach ($admins as $admin) {
-                    $notification = new Notification();
-                    $notification->from = Auth::user()->id;
-                    $notification->to = $admin->id;
-                    $notification->type = 3;
-                    $notification->save();
+                    if ($admin->id != Auth::user()->id) {
+                        $notification = new Notification();
+                        $notification->from = Auth::user()->id;
+                        $notification->to = $admin->id;
+                        $notification->type = 3;
+                        $notification->save();
+                    }
                 }
                 return redirect()->route('posts');
             }
         } else {
-            $categories = Category::getCategories();
+            $categories = Category::getCategoriesByPublish();
             $tags = Tag::getTags();
             return view("site.post.create", compact("categories", "tags", "post", "title"));
         }
@@ -160,7 +161,7 @@ class PostController extends Controller
                     return redirect()->route('posts');
                 }
             } else {
-                $categories = Category::getCategories();
+                $categories = Category::getCategoriesByPublish();
                 $tags = Tag::getTags();
                 return view("site.post.edit", compact("post", "categories", "tags", "title"));
             }
@@ -198,7 +199,7 @@ class PostController extends Controller
     public function export()
     {
         $data = array(array('Name', 'Alias', 'Tags', 'Category', 'Status', 'Publish'));
-        $posts = Post::getPosts(Auth::user()->id);
+        $posts = Post::getPosts(0, '', Auth::user()->id);
         foreach ($posts as $post) {
             $post_array = array();
             $title = $post['title'];

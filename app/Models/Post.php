@@ -28,7 +28,7 @@ class Post extends Model
      * @param int $author_id
      * @return mixed
      */
-    public static function getPosts($author_id = 0, $length = 0, $search = "")
+    public static function getPosts($length = 0, $search = "", $author_id = 0)
     {
         if ($length > 0) {
             if ($author_id > 0) {

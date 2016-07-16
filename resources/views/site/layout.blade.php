@@ -21,6 +21,9 @@
     <![endif]-->
 </head>
 <body>
+<audio style="display: none;" id="notification_sound">
+    <source src="/assets/sounds/notification_sound.mp3" type="audio/mpeg">
+</audio>
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -34,11 +37,18 @@
                     <img src="/assets/admin/images/default_logo.png"/>
                 @endif
             </a></div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
+        <ul class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
+                <li class="dropdown notifications">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Notifications (<span class="count"></span>)</a>
+                    <ul class="dropdown-menu notifications_list">
+
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

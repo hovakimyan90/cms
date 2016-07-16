@@ -54,6 +54,18 @@ class Category extends Model
     }
 
     /**
+     * Get categories by publish
+     *
+     * @param int $publish
+     * @return mixed
+     */
+    public static function getCategoriesByPublish($publish = 1)
+    {
+        $categories = self::where('publish', $publish)->get();
+        return $categories;
+    }
+
+    /**
      * Create relationship for category posts
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

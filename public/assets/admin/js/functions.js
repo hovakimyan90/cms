@@ -62,6 +62,9 @@ function deleteUsers(users) {
     });
 }
 
+/**
+ * Get notifications count
+ */
 function getNotificationsCount() {
     $.ajax({
         url: admin_path + "/notifications/count",
@@ -76,6 +79,9 @@ function getNotificationsCount() {
     });
 }
 
+/**
+ * Get notifications
+ */
 function getNotifications() {
     $.ajax({
         url: admin_path + "/notifications",

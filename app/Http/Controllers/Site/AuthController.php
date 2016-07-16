@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -90,6 +89,11 @@ class AuthController extends Controller
                 $notification->type = 2;
                 $notification->save();
             }
+            $notification = new Notification();
+            $notification->from = 1;
+            $notification->to = $user->id;
+            $notification->type = 4;
+            $notification->save();
         }
         return redirect()->route('home');
     }

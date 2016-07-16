@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Models\Category;
+use App\Models\Notification;
 use App\Models\Post;
 use App\Models\PostTag;
 use App\Models\Tag;
@@ -26,9 +26,9 @@ class PostController extends Controller
     public function index(Request $request)
     {
         if ($request->isMethod('post')) {
-            $posts = Post::getPosts(0, 4, $request->input('search'));
+            $posts = Post::getPosts(4, $request->input('search'));
         } else {
-            $posts = Post::getPosts(0, 4);
+            $posts = Post::getPosts(4);
         }
         return view('admin.post.index')->with(compact('posts'));
     }
@@ -191,6 +191,13 @@ class PostController extends Controller
         if ($post) {
             $post->approve = 1;
             $post->save();
+            if ($post->author_id != Auth::user()->id) {
+                $notification = new Notification();
+                $notification->from = Auth::user()->id;
+                $notification->to = $post->author_id;
+                $notification->type = 5;
+                $notification->save();
+            }
         }
         return redirect()->route('admin_posts');
     }
@@ -207,6 +214,13 @@ class PostController extends Controller
         if ($post) {
             $post->approve = 0;
             $post->save();
+            if ($post->author_id != Auth::user()->id) {
+                $notification = new Notification();
+                $notification->from = Auth::user()->id;
+                $notification->to = $post->author_id;
+                $notification->type = 6;
+                $notification->save();
+            }
         }
         return redirect()->route('admin_posts');
     }

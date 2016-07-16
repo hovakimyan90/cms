@@ -37,9 +37,12 @@ Route::group(['middleware' => 'site_auth'], function () {
     Route::post('/post/create', 'Site\PostController@create');
     Route::get('/post/edit/{id}', 'Site\PostController@edit');
     Route::post('/post/edit/{id}', 'Site\PostController@edit');
-    Route::get('/post/delete/{id}', 'Admin\PostController@delete');
-    Route::post('/post/delete', 'Admin\PostController@delete');
+    Route::get('/post/delete/{id}', 'Site\PostController@delete');
+    Route::post('/post/delete', 'Site\PostController@delete');
     Route::get('/post/export', 'Site\PostController@export');
+    Route::get('/notifications', 'Site\NotificationController@index');
+    Route::get('/notifications/count', 'Site\NotificationController@count');
+    Route::get('/notifications/seen', 'Site\NotificationController@seen');
 });
 Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/dashboard', 'Admin\DashboardController@index');

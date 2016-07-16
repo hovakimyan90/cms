@@ -11,3 +11,6 @@ var post_checkbox = posts_table_td.find("input[type='checkbox']");
 var post_form = body.find('.post_form');
 var post_tags_input = post_form.find('select.tags');
 var posts = [];
+var notification_tab = body.find('li.notifications');
+var notifications_count = notification_tab.find('span.count');
+var notifications_list = notification_tab.find('ul.notifications_list');

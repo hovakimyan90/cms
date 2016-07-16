@@ -748,7 +748,8 @@
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="/assets/admin/images/thumb-1@2x.png" alt="" class="img-circle" width="44"/>
-                            John Henderson
+                            {{Auth::user()->first_name}}
+                            {{Auth::user()->last_name}}
                         </a>
 
                         <ul class="dropdown-menu">

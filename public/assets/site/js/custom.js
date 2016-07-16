@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    getNotificationsCount();
+    setInterval(function () {
+        getNotificationsCount();
+    }, 10000);
     /**
      * Check selected items
      */
@@ -100,5 +104,11 @@ $(document).ready(function () {
             '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
             '//www.tinymce.com/css/codepen.min.css'
         ]
+    });
+
+    notification_tab.click(function () {
+        if (!$(this).hasClass('open')) {
+            getNotifications();
+        }
     });
 });
