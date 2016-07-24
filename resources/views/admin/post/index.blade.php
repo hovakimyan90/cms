@@ -37,6 +37,7 @@
                 <th>Tags</th>
                 <th>Category</th>
                 <th>Author</th>
+                <th>Visits</th>
                 <th>Publish</th>
                 <th>Actions</th>
             </tr>
@@ -66,6 +67,7 @@
                     <td>@if(empty($post['category_id']))
                             None @else {{$post->category->name}}@endif</td>
                     <td>{{$post->author->first_name}} {{$post->author->last_name}}</td>
+                    <td>{{$post->visits()->count()}}</td>
                     <td>@if($post['publish']==1) Published  @else Unpublished @endif</td>
                     <td><a href="/{{config('app.admin_route_name')}}/post/edit/{{$post['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>

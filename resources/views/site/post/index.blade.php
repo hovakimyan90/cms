@@ -1,5 +1,8 @@
 @extends('site.layout')
 @section('content')
+    <a href="/post/create" class="btn btn-primary">
+        <i class="fa fa-plus"></i> Create new post
+    </a>
     @if(!$posts->total())
         <p>No Posts</p>
     @else
@@ -31,6 +34,7 @@
                 <th>Image</th>
                 <th>Tags</th>
                 <th>Category</th>
+                <th>Views</th>
                 <th>Status</th>
                 <th>Publish</th>
                 <th>Actions</th>
@@ -60,6 +64,7 @@
                     </td>
                     <td>@if(empty($post['category_id']))
                             None @else {{$post->category->name}}@endif</td>
+                    <td>{{$post->visits()->count()}}</td>
                     <td>
                         @if($post['approve']==1)
                             Approved
@@ -68,7 +73,7 @@
                         @endif
                     </td>
                     <td>@if($post['publish']==1) Published  @else Unpublished @endif</td>
-                    <td><a href="/{{config('app.admin_route_name')}}/post/edit/{{$post['id']}}"
+                    <td><a href="/post/edit/{{$post['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                         <button class="btn btn-danger delete" data-id="{{$post['id']}}"><i
                                     class="glyphicon glyphicon-trash"></i> Delete

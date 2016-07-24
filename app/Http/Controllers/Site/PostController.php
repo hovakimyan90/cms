@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class PostController extends Controller
 {
     /**
@@ -198,7 +199,7 @@ class PostController extends Controller
      */
     public function export()
     {
-        $data = array(array('Name', 'Alias', 'Tags', 'Category', 'Status', 'Publish'));
+        $data = array(array('Name', 'Alias', 'Tags', 'Category', 'Status', 'Views', 'Publish'));
         $posts = Post::getPosts(0, '', Auth::user()->id);
         foreach ($posts as $post) {
             $post_array = array();
@@ -227,6 +228,8 @@ class PostController extends Controller
                 $status = 'Not approved';
             }
             array_push($post_array, $status);
+            $visits = $post->visits()->count();
+            array_push($post_array, $visits);
             if (empty($post['publish'])) {
                 $publish = 'Unpublished';
             } else {

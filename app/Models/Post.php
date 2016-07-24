@@ -16,7 +16,7 @@ class Post extends Model
      */
     public static function getPostById($id)
     {
-        $post = Post::find($id);
+        $post = self::find($id);
         return $post;
     }
 
@@ -32,15 +32,15 @@ class Post extends Model
     {
         if ($length > 0) {
             if ($author_id > 0) {
-                $posts = Post::orderBy("id", "desc")->where("title", "like", "%" . $search . "%")->whereAuthor_id($author_id)->paginate($length);
+                $posts = self::orderBy("id", "desc")->where("title", "like", "%" . $search . "%")->whereAuthor_id($author_id)->paginate($length);
             } else {
-                $posts = Post::orderBy("id", "desc")->where("title", "like", "%" . $search . "%")->paginate($length);
+                $posts = self::orderBy("id", "desc")->where("title", "like", "%" . $search . "%")->paginate($length);
             }
         } else {
             if ($author_id > 0) {
-                $posts = Post::orderBy("id", "desc")->whereAuthor_id($author_id)->get();
+                $posts = self::orderBy("id", "desc")->whereAuthor_id($author_id)->get();
             } else {
-                $posts = Post::orderBy("id", "desc")->get();
+                $posts = self::orderBy("id", "desc")->get();
             }
         }
         return $posts;
@@ -54,8 +54,20 @@ class Post extends Model
      */
     public static function getPostsByStatus($approve = 1)
     {
-        $posts = Post::orderBy("id", "desc")->whereApprove($approve)->get();
+        $posts = self::orderBy("id", "desc")->whereApprove($approve)->get();
         return $posts;
+    }
+
+    /**
+     * Get post by alias
+     *
+     * @param $alias
+     * @return mixed
+     */
+    public static function getPostByAlias($alias)
+    {
+        $post = self::whereAlias($alias)->wherePublish(1)->first();
+        return $post;
     }
 
     /**
@@ -86,5 +98,15 @@ class Post extends Model
     public function author()
     {
         return $this->hasOne('App\Models\User', 'id', 'author_id');
+    }
+
+    /**
+     * Create relationship for post visits
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function visits()
+    {
+        return $this->belongsTo('App\Models\PostVisit', 'id', 'post_id');
     }
 }

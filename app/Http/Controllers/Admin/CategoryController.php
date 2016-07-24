@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -50,11 +49,11 @@ class CategoryController extends Controller
                 $category->alias = $request->input('alias');
                 $category->meta_keys = $request->input('meta_keys');
                 $category->meta_desc = $request->input('meta_desc');
-                if ($request->has('parent_id')) {
-                    $category->parent_id = $request->input('parent_id');
+                if ($request->has('parent')) {
+                    $category->parent_id = $request->input('parent');
                     $category->type = 'sub';
                 } else {
-                    $category->type = 'parent_id';
+                    $category->type = 'parent';
                 }
                 $category->publish = $request->has('publish');
                 $category->save();
@@ -62,7 +61,6 @@ class CategoryController extends Controller
             }
         } else {
             $categories = Category::getParentCategories();
-//            print_r($categories);exit;
             return view('admin.category.create')->with(compact('categories'));
         }
     }
@@ -91,11 +89,11 @@ class CategoryController extends Controller
                 $category->alias = $request->input('alias');
                 $category->meta_keys = $request->input('meta_keys');
                 $category->meta_desc = $request->input('meta_desc');
-                if ($request->has('parent_id')) {
-                    $category->parent_id = $request->input('parent_id');
+                if ($request->has('parent')) {
+                    $category->parent_id = $request->input('parent');
                     $category->type = 'sub';
                 } else {
-                    $category->type = 'parent_id';
+                    $category->type = 'parent';
                 }
                 $category->publish = $request->has('publish');
                 $category->save();
@@ -142,7 +140,7 @@ class CategoryController extends Controller
      */
     public function export()
     {
-        $data = array(array('Name', 'Alias', 'Meta keywords', 'Meta description', 'Parent', 'Publish', 'Posts Count', 'Type'));
+        $data = array(array('Name', 'Alias', 'Meta keywords', 'Meta description', 'Parent', 'Publish', 'Posts Count', 'Views', 'Type'));
         $categories = Category::getCategories();
         foreach ($categories as $category) {
             $category_array = array();
@@ -162,7 +160,7 @@ class CategoryController extends Controller
                 $meta_desc = $category['meta_desc'];
             }
             array_push($category_array, $meta_desc);
-            if ($category['parent_id'] == 0) {
+            if ($category['type'] == 'parent') {
                 $parent = 'None';
             } else {
                 $parent = Category::getCategoryById($category['parent_id'])['name'];
@@ -176,7 +174,9 @@ class CategoryController extends Controller
             array_push($category_array, $publish);
             $posts_count = (string)$category->posts()->count();
             array_push($category_array, $posts_count);
-            if ($category['type'] == 'parent_id') {
+            $views = (string)$category->visits()->count();
+            array_push($category_array, $views);
+            if ($category['type'] == 'parent') {
                 $type = 'Parent';
             } else {
                 $type = 'Sub category';

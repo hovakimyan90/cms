@@ -16,7 +16,7 @@ class Category extends Model
      */
     public static function getCategoryById($id)
     {
-        $category = Category::find($id);
+        $category = self::find($id);
         return $category;
     }
 
@@ -30,9 +30,9 @@ class Category extends Model
     public static function getCategories($length = 0, $search = "")
     {
         if ($length > 0) {
-            $categories = Category::orderBy("id", "desc")->where("name", "like", "%" . $search . "%")->paginate($length);
+            $categories = self::orderBy("id", "desc")->where("name", "like", "%" . $search . "%")->paginate($length);
         } else {
-            $categories = Category::orderBy("id", "desc")->get();
+            $categories = self::orderBy("id", "desc")->get();
         }
         return $categories;
     }
@@ -46,23 +46,69 @@ class Category extends Model
     public static function getParentCategories($id = 0)
     {
         if ($id > 0) {
-            $categories = Category::whereType("parent_id")->where("id", "!=", $id)->get();
+            $categories = self::whereType("parent")->where("id", "!=", $id)->get();
         } else {
-            $categories = Category::whereType("parent_id")->get();
+            $categories = self::whereType("parent")->get();
         }
         return $categories;
     }
 
     /**
-     * Get categories by publish
+     * Get categories by publish and sub
      *
      * @param int $publish
+     * @param bool $sub
      * @return mixed
      */
-    public static function getCategoriesByPublish($publish = 1)
+    public static function getCategoriesByPublish($publish = 1, $sub = true)
     {
-        $categories = self::where('publish', $publish)->get();
+        if ($sub) {
+            $categories = self::wherePublish($publish)->get();
+        } else {
+            $categories = self::wherePublish($publish)->whereType('parent')->get();
+        }
         return $categories;
+    }
+
+    /**
+     * Get subcategories by parent id
+     *
+     * @param $parent_id
+     * @return mixed
+     */
+    public static function getSubcategoriesByParentId($parent_id)
+    {
+        $categories = self::whereParent_id($parent_id)->wherePublish(1)->get();
+        return $categories;
+    }
+
+    /**
+     * Get category by alias
+     *
+     * @param $alias
+     * @return mixed
+     */
+    public static function getCategoryByAlias($alias)
+    {
+        $category = self::whereAlias($alias)->wherePublish(1)->first();
+        return $category;
+    }
+
+    /**
+     * Get category approved posts by category id
+     *
+     * @param $category_id
+     * @param int $length
+     * @return mixed
+     */
+    public static function getCategoryApprovedPosts($category_id, $length = 0, $search = "")
+    {
+        if ($length > 0) {
+            $posts = self::find($category_id)->posts()->whereApprove(1)->wherePublish(1)->where("title", "like", "%" . $search . "%")->paginate($length);
+        } else {
+            $posts = self::find($category_id)->posts()->whereApprove(1)->wherePublish(1)->get();
+        }
+        return $posts;
     }
 
     /**
@@ -70,7 +116,18 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function posts() {
-        return $this->belongsTo('App\Models\Post', "id","category_id");
+    public function posts()
+    {
+        return $this->belongsTo('App\Models\Post', "id", "category_id");
+    }
+
+    /**
+     * Create relationship for category visits
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function visits()
+    {
+        return $this->belongsTo('App\Models\CategoryVisit', "id", "category_id");
     }
 }

@@ -36,6 +36,7 @@
                 <th>Parent</th>
                 <th>Publish</th>
                 <th>Posts Count</th>
+                <th>Views</th>
                 <th>Type</th>
                 <th>Actions</th>
             </tr>
@@ -46,11 +47,12 @@
                     <td><input type="checkbox" data-id="{{$category['id']}}" class="item"></td>
                     <td>{{$category['name']}}</td>
                     <td>{{$category['alias']}}</td>
-                    <td>@if($category['parent_id']==0)
+                    <td>@if($category['type']=='parent')
                             None @else {{\App\Models\Category::getCategoryById($category['parent_id'])['name']}} @endif</td>
                     <td>@if($category['publish']==1) Published  @else Unpublished @endif</td>
                     <td>{{$category->posts()->count()}}</td>
-                    <td>@if($category['type']=='parent_id') Parent  @else Sub category @endif</td>
+                    <td>{{$category->visits()->count()}}</td>
+                    <td>@if($category['type']=='parent') Parent  @else Sub category @endif</td>
                     <td><a href="/{{config('app.admin_route_name')}}/category/edit/{{$category['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                         <button class="btn btn-danger delete" data-id="{{$category['id']}}"><i

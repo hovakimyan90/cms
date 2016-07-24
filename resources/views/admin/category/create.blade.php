@@ -58,15 +58,15 @@
                         </div>
                         @if(!$categories->isEmpty())
                             <div class="form-group">
-                                <label for="category_parent_id" class="col-sm-3 control-label">Select parent
+                                <label for="category_parent" class="col-sm-3 control-label">Select parent
                                     category</label>
 
                                 <div class="col-sm-5">
-                                    <select name="parent_id" id="category_parent_id" class="form-control">
+                                    <select name="parent" id="category_parent" class="form-control">
                                         <option value="">Select parent</option>
                                         @foreach($categories as $category)
                                             <option value="{{$category['id']}}"
-                                                    @if(old('parent_id')==$category['id']) selected @endif>
+                                                    @if(old('parent')==$category['id']) selected @endif>
                                                 {{$category['name']}}</option>
                                         @endforeach
                                     </select>

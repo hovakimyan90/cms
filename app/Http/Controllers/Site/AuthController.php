@@ -178,20 +178,25 @@ class AuthController extends Controller
                 $user = User::getUserById(Auth::user()->id);
                 $user->online = 1;
                 $user->save();
-                return redirect('/sd');
+                return redirect()->route('posts');
             } else {
                 $request->session()->flash('error', 'error');
                 return redirect()->back()->withInput($request->except('pass'));
             }
         } else {
             if (Auth::check() && Auth::user()->role_id == 2) {
-                return redirect('profile');
+                return redirect()->route('posts');
             } else {
                 return view('site.auth.login', compact('title'));
             }
         }
     }
 
+    /**
+     * User logout
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout()
     {
         $user = User::getUserById(Auth::user()->id);

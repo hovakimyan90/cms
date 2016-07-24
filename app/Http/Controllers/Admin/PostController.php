@@ -230,7 +230,7 @@ class PostController extends Controller
      */
     public function export()
     {
-        $data = array(array('Name', 'Alias', 'Tags', 'Category', 'Author', 'Publish'));
+        $data = array(array('Name', 'Alias', 'Tags', 'Category', 'Author', 'Visits', 'Publish'));
         $posts = Post::getPosts();
         foreach ($posts as $post) {
             $post_array = array();
@@ -255,6 +255,8 @@ class PostController extends Controller
             array_push($post_array, $category);
             $author = $post->author->first_name . ' ' . $post->author->last_name;
             array_push($post_array, $author);
+            $visits = (string)$post->visits()->count();
+            array_push($post_array, $visits);
             if (empty($post['publish'])) {
                 $publish = 'Unpublished';
             } else {
@@ -275,6 +277,7 @@ class PostController extends Controller
                 });
             });
 
-        })->export('xls');
+        })->
+        export('xls');
     }
 }

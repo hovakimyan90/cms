@@ -16,7 +16,7 @@ class Tag extends Model
      */
     public static function getTagById($id)
     {
-        $tag = Tag::find($id);
+        $tag = self::find($id);
         return $tag;
     }
 
@@ -30,9 +30,9 @@ class Tag extends Model
     public static function getTags($length = 0, $search = "")
     {
         if ($length > 0) {
-            $tags = Tag::orderBy("id", "desc")->where("name", "like", "%" . $search . "%")->paginate($length);
+            $tags = self::orderBy("id", "desc")->where("name", "like", "%" . $search . "%")->paginate($length);
         } else {
-            $tags = Tag::orderBy("id", "desc")->get();
+            $tags = self::orderBy("id", "desc")->get();
         }
         return $tags;
     }

@@ -1,8 +1,23 @@
 $(document).ready(function () {
-    getNotificationsCount();
-    setInterval(function () {
+    if (notification_tab.length >= 1) {
         getNotificationsCount();
-    }, 5000);
+        setInterval(function () {
+            getNotificationsCount();
+        }, 5000);
+    }
+    // getVisits();
+    var visits = "";
+    $.ajax({
+        url: admin_path + "/visits",
+        dataType: 'json',
+        async: false,
+        success: function (data) {
+            visits = data;
+            Object.keys(visits).map(function (key) {
+                console.log(visits[key]);
+            });
+        }
+    });
     /**
      * Check selected items
      */

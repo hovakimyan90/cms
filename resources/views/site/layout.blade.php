@@ -6,7 +6,26 @@
     @else
         <link rel="icon" type="img/ico" href="/assets/admin/images/default_favicon.png">
     @endif
-
+    @if(isset($category) && $category->meta_desc)
+        <meta name="description" content="{{$category->meta_desc}}">
+    @else
+        <meta name="description" content="GH CMS">
+    @endif
+    @if(isset($category) && $category->meta_keys)
+        <meta name="keywords" content="{{$category->meta_keys}}">
+    @else
+        <meta name="keywords" content="GH CMS">
+    @endif
+    @if(isset($post) && $post->meta_desc)
+        <meta name="description" content="{{$post->meta_desc}}">
+    @else
+        <meta name="description" content="GH CMS">
+    @endif
+    @if(isset($post) && $post->meta_keys)
+        <meta name="keywords" content="{{$post->meta_keys}}">
+    @else
+        <meta name="keywords" content="GH CMS">
+    @endif
     <link rel="stylesheet" href="/assets/site/css/chosen.min.css">
     <link rel="stylesheet" href="/assets/site/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/site/css/custom.css">
@@ -40,17 +59,35 @@
         <ul class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown notifications">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Notifications (<span class="count"></span>)</a>
-                    <ul class="dropdown-menu notifications_list">
+                @if(Auth::user() && Auth::user()->role_id==2)
+                    <li class="dropdown notifications">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Notifications (<span class="count"></span>)</a>
+                        <ul class="dropdown-menu notifications_list">
 
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
+                    <li><a href="/logout">Log out</a></li>
+                @endif
+                @foreach(App\Models\Category::getCategoriesByPublish(1,0) as $category)
+                    @if(!\App\Models\Category::getSubcategoriesByParentId($category['id'])->isEmpty())
+                        <li class="dropdown">
+                            <a href="/category/{{$category['alias']}}" class="dropdown-toggle"
+                               data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">{{$category['name']}}</a>
+                            <ul class="dropdown-menu">
+                                @foreach(\App\Models\Category::getSubcategoriesByParentId($category['id']) as $subcategory)
+                                    <li><a href="/category/{{$subcategory['alias']}}">{{$subcategory['name']}}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        <li><a href="/category/{{$category['alias']}}">{{$category['name']}}</a></li>
+                    @endif
+                @endforeach
             </ul>
-        </div>
+    </div>
     </div>
 </nav>
 @yield('content')

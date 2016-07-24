@@ -1,8 +1,10 @@
 $(document).ready(function () {
-    getNotificationsCount();
-    setInterval(function () {
+    if (notification_tab.length >= 1) {
         getNotificationsCount();
-    }, 10000);
+        setInterval(function () {
+            getNotificationsCount();
+        }, 10000);
+    }
     /**
      * Check selected items
      */

@@ -747,7 +747,11 @@
                         <!-- add class "pull-right" if you want to place this from right -->
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/assets/admin/images/thumb-1@2x.png" alt="" class="img-circle" width="44"/>
+                            @if(!empty(Auth::user()->image))
+                                <img src="/uploads/{{Auth::user()->image}}" alt="" class="img-circle" width="44"/>
+                            @else
+                                <img src="/assets/admin/images/thumb-1@2x.png" alt="" class="img-circle" width="44"/>
+                            @endif
                             {{Auth::user()->first_name}}
                             {{Auth::user()->last_name}}
                         </a>

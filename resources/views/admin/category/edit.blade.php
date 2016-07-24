@@ -61,10 +61,10 @@
                         </div>
                         @if(!$categories->isEmpty())
                             <div class="form-group">
-                                <label for="parent_id" class="col-sm-3 control-label">Select parent category</label>
+                                <label for="parent" class="col-sm-3 control-label">Select parent category</label>
 
                                 <div class="col-sm-5">
-                                    <select name="parent_id" id="parent_id" class="form-control">
+                                    <select name="parent" id="parent" class="form-control">
                                         <option value="">Select parent</option>
                                         @foreach($categories as $cat)
                                             <option value="{{$cat['id']}}"
