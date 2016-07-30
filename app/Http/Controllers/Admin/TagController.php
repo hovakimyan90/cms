@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,12 +10,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class TagController extends Controller
 {
-
     /**
      * Show all tags
      *
      * @param Request $request
-     * @return mixed
+     * @return $this
      */
     public function index(Request $request)
     {
@@ -32,7 +30,7 @@ class TagController extends Controller
      * Create tag
      *
      * @param Request $request
-     * @return mixed
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -59,7 +57,7 @@ class TagController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function edit(Request $request, $id = 0)
     {
@@ -90,7 +88,7 @@ class TagController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function delete(Request $request, $id = 0)
     {

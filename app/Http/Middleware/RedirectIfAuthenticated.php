@@ -15,10 +15,10 @@ class RedirectIfAuthenticated
     protected $auth;
 
     /**
-     * Create a new filter instance.
+     * Create a new filter instance
      *
-     * @param  Guard  $auth
-     * @return void
+     * RedirectIfAuthenticated constructor.
+     * @param Guard $auth
      */
     public function __construct(Guard $auth)
     {
@@ -26,11 +26,11 @@ class RedirectIfAuthenticated
     }
 
     /**
-     * Handle an incoming request.
+     * Handle and incoming request
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @param $request
+     * @param Closure $next
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function handle($request, Closure $next)
     {

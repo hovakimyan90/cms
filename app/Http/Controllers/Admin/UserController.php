@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +18,7 @@ class UserController extends Controller
      * Show all users
      *
      * @param Request $request
-     * @return mixed
+     * @return $this
      */
     public function index(Request $request)
     {
@@ -32,10 +31,10 @@ class UserController extends Controller
     }
 
     /**
-     * Create new user
+     * Create user
      *
      * @param Request $request
-     * @return mixed
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -94,7 +93,7 @@ class UserController extends Controller
     }
 
     /**
-     * Edit users
+     * Edit user
      *
      * @param Request $request
      * @param $id
@@ -176,7 +175,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function delete(Request $request, $id = 0)
     {
@@ -197,7 +196,7 @@ class UserController extends Controller
     }
 
     /**
-     * Export users
+     * Export user
      */
     public function export()
     {

@@ -23,7 +23,7 @@ class PostController extends Controller
      * Show all posts
      *
      * @param Request $request
-     * @return mixed
+     * @return $this
      */
     public function index(Request $request)
     {

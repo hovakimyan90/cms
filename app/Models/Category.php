@@ -95,7 +95,7 @@ class Category extends Model
     }
 
     /**
-     * Get category approved posts
+     * Search and get category posts
      *
      * @param $category_id
      * @param int $length

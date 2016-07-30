@@ -16,10 +16,10 @@ class SiteAuthenticate
     protected $auth;
 
     /**
-     * Create a new filter instance.
+     * Create a new filter
      *
-     * @param  Guard $auth
-     * @return void
+     * SiteAuthenticate constructor.
+     * @param Guard $auth
      */
     public function __construct(Guard $auth)
     {
@@ -27,11 +27,11 @@ class SiteAuthenticate
     }
 
     /**
-     * Handle an incoming request.
+     * Handle and incoming request
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
-     * @return mixed
+     * @param $request
+     * @param Closure $next
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function handle($request, Closure $next)
     {

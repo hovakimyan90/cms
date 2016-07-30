@@ -16,10 +16,10 @@ class AdminAuthenticate
     protected $auth;
 
     /**
-     * Create a new filter instance.
+     * Create a new filter instance
      *
-     * @param  Guard $auth
-     * @return void
+     * AdminAuthenticate constructor.
+     * @param Guard $auth
      */
     public function __construct(Guard $auth)
     {
@@ -27,11 +27,11 @@ class AdminAuthenticate
     }
 
     /**
-     * Handle an incoming request.
+     * Handle an incoming request
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
-     * @return mixed
+     * @param $request
+     * @param Closure $next
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Symfony\Component\HttpFoundation\Response
      */
     public function handle($request, Closure $next)
     {

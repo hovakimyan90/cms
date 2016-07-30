@@ -21,7 +21,7 @@ class PostController extends Controller
      * Show all posts
      *
      * @param Request $request
-     * @return mixed
+     * @return $this
      */
     public function index(Request $request)
     {
@@ -37,7 +37,7 @@ class PostController extends Controller
      * Create post
      *
      * @param Request $request
-     * @return mixed
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -96,7 +96,7 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function edit(Request $request, $id = 0)
     {
@@ -159,7 +159,7 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function delete(Request $request, $id = 0)
     {

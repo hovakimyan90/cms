@@ -14,7 +14,7 @@ class CategoryController extends Controller
      * Show all categories
      *
      * @param Request $request
-     * @return mixed
+     * @return $this
      */
     public function index(Request $request)
     {
@@ -30,7 +30,7 @@ class CategoryController extends Controller
      * Create category
      *
      * @param Request $request
-     * @return mixed
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
     public function create(Request $request)
     {
@@ -70,7 +70,7 @@ class CategoryController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $id = 0)
     {
@@ -115,7 +115,7 @@ class CategoryController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function delete(Request $request, $id = 0)
     {

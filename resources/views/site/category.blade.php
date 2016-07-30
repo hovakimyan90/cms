@@ -4,6 +4,7 @@
         <p>No Posts</p>
     @else
         <form method="post">
+            {!! csrf_field() !!}
             <input type="text" placeholder="Search" name="search">
             <input type="submit" value="Search">
         </form>

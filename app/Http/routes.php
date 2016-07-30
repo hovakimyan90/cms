@@ -18,7 +18,6 @@ Route::post('/' . config('app.admin_route_name'), 'Admin\AuthController@login');
 Route::get('/' . config('app.admin_route_name') . '/logout', 'Admin\AuthController@logout');
 Route::group(['middleware' => 'visit'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'Site\HomeController@index']);
-
     Route::get('/register', 'Site\AuthController@register');
     Route::post('/register', 'Site\AuthController@register');
     Route::get('/user/activation/{token}', 'Site\AuthController@activation');
