@@ -34,9 +34,9 @@ class User extends Model implements AuthenticatableContract,
     /**
      * Search and get users
      *
-     * @param int $role_id
      * @param int $length
      * @param string $search
+     * @param int $role_id
      * @return mixed
      */
     public static function getUsers($length = 0, $search = "", $role_id = 2)
@@ -52,7 +52,7 @@ class User extends Model implements AuthenticatableContract,
     /**
      * Get user by verification token
      *
-     * @param string $token
+     * @param $token
      * @return mixed
      */
     public static function getUserByVerifyToken($token)

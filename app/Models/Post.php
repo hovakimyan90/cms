@@ -47,7 +47,7 @@ class Post extends Model
     }
 
     /**
-     * Get post by status
+     * Get posts by status
      *
      * @param int $approve
      * @return mixed
@@ -71,7 +71,7 @@ class Post extends Model
     }
 
     /**
-     * Create relationship for post tags
+     * Create relationship for tags
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -81,7 +81,7 @@ class Post extends Model
     }
 
     /**
-     * Create relationship for post category
+     * Create relationship for category
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -91,7 +91,7 @@ class Post extends Model
     }
 
     /**
-     * Create relationship for post author
+     * Create relationship for author
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

@@ -21,7 +21,7 @@ class Notification extends Model
     }
 
     /**
-     * Get notification by seen
+     * Get notifications by seen
      *
      * @param int $seen
      * @return mixed
@@ -45,7 +45,7 @@ class Notification extends Model
     }
 
     /**
-     * Get notification by reader id
+     * Get notifications by reader id
      *
      * @param $user_id
      * @return mixed

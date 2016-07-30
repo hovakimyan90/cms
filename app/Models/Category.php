@@ -9,7 +9,7 @@ class Category extends Model
     protected $table = "categories";
 
     /**
-     * Get category by id
+     * Get categories by id
      *
      * @param $id
      * @return mixed
@@ -54,7 +54,7 @@ class Category extends Model
     }
 
     /**
-     * Get categories by publish and sub
+     * Get category by publish
      *
      * @param int $publish
      * @param bool $sub
@@ -95,10 +95,11 @@ class Category extends Model
     }
 
     /**
-     * Get category approved posts by category id
+     * Get category approved posts
      *
      * @param $category_id
      * @param int $length
+     * @param string $search
      * @return mixed
      */
     public static function getCategoryApprovedPosts($category_id, $length = 0, $search = "")
