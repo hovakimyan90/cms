@@ -16,15 +16,22 @@
     @else
         <meta name="keywords" content="GH CMS">
     @endif
-    @if(isset($post) && $post->meta_desc)
-        <meta name="description" content="{{$post->meta_desc}}">
+    @if(isset($meta_desc) && !empty($meta_desc))
+        <meta name="description" content="{{$meta_desc}}">
+        <meta name="og:description" content="{{$meta_desc}}">
     @else
-        <meta name="description" content="GH CMS">
+        <meta name="description" content="CMS">
+        <meta name="og:description" content="CMS">
     @endif
-    @if(isset($post) && $post->meta_keys)
-        <meta name="keywords" content="{{$post->meta_keys}}">
+    @if(isset($meta_keys) && !empty($meta_keys))
+        <meta name="keywords" content="{{$meta_keys}}">
     @else
-        <meta name="keywords" content="GH CMS">
+        <meta name="keywords" content="CMS">
+    @endif
+    @if(isset($meta_image) && !empty($meta_image))
+        <meta name="og:image" content="{{config('app.url')}}/uploads/{{$meta_image}}">
+    @else
+        <meta name="og:image" content="{{config('app.url')}}/assets/site/images/320x160.png">
     @endif
     <link rel="stylesheet" href="/assets/site/css/chosen.min.css">
     <link rel="stylesheet" href="/assets/site/css/bootstrap.min.css">

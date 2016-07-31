@@ -68,7 +68,9 @@ class PostController extends Controller
                     $new_file = "uploads/" . $generated_string . '.' . $extension;
                     File::move($request->file("image"), $new_file);
                     $img = Image::make($new_file);
-                    $img->save("uploads/" . $generated_string . $img->crop(200, 200) . $extension);
+                    $img->save("uploads/fb-" . $generated_string . $img->crop(600, 315) . '.' . $extension);
+                    $img = Image::make($new_file);
+                    $img->save("uploads/" . $generated_string . $img->crop(200, 200) . '.' . $extension);
                     $post->image = $generated_string . '.' . $extension;
                 }
                 if ($request->has("category")) {
@@ -136,11 +138,13 @@ class PostController extends Controller
                     $post->meta_keys = $request->input("meta_keys");
                     $post->meta_desc = $request->input("meta_desc");
                     if (!empty($request->file("image"))) {
-                        File::delete("/uploads/" . $post->image);
+                        File::delete('uploads/' . $post->image, 'uploads/gb-' . $post->image);
                         $generated_string = str_random(12);
                         $extension = $request->file("image")->getClientOriginalExtension();
                         $new_file = "uploads/" . $generated_string . "." . $extension;
                         File::move($request->file("image"), $new_file);
+                        $img = Image::make($new_file);
+                        $img->save("uploads/fb-" . $generated_string . $img->crop(600, 315) . '.' . $extension);
                         $img = Image::make($new_file);
                         $img->save("uploads/" . $generated_string . $img->crop(200, 200) . "." . $extension);
                         $post->image = $generated_string . "." . $extension;
