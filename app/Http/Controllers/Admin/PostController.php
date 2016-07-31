@@ -276,7 +276,7 @@ class PostController extends Controller
 
                 $sheet->fromArray($data, null, 'A1', false, false);
 
-                $sheet->cells('A1:F1', function ($cells) {
+                $sheet->cells('A1:G1', function ($cells) {
                     $cells->setFontWeight('bold');
                 });
             });

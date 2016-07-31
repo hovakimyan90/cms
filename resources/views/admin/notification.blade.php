@@ -11,7 +11,7 @@
                         <strong>New user registered</strong>
                     @endif
                     @if($notification->type==3)
-                        <strong>{{$notification->reader->email}}
+                        <strong>{{$notification->sender->email}}
                             write a new post and want that you approve post</strong>
                     @endif
                 </span>
