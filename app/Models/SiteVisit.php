@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 class SiteVisit extends Model
 {
@@ -16,7 +15,7 @@ class SiteVisit extends Model
      */
     public static function getVisits()
     {
-        $visits = self::select(DB::raw('Date(created_at) as date'), DB::raw('COUNT(*) as "views"'))
+        $visits = self::selectRaw('Date(created_at) as date,COUNT(*) as "views"')
             ->groupBy('date')
             ->orderBy('date', 'DESC')
             ->get();
