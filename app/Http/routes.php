@@ -49,9 +49,8 @@ Route::group(['middleware' => 'visit'], function () {
     });
 });
 Route::group(['middleware' => 'admin_auth'], function () {
-    Route::get('/' . config('app.admin_route_name') . '/dashboard', 'Admin\DashboardController@index');
+    Route::get('/' . config('app.admin_route_name') . '/dashboard', ['as' => 'dashboard', 'uses' => 'Admin\DashboardController@index']);
     Route::get('/' . config('app.admin_route_name') . '/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);
-    Route::post('/' . config('app.admin_route_name') . '/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);
     Route::get('/' . config('app.admin_route_name') . '/category/create', 'Admin\CategoryController@create');
     Route::post('/' . config('app.admin_route_name') . '/category/create', 'Admin\CategoryController@create');
     Route::get('/' . config('app.admin_route_name') . '/category/edit/{id}', 'Admin\CategoryController@edit');
@@ -60,7 +59,6 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::post('/' . config('app.admin_route_name') . '/category/delete', 'Admin\CategoryController@delete');
     Route::get('/' . config('app.admin_route_name') . '/category/export', 'Admin\CategoryController@export');
     Route::get('/' . config('app.admin_route_name') . '/tags', ['as' => 'tags', 'uses' => 'Admin\TagController@index']);
-    Route::post('/' . config('app.admin_route_name') . '/tags', ['as' => 'tags', 'uses' => 'Admin\TagController@index']);
     Route::get('/' . config('app.admin_route_name') . '/tag/create', 'Admin\TagController@create');
     Route::post('/' . config('app.admin_route_name') . '/tag/create', 'Admin\TagController@create');
     Route::get('/' . config('app.admin_route_name') . '/tag/edit/{id}', 'Admin\TagController@edit');
@@ -69,7 +67,6 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::post('/' . config('app.admin_route_name') . '/tag/delete', 'Admin\TagController@delete');
     Route::get('/' . config('app.admin_route_name') . '/tag/export', 'Admin\TagController@export');
     Route::get('/' . config('app.admin_route_name') . '/posts', ['as' => 'admin_posts', 'uses' => 'Admin\PostController@index']);
-    Route::post('/' . config('app.admin_route_name') . '/posts', ['as' => 'admin_posts', 'uses' => 'Admin\PostController@index']);
     Route::get('/' . config('app.admin_route_name') . '/post/create', 'Admin\PostController@create');
     Route::post('/' . config('app.admin_route_name') . '/post/create', 'Admin\PostController@create');
     Route::get('/' . config('app.admin_route_name') . '/post/edit/{id}', 'Admin\PostController@edit');
@@ -80,11 +77,12 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/post/disapprove/{id}', 'Admin\PostController@disapprove');
     Route::get('/' . config('app.admin_route_name') . '/post/export', 'Admin\PostController@export');
     Route::get('/' . config('app.admin_route_name') . '/users', ['as' => 'users', 'uses' => 'Admin\UserController@index']);
-    Route::post('/' . config('app.admin_route_name') . '/users', ['as' => 'users', 'uses' => 'Admin\UserController@index']);
     Route::get('/' . config('app.admin_route_name') . '/user/create', 'Admin\UserController@create');
     Route::post('/' . config('app.admin_route_name') . '/user/create', 'Admin\UserController@create');
     Route::get('/' . config('app.admin_route_name') . '/user/edit/{id}', 'Admin\UserController@edit');
     Route::post('/' . config('app.admin_route_name') . '/user/edit/{id}', 'Admin\UserController@edit');
+    Route::get('/' . config('app.admin_route_name') . '/user/admin_edit/{id}', 'Admin\UserController@admin_edit');
+    Route::post('/' . config('app.admin_route_name') . '/user/admin_edit/{id}', 'Admin\UserController@admin_edit');
     Route::get('/' . config('app.admin_route_name') . '/user/delete/{id}', 'Admin\UserController@delete');
     Route::post('/' . config('app.admin_route_name') . '/user/delete', 'Admin\UserController@delete');
     Route::get('/' . config('app.admin_route_name') . '/user/export', 'Admin\UserController@export');

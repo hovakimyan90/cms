@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +30,7 @@ class UserController extends Controller
                 'position' => 'required',
                 'phone' => 'phone:AM',
                 'username' => 'required|unique:users,username,' . $user->id,
-                'email' => 'required|unique:users,email,' . $user->id,
+                'email' => 'required|email|unique:users,email,' . $user->id,
                 'pass' => 'min:6|max:12',
                 'pass_confirmation' => 'min:6|max:12|same:pass',
                 'image' => 'mimes:jpeg,png',
@@ -57,6 +56,7 @@ class UserController extends Controller
                 }
                 $user->username = $request->input('username');
                 $user->email = $request->input('email');
+                $user->notification = $request->has('notification');
                 if ($request->has('pass')) {
                     $user->password = Hash::make($request->input('pass'));
                 }

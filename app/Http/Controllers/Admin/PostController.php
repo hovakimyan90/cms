@@ -25,11 +25,8 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->isMethod('post')) {
-            $posts = Post::getPosts(4, $request->input('search'));
-        } else {
-            $posts = Post::getPosts(4);
-        }
+        $posts = Post::getPosts(4, $request->input('search'));
+        $request->flash();
         return view('admin.post.index')->with(compact('posts'));
     }
 

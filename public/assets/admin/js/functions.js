@@ -1,4 +1,3 @@
-var visits;
 /**
  * Delete selected categories
  *

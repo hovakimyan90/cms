@@ -18,11 +18,8 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->isMethod('post')) {
-            $categories = Category::getCategories(10, $request->input('search'));
-        } else {
-            $categories = Category::getCategories(10);
-        }
+        $categories = Category::getCategories(10, $request->input('search'));
+        $request->flash();
         return view('admin.category.index')->with(compact('categories'));
     }
 

@@ -66,14 +66,17 @@
         <ul class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                @if(Auth::user() && Auth::user()->role_id==2)
-                    <li class="dropdown notifications">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Notifications (<span class="count"></span>)</a>
-                        <ul class="dropdown-menu notifications_list">
+                @if(Auth::user())
+                    @if(Auth::user()->notification==1)
+                        <li class="dropdown notifications">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false">Notifications (<span class="count"></span>)</a>
+                            <ul class="dropdown-menu notifications_list">
 
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
+                    @endif
                     <li><a href="/logout">Log out</a></li>
                 @endif
                 @foreach(App\Models\Category::getCategoriesByPublish(1,0) as $category)

@@ -28,11 +28,8 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $title = "All Posts";
-        if ($request->isMethod('post')) {
-            $posts = Post::getPosts(4, $request->input('search'), Auth::user()->id);
-        } else {
-            $posts = Post::getPosts(4, '', Auth::user()->id);
-        }
+        $posts = Post::getPosts(4, $request->input('search'), Auth::user()->id);
+        $request->flash();
         return view('site.post.index')->with(compact('posts', 'title'));
     }
 

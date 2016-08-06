@@ -5,24 +5,23 @@
     </a>
     <br/>
     <br/>
+    <form>
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="search" placeholder="Search for something..."
+                   value="{{old('search')}}">
+
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-lg btn-primary btn-icon">
+                    Search
+                    <i class="entypo-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <br/>
     @if(!$users->total())
         <p>No Users</p>
     @else
-        <form method="post">
-            {!! csrf_field() !!}
-
-            <div class="input-group">
-                <input type="text" class="form-control input-lg" name="search" placeholder="Search for something...">
-
-                <div class="input-group-btn">
-                    <button type="submit" class="btn btn-lg btn-primary btn-icon">
-                        Search
-                        <i class="entypo-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <br/>
         <button class="btn btn-danger users_delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
         <a href="/{{config('app.admin_route_name')}}/user/export" class="btn btn-primary export_excel"><i
                     class="entypo-export"></i>

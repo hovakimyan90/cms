@@ -18,11 +18,8 @@ class TagController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->isMethod('post')) {
-            $tags = Tag::getTags(10, $request->input('search'));
-        } else {
-            $tags = Tag::getTags(10);
-        }
+        $tags = Tag::getTags(10, $request->input('search'));
+        $request->flash();
         return view('admin.tag.index')->with(compact('tags'));
     }
 

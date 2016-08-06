@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\CategoryVisit;
 use App\Models\Post;
 use App\Models\PostVisit;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -27,18 +28,16 @@ class SiteController extends Controller
             $title = $category['name'];
             $meta_desc = $category['meta_desc'];
             $meta_keys = $category['meta_keys'];
-            if ($request->isMethod('post')) {
-                $posts = Category::getCategoryApprovedPosts($category['id'], 5, $request->input('search'));
-            } else {
-                $posts = Category::getCategoryApprovedPosts($category['id'], 5);
-            }
+            $tags = Tag::getTags();
             if (!session()->get($category['id'])) {
                 $category_visit = new CategoryVisit();
                 $category_visit->category_id = $category['id'];
                 $category_visit->save();
                 session([$category['id'] => $category['id']]);
             }
-            return view('site.category', compact('category', 'title', 'posts', 'meta_desc', 'meta_keys'));
+            $posts = Category::getCategoryApprovedPosts($category['id'], 5, $request->input('search'), $request->input('tag'));
+            $request->flash();
+            return view('site.category')->with(compact('category', 'title', 'posts', 'tags', 'meta_desc', 'meta_keys'));
         }
     }
 

@@ -18,7 +18,7 @@
 
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="register_last_name"
-                       placeholder="Last name" name="last_name" value="{{$user->first_name}}">
+                       placeholder="Last name" name="last_name" value="{{$user->last_name}}">
                 <p class="error">{{$errors->first('last_name')}}</p>
             </div>
         </div>
@@ -56,6 +56,14 @@
                 <input type="text" class="form-control" id="register_email"
                        placeholder="E-mail" name="email" value="{{$user->email}}">
                 <p class="error">{{$errors->first('email')}}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="register_notification" class="col-sm-3 control-label">Notifications</label>
+
+            <div class="col-sm-5">
+                <input type="checkbox" id="register_notification"
+                       name="notification" @if($user->notification==1) checked @endif>
             </div>
         </div>
         <div class="form-group @if($errors->has('pass')) has-error @endif">

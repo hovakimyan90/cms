@@ -30,7 +30,7 @@ class AuthController extends Controller
                 'position' => 'required',
                 'phone' => 'phone:AM',
                 'username' => 'required|unique:users,username',
-                'email' => 'required|unique:users,email',
+                'email' => 'required|email|unique:users,email',
                 'pass' => 'required|min:6|max:12',
                 'pass_confirmation' => 'required|min:6|max:12|same:pass',
                 'image' => 'mimes:jpeg,png',

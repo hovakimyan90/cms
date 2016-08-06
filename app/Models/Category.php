@@ -100,12 +100,20 @@ class Category extends Model
      * @param $category_id
      * @param int $length
      * @param string $search
+     * @param int $tag
      * @return mixed
      */
-    public static function getCategoryApprovedPosts($category_id, $length = 0, $search = "")
+    public static function getCategoryApprovedPosts($category_id, $length = 0, $search = "", $tag = 0)
     {
         if ($length > 0) {
-            $posts = self::find($category_id)->posts()->whereApprove(1)->wherePublish(1)->where("title", "like", "%" . $search . "%")->paginate($length);
+            if (empty($search)) {
+                $search = "";
+            }
+            $posts = self::find($category_id)->posts()->whereApprove(1)->wherePublish(1)->where("title", "like", "%" . $search . "%")->with('tags')->orWhereHas('tags', function ($query) use ($tag) {
+                if ($tag > 0) {
+                    $query->where('tag_id', $tag);
+                }
+            })->paginate($length);
         } else {
             $posts = self::find($category_id)->posts()->whereApprove(1)->wherePublish(1)->get();
         }

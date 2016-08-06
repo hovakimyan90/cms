@@ -3,24 +3,23 @@
     <a href="/post/create" class="btn btn-primary">
         <i class="fa fa-plus"></i> Create new post
     </a>
+    <form>
+        <div class="input-group">
+            <input type="text" class="form-control input-lg" name="search" placeholder="Search for something..."
+                   value="{{old('search')}}">
+
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-lg btn-primary btn-icon">
+                    Search
+                    <i class="entypo-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <br/>
     @if(!$posts->total())
         <p>No Posts</p>
     @else
-        <form method="post">
-            {!! csrf_field() !!}
-
-            <div class="input-group">
-                <input type="text" class="form-control input-lg" name="search" placeholder="Search for something...">
-
-                <div class="input-group-btn">
-                    <button type="submit" class="btn btn-lg btn-primary btn-icon">
-                        Search
-                        <i class="entypo-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-        <br/>
         <button class="btn btn-danger posts_delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
         <a href="/post/export" class="btn btn-primary export_excel"><i
                     class="entypo-export"></i>

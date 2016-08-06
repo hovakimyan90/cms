@@ -89,6 +89,14 @@
                                 <p class="error">{{$errors->first('email')}}</p>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="user_notification" class="col-sm-3 control-label">Notifications</label>
+
+                            <div class="col-sm-5">
+                                <input type="checkbox" id="user_notification"
+                                       name="notification" @if($user->notification==1) checked @endif>
+                            </div>
+                        </div>
                         <div class="form-group @if($errors->has('pass')) has-error @endif">
                             <label for="user_pass" class="col-sm-3 control-label">Password</label>
 

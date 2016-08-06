@@ -3,7 +3,7 @@ $(document).ready(function () {
         getNotificationsCount();
         setInterval(function () {
             getNotificationsCount();
-        }, 10000);
+        }, 5000);
     }
     /**
      * Check selected items
