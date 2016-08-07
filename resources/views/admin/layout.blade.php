@@ -763,7 +763,7 @@
 
                             <!-- Profile sub-links -->
                             <li>
-                                <a href="/{{config('app.admin_route_name')}}/user/admin_edit/{{Auth::user()->id}}">
+                                <a href="/{{config('app.admin_route_name')}}/user/edit/{{Auth::user()->id}}">
                                     <i class="entypo-user"></i>
                                     Edit Profile
                                 </a>
