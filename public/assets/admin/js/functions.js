@@ -1,3 +1,4 @@
+var admin_path = '/admin';
 /**
  * Delete selected categories
  *
@@ -70,11 +71,11 @@ function getNotificationsCount() {
         url: admin_path + "/notifications/count",
         async: false,
         success: function (count) {
-            if (parseInt(notifications_count.text()) < count) {
+            if (parseInt($('li.notifications.dropdown .badge-info').text()) < count) {
                 var sound = $('#notification_sound')[0];
                 sound.play();
             }
-            notifications_count.text(count);
+            $('li.notifications.dropdown .badge-info').text(count);
         }
     });
 }
@@ -87,12 +88,12 @@ function getNotifications() {
         url: admin_path + "/notifications",
         async: false,
         success: function (notifications) {
-            notifications_list.html(notifications);
+            $('li.notifications.dropdown .dropdown-menu-list').html(notifications);
             $.ajax({
                 url: admin_path + "/notifications/seen",
                 async: false,
                 success: function () {
-                    notifications_count.text(0);
+                    $('li.notifications.dropdown .badge-info').text(0);
                 }
             });
         }

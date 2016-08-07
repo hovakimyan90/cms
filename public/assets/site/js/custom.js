@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    if (notification_tab.length >= 1) {
+    var posts;
+    if ($('li.notifications').length >= 1) {
         getNotificationsCount();
         setInterval(function () {
             getNotificationsCount();
@@ -8,13 +9,13 @@ $(document).ready(function () {
     /**
      * Check selected items
      */
-    select_all.click(function () {
+    $('input[type="checkbox"].select_all').click(function () {
         if ($(this).is(":checked")) {
-            item.each(function () {
+            $('.item').each(function () {
                 $(this).prop('checked', true);
             });
         } else {
-            item.each(function () {
+            $('.item').each(function () {
                 $(this).prop('checked', false);
                 $(this).removeProp('checked');
             });
@@ -24,9 +25,9 @@ $(document).ready(function () {
     /**
      * Delete selected posts
      */
-    posts_delete_all_button.click(function () {
+    $('.posts_delete_all').click(function () {
         posts = [];
-        post_checkbox.each(function () {
+        $('table.posts tr td input[type="checkbox"]').each(function () {
             if ($(this).is(':checked')) {
                 posts.push($(this).data('id'));
             }
@@ -56,7 +57,7 @@ $(document).ready(function () {
     /**
      * Delete post
      */
-    post_delete_button.click(function () {
+    $('table.posts .delete').click(function () {
         bootbox.dialog({
             message: "I am a custom dialog",
             title: "Conform delete?",
@@ -79,7 +80,7 @@ $(document).ready(function () {
         $('.post_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
-    post_tags_input.chosen();
+    $('.post_form select.tags').chosen();
 
     /**
      * Initialize TinyMCE editor for post editor
@@ -108,7 +109,7 @@ $(document).ready(function () {
         ]
     });
 
-    notification_tab.click(function () {
+    $('li.notifications').click(function () {
         if (!$(this).hasClass('open')) {
             getNotifications();
         }

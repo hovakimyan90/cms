@@ -1,5 +1,11 @@
 $(document).ready(function () {
-    if (notification_tab.length >= 1) {
+    var admin_path = '/admin';
+    var categories;
+    var tags;
+    var posts;
+    var users;
+
+    if ($('li.notifications.dropdown').length >= 1) {
         getNotificationsCount();
         setInterval(function () {
             getNotificationsCount();
@@ -8,13 +14,13 @@ $(document).ready(function () {
     /**
      * Check selected items
      */
-    select_all.click(function () {
+    $('input[type="checkbox"].select_all').click(function () {
         if ($(this).is(":checked")) {
-            item.each(function () {
+            $('.item').each(function () {
                 $(this).prop('checked', true);
             });
         } else {
-            item.each(function () {
+            $('.item').each(function () {
                 $(this).prop('checked', false);
                 $(this).removeProp('checked');
             });
@@ -24,9 +30,9 @@ $(document).ready(function () {
     /**
      * Delete selected categories
      */
-    categories_delete_all_button.click(function () {
+    $('button.categories_delete_all').click(function () {
         categories = [];
-        category_checkbox.each(function () {
+        $('table.categories input[type="checkbox"]').each(function () {
             if ($(this).is(':checked')) {
                 categories.push($(this).data('id'));
             }
@@ -56,9 +62,9 @@ $(document).ready(function () {
     /**
      * Delete selected tags
      */
-    tags_delete_all_button.click(function () {
+    $('button.tags_delete_all').click(function () {
         tags = [];
-        tag_checkbox.each(function () {
+        $('table.tags input[type="checkbox"]').each(function () {
             if ($(this).is(':checked')) {
                 tags.push($(this).data('id'));
             }
@@ -88,9 +94,9 @@ $(document).ready(function () {
     /**
      * Delete selected posts
      */
-    posts_delete_all_button.click(function () {
+    $('button.posts_delete_all').click(function () {
         posts = [];
-        post_checkbox.each(function () {
+        $('table.posts input[type="checkbox"]').each(function () {
             if ($(this).is(':checked')) {
                 posts.push($(this).data('id'));
             }
@@ -120,9 +126,9 @@ $(document).ready(function () {
     /**
      * Delete selected users
      */
-    users_delete_all_button.click(function () {
+    $('button.users_delete_all').click(function () {
         users = [];
-        user_checkbox.each(function () {
+        $('table.users input[type="checkbox"]').each(function () {
             if ($(this).is(':checked')) {
                 users.push($(this).data('id'));
             }
@@ -152,7 +158,7 @@ $(document).ready(function () {
     /**
      * Delete category
      */
-    category_delete_button.click(function () {
+    $('table.categories button.delete').click(function () {
         bootbox.dialog({
             message: "I am a custom dialog",
             title: "Conform delete?",
@@ -178,7 +184,7 @@ $(document).ready(function () {
     /**
      * Delete tag
      */
-    tag_delete_button.click(function () {
+    $('table.tags button.delete').click(function () {
         bootbox.dialog({
             message: "I am a custom dialog",
             title: "Conform delete?",
@@ -204,7 +210,7 @@ $(document).ready(function () {
     /**
      * Delete post
      */
-    post_delete_button.click(function () {
+    $('table.posts button.delete').click(function () {
         bootbox.dialog({
             message: "I am a custom dialog",
             title: "Conform delete?",
@@ -227,7 +233,7 @@ $(document).ready(function () {
         $('.post_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
-    user_delete_button.click(function () {
+    $('table.users button.delete').click(function () {
         bootbox.dialog({
             message: "I am a custom dialog",
             title: "Conform delete?",
@@ -250,11 +256,11 @@ $(document).ready(function () {
         $('.user_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
-    user_image_button.click(function () {
-        user_image_field.click();
+    $('#user_image_btn').click(function () {
+        $('input#user_image').click();
     });
 
-    post_tags_input.chosen();
+    $('.post_form select.tags').chosen();
 
     /**
      * Initialize TinyMCE editor for post editor
@@ -283,7 +289,7 @@ $(document).ready(function () {
         ]
     });
 
-    notification_tab.click(function () {
+    $('li.notifications.dropdown').click(function () {
         if (!$(this).hasClass('open')) {
             getNotifications();
         }

@@ -24,6 +24,7 @@
     @if(!$tags->total())
         <p>No Tags</p>
     @else
+        {!! csrf_field() !!}
         <button class="btn btn-danger tags_delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
         <a href="/{{config('app.admin_route_name')}}/tag/export" class="btn btn-primary export_excel"><i
                     class="entypo-export"></i>
@@ -39,7 +40,7 @@
             <tbody>
             @foreach($tags as $tag)
                 <tr>
-                    <td><input type="checkbox" data-id="{{$tag['id']}}"></td>
+                    <td><input type="checkbox" data-id="{{$tag['id']}}" class="item"></td>
                     <td>{{$tag['name']}}</td>
                     <td><a href="/{{config('app.admin_route_name')}}/tag/edit/{{$tag['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>

@@ -22,11 +22,11 @@ function getNotificationsCount() {
         url: "/notifications/count",
         async: false,
         success: function (count) {
-            if (parseInt(notifications_count.text()) < count) {
+            if (parseInt($('li.notifications span.count').text()) < count) {
                 var sound = $('#notification_sound')[0];
                 sound.play();
             }
-            notifications_count.text(count);
+            $('li.notifications span.count').text(count);
         }
     });
 }
@@ -39,12 +39,12 @@ function getNotifications() {
         url: "/notifications",
         async: false,
         success: function (notifications) {
-            notifications_list.html(notifications);
+            $('li.notifications ul.notifications_list').html(notifications);
             $.ajax({
                 url: "/notifications/seen",
                 async: false,
                 success: function () {
-                    notifications_count.text(0);
+                    $('li.notifications span.count').text(0);
                 }
             });
         }

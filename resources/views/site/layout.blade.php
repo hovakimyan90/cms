@@ -107,7 +107,6 @@
 <script src="/assets/site/js/chosen.jquery.min.js"></script>
 <script src="/assets/site/js/fileinput.js"></script>
 <script src="/assets/site/js/bootbox/js/bootbox.min.js"></script>
-<script src="/assets/site/js/init.js"></script>
 <script src="/assets/site/js/functions.js"></script>
 <script src="/assets/site/js/custom.js"></script>
 </body>
