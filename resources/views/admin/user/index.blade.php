@@ -60,8 +60,14 @@
                     <td>{{$user['username']}}</td>
                     <td>{{$user['email']}}</td>
                     <td>@if($user['online']==1) Online @else Offline @endif</td>
-                    <td><a href="/{{config('app.admin_route_name')}}/user/edit/{{$user['id']}}"
-                           class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                    <td>
+                        @if($user['role_id']==1)
+                            <a href="/{{config('app.admin_route_name')}}/user/admin_edit/{{$user['id']}}"
+                               class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                        @else
+                            <a href="/{{config('app.admin_route_name')}}/user/edit/{{$user['id']}}"
+                               class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                        @endif
                         <button class="btn btn-danger delete" data-id="{{$user['id']}}"><i
                                     class="glyphicon glyphicon-trash"></i> Delete
                         </button>
