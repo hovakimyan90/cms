@@ -170,53 +170,6 @@ class UserController extends Controller
     }
 
     /**
-     * Edit admin
-     *
-     * @param Request $request
-     * @param $id
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function admin_edit(Request $request, $id)
-    {
-        $user = User::getUserById($id);
-        if ($request->isMethod('post')) {
-            $rules = [
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'email' => 'required|email|unique:users,email,' . $user->id,
-                'pass' => 'min:6|max:12',
-                'pass_confirmation' => 'min:6|max:12|same:pass',
-                'image' => 'mimes:jpeg,png',
-            ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator);
-            } else {
-                $user->first_name = $request->input('first_name');
-                $user->last_name = $request->input('last_name');
-                if (!empty($request->file("image"))) {
-                    $generated_string = str_random(12);
-                    $extension = $request->file("image")->getClientOriginalExtension();
-                    $new_file = "uploads/" . $generated_string . "." . $extension;
-                    File::move($request->file("image"), $new_file);
-                    $img = Image::make($new_file);
-                    $img->save("uploads/" . $generated_string . $img->crop(100, 100) . "." . $extension);
-                    $user->image = $generated_string . '.' . $extension;
-                }
-                $user->email = $request->input('email');
-                $user->notification = $request->has('notification');
-                if ($request->has('pass')) {
-                    $user->password = Hash::make($request->input('pass'));
-                }
-                $user->save();
-                return redirect()->route('dashboard');
-            }
-        } else {
-            return view('admin.user.admin_edit', compact('user'));
-        }
-    }
-
-    /**
      * Delete user
      *
      * @param Request $request

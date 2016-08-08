@@ -21,7 +21,6 @@ class UserController extends Controller
      */
     public function edit(Request $request)
     {
-        $title = "Edit Profile";
         $user = User::getUserById(Auth::user()->id);
         if ($request->isMethod('post')) {
             $rules = [
@@ -64,7 +63,7 @@ class UserController extends Controller
                 return redirect('/');
             }
         } else {
-            return view('site.user.edit', compact('user', 'title'));
+            return view('site.user.edit', compact('user'));
         }
     }
 }

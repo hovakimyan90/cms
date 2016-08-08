@@ -1,4 +1,17 @@
 @extends('site.layout')
+@if($category['meta_desc'])
+@section('meta_desc')
+    {{$category['meta_desc']}}
+@stop
+@endif
+@if($category['meta_keys'])
+@section('meta_keys')
+    {{$category['meta_keys']}}
+@stop
+@endif
+@section('title')
+    {{$category['name']}}
+@stop
 @section('content')
     <form>
         <input type="text" placeholder="Search" name="search" value="{{old('search')}}">

@@ -1,4 +1,7 @@
 @extends('site.layout')
+@section('title')
+    Register
+@stop
 @section('content')
     <form role="form" class="form-horizontal form-groups-bordered" method="post"
           enctype="multipart/form-data">

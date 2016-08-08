@@ -1,38 +1,15 @@
 <html>
 <head>
-    <title>{{$title}}</title>
+    <title>@yield('title','GH CMS')</title>
     @if(!empty(\App\Models\Settings::getSettings()['favicon']))
         <link rel="icon" type="img/ico" href="/uploads/<?= \App\Models\Settings::getSettings()['favicon'] ?>">
     @else
         <link rel="icon" type="img/ico" href="/assets/admin/images/default_favicon.png">
     @endif
-    @if(isset($category) && $category->meta_desc)
-        <meta name="description" content="{{$category->meta_desc}}">
-    @else
-        <meta name="description" content="GH CMS">
-    @endif
-    @if(isset($category) && $category->meta_keys)
-        <meta name="keywords" content="{{$category->meta_keys}}">
-    @else
-        <meta name="keywords" content="GH CMS">
-    @endif
-    @if(isset($meta_desc) && !empty($meta_desc))
-        <meta name="description" content="{{$meta_desc}}">
-        <meta name="og:description" content="{{$meta_desc}}">
-    @else
-        <meta name="description" content="CMS">
-        <meta name="og:description" content="CMS">
-    @endif
-    @if(isset($meta_keys) && !empty($meta_keys))
-        <meta name="keywords" content="{{$meta_keys}}">
-    @else
-        <meta name="keywords" content="CMS">
-    @endif
-    @if(isset($meta_image) && !empty($meta_image))
-        <meta name="og:image" content="{{config('app.url')}}/uploads/{{$meta_image}}">
-    @else
-        <meta name="og:image" content="{{config('app.url')}}/assets/site/images/320x160.png">
-    @endif
+    <meta name="description" content="@yield('meta_desc','GH CMS')">
+    <meta name="og:description" content="@yield('meta_desc','GH CMS')">
+    <meta name="keywords" content="@yield('meta_keys','GH CMS')">
+    <meta name="og:image" content="@yield('meta_image',config('app.url').'/assets/site/images/320x160.png')">
     <link rel="stylesheet" href="/assets/site/css/chosen.min.css">
     <link rel="stylesheet" href="/assets/site/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/site/css/custom.css">
@@ -66,7 +43,7 @@
         <ul class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                @if(Auth::user())
+                @if(Auth::user() && Auth::user()->role_id==2)
                     @if(Auth::user()->notification==1)
                         <li class="dropdown notifications">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"

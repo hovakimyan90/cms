@@ -1,4 +1,7 @@
 @extends('site.layout')
+@section('title')
+    Edit post
+@stop
 @section('content')
     <form method="post" role="form" enctype="multipart/form-data" class="post_form">
     {!! csrf_field() !!}

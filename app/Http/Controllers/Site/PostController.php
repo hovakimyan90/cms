@@ -27,10 +27,9 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $title = "All Posts";
         $posts = Post::getPosts(4, $request->input('search'), Auth::user()->id);
         $request->flash();
-        return view('site.post.index')->with(compact('posts', 'title'));
+        return view('site.post.index')->with(compact('posts'));
     }
 
     /**
@@ -41,7 +40,6 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        $title = 'Create Post';
         if ($request->isMethod("post")) {
             $rules = [
                 "title" => "required",
@@ -99,7 +97,7 @@ class PostController extends Controller
         } else {
             $categories = Category::getCategoriesByPublish();
             $tags = Tag::getTags();
-            return view("site.post.create", compact("categories", "tags", "post", "title"));
+            return view("site.post.create", compact("categories", "tags", "post"));
         }
     }
 
@@ -112,7 +110,6 @@ class PostController extends Controller
      */
     public function edit(Request $request, $id = 0)
     {
-        $title = 'Edit Post';
         $post = Post::getPostById($id);
         if (empty($post)) {
             return redirect()->back();
@@ -165,7 +162,7 @@ class PostController extends Controller
             } else {
                 $categories = Category::getCategoriesByPublish();
                 $tags = Tag::getTags();
-                return view("site.post.edit", compact("post", "categories", "tags", "title"));
+                return view("site.post.edit", compact("post", "categories", "tags"));
             }
         }
     }
@@ -204,8 +201,6 @@ class PostController extends Controller
         $posts = Post::getPosts(0, '', Auth::user()->id);
         foreach ($posts as $post) {
             $post_array = array();
-            $title = $post['title'];
-            array_push($post_array, $title);
             $alias = $post['alias'];
             array_push($post_array, $alias);
             if ($post->tags->count() == 0) {

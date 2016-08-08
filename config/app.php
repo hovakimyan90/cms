@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => 'http://cms',
 
     'admin_route_name' => 'admin',
 

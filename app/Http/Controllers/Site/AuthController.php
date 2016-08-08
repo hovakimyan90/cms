@@ -22,7 +22,6 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $title = 'Register';
         if ($request->isMethod('post')) {
             $rules = [
                 'first_name' => 'required',
@@ -64,7 +63,7 @@ class AuthController extends Controller
                 return redirect('/');
             }
         } else {
-            return view('site.auth.register')->with(compact('title'));
+            return view('site.auth.register');
         }
     }
 
@@ -106,7 +105,6 @@ class AuthController extends Controller
      */
     public function forget(Request $request)
     {
-        $title = "Forget Password";
         if ($request->isMethod('post')) {
             $rules = [
                 'email' => 'required|email|exists:users,email'
@@ -123,7 +121,7 @@ class AuthController extends Controller
                 return redirect()->back();
             }
         } else {
-            return view('site.auth.forget', compact('title'));
+            return view('site.auth.forget');
         }
     }
 
@@ -136,7 +134,6 @@ class AuthController extends Controller
      */
     public function reset(Request $request, $token)
     {
-        $title = "Reset Password";
         $user = User::getUserByResetPasswordToken($token);
         if (!empty($user)) {
             if ($request->isMethod('post')) {
@@ -154,7 +151,7 @@ class AuthController extends Controller
                     return redirect()->route('home');
                 }
             } else {
-                return view('site.auth.reset', compact('title'));
+                return view('site.auth.reset');
             }
         } else {
             return redirect()->route('home');
@@ -169,7 +166,6 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $title = "Login";
         if ($request->isMethod('post')) {
             $email = $request->input('email');
             $password = $request->input('pass');
@@ -187,7 +183,7 @@ class AuthController extends Controller
             if (Auth::check() && Auth::user()->role_id == 2) {
                 return redirect()->route('posts');
             } else {
-                return view('site.auth.login', compact('title'));
+                return view('site.auth.login');
             }
         }
     }

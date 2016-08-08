@@ -1,5 +1,24 @@
 @extends('site.layout')
+@section('title')
+    {{$post['title']}}
+@stop
+@if($post['meta_desc'])
+@section('meta_desc')
+    {{$post['meta_desc']}}
+@stop
+@endif
+@if($post['meta_keys'])
+@section('meta_keys')
+    {{$post['meta_keys']}}
+@stop
+@endif
+@if($post['image'])
+@section('meta_image')
+    {{config('app.url')}}/uploads/fb-{{$post['image']}}
+@stop
+@endif
 @section('content')
+    {{$post['meta_desc']}}
     <a href="/post/{{$post['alias']}}" title="{{$post['title']}}">
         <h1>{{$post['title']}}</h1>
     </a>

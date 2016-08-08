@@ -49,7 +49,7 @@ Route::group(['middleware' => 'visit'], function () {
     });
 });
 Route::group(['middleware' => 'admin_auth'], function () {
-    Route::get('/' . config('app.admin_route_name') . '/dashboard', ['as' => 'dashboard', 'uses' => 'Admin\DashboardController@index']);
+    Route::get('/' . config('app.admin_route_name') . '/dashboard', 'Admin\DashboardController@index');
     Route::get('/' . config('app.admin_route_name') . '/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);
     Route::get('/' . config('app.admin_route_name') . '/category/create', 'Admin\CategoryController@create');
     Route::post('/' . config('app.admin_route_name') . '/category/create', 'Admin\CategoryController@create');
@@ -81,8 +81,6 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::post('/' . config('app.admin_route_name') . '/user/create', 'Admin\UserController@create');
     Route::get('/' . config('app.admin_route_name') . '/user/edit/{id}', 'Admin\UserController@edit');
     Route::post('/' . config('app.admin_route_name') . '/user/edit/{id}', 'Admin\UserController@edit');
-    Route::get('/' . config('app.admin_route_name') . '/user/admin_edit/{id}', 'Admin\UserController@admin_edit');
-    Route::post('/' . config('app.admin_route_name') . '/user/admin_edit/{id}', 'Admin\UserController@admin_edit');
     Route::get('/' . config('app.admin_route_name') . '/user/delete/{id}', 'Admin\UserController@delete');
     Route::post('/' . config('app.admin_route_name') . '/user/delete', 'Admin\UserController@delete');
     Route::get('/' . config('app.admin_route_name') . '/user/export', 'Admin\UserController@export');

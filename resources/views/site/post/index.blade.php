@@ -1,4 +1,7 @@
 @extends('site.layout')
+@section('title')
+    Posts
+@stop
 @section('content')
     <a href="/post/create" class="btn btn-primary">
         <i class="fa fa-plus"></i> Create new post
