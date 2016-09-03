@@ -155,7 +155,7 @@
                                 @if(empty($post->image))
                                     <img src="/assets/admin/images/320x160.png">
                                 @else
-                                    <img src="/uploads/{{$post->image}}">
+                                    <img src="{{asset('storage/uploads/'.$post['image'])}}">
                                 @endif
                             </div>
                             <div class="fileinput-preview fileinput-exists thumbnail"

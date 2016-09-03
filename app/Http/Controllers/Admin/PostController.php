@@ -10,7 +10,7 @@ use App\Models\PostTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
@@ -45,44 +45,42 @@ class PostController extends Controller
                 "content" => "required",
                 'image' => 'mimes:jpeg,png'
             ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            } else {
-                $post = new Post();
-                $post->title = $request->input("title");
-                $post->alias = $request->input("alias");
-                $post->content = $request->input("content");
-                $post->meta_keys = $request->input("meta_keys");
-                $post->meta_desc = $request->input("meta_desc");
-                if (!empty($request->file("image"))) {
-                    $generated_string = str_random(12);
-                    $extension = $request->file("image")->getClientOriginalExtension();
-                    $new_file = "uploads/" . $generated_string . '.' . $extension;
-                    File::move($request->file("image"), $new_file);
-                    $img = Image::make($new_file);
-                    $img->save("uploads/fb-" . $generated_string . $img->crop(600, 315) . '.' . $extension);
-                    $img = Image::make($new_file);
-                    $img->save("uploads/" . $generated_string . $img->crop(200, 200) . "." . $extension);
-                    $post->image = $generated_string . "." . $extension;
-                }
-                if ($request->has("category")) {
-                    $post->category_id = $request->input("category");
-                }
-                $post->publish = $request->has("publish");
-                $post->author_id = Auth::user()->id;
-                $post->approve = 1;
-                $post->save();
-                if ($request->has("tags")) {
-                    foreach ($request->input("tags") as $tag) {
-                        $post_tag = new PostTag();
-                        $post_tag->post_id = $post->id;
-                        $post_tag->tag_id = $tag;
-                        $post_tag->save();
-                    }
-                }
-                return redirect()->route('admin_posts');
+            Validator::make($request->all(), $rules)->validate();
+            $post = new Post();
+            $post->title = $request->input("title");
+            $post->alias = $request->input("alias");
+            $post->content = $request->input("content");
+            $post->meta_keys = $request->input("meta_keys");
+            $post->meta_desc = $request->input("meta_desc");
+            if (!empty($request->file("image"))) {
+                $generated_string = str_random(32);
+                $file = $request->file("image")->store('uploads');
+                $new_file = $generated_string . '.' . $request->file("image")->getClientOriginalExtension();
+                Storage::move($file, 'uploads/' . $new_file);
+                $img = Image::make($request->file('image'));
+                $img->crop(200, 200);
+                $img->save(storage_path('app/public/uploads/' . $new_file));
+                $img = Image::make($request->file('image'));
+                $img->resize(600, 315);
+                $img->save(storage_path('app/public/uploads/fb-' . $new_file));
+                $post->image = $new_file;
             }
+            if ($request->has("category")) {
+                $post->category_id = $request->input("category");
+            }
+            $post->publish = $request->has("publish");
+            $post->author_id = Auth::user()->id;
+            $post->approve = 1;
+            $post->save();
+            if ($request->has("tags")) {
+                foreach ($request->input("tags") as $tag) {
+                    $post_tag = new PostTag();
+                    $post_tag->post_id = $post->id;
+                    $post_tag->tag_id = $tag;
+                    $post_tag->save();
+                }
+            }
+            return redirect()->route('admin_posts');
         } else {
             $categories = Category::getCategories();
             $tags = Tag::getTags();
@@ -110,43 +108,40 @@ class PostController extends Controller
                     "content" => "required",
                     'image' => 'mimes:jpeg,png'
                 ];
-                $validator = Validator::make($request->all(), $rules);
-
-                if ($validator->fails()) {
-                    return redirect()->back()->withErrors($validator);
-                } else {
-                    $post->title = $request->input("title");
-                    $post->alias = $request->input("alias");
-                    $post->content = $request->input("content");
-                    $post->meta_keys = $request->input("meta_keys");
-                    $post->meta_desc = $request->input("meta_desc");
-                    if (!empty($request->file("image"))) {
-                        File::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
-                        $generated_string = str_random(12);
-                        $extension = $request->file("image")->getClientOriginalExtension();
-                        $new_file = "uploads/" . $generated_string . "." . $extension;
-                        File::move($request->file("image"), $new_file);
-                        $img = Image::make($new_file);
-                        $img->save("uploads/fb-" . $generated_string . $img->crop(600, 315) . '.' . $extension);
-                        $img = Image::make($new_file);
-                        $img->save("uploads/" . $generated_string . $img->crop(200, 200) . "." . $extension);
-                        $post->image = $generated_string . "." . $extension;
-                    }
-                    if ($request->has("category")) {
-                        $post->category_id = $request->input("category");
-                    }
-                    $post->publish = $request->has("publish");
-                    $post->save();
-                    $new_tags = [];
-                    if ($request->has("tags")) {
-                        $tags = $request->input("tags");
-                        foreach ($tags as $tag) {
-                            array_push($new_tags, $tag);
-                        }
-                    }
-                    $post->tags()->sync($new_tags);
-                    return redirect()->route('admin_posts');
+                Validator::make($request->all(), $rules)->validate();
+                $post->title = $request->input("title");
+                $post->alias = $request->input("alias");
+                $post->content = $request->input("content");
+                $post->meta_keys = $request->input("meta_keys");
+                $post->meta_desc = $request->input("meta_desc");
+                if (!empty($request->file("image"))) {
+                    Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                    $generated_string = str_random(32);
+                    $file = $request->file("image")->store('uploads');
+                    $new_file = $generated_string . '.' . $request->file("image")->getClientOriginalExtension();
+                    Storage::move($file, 'uploads/' . $new_file);
+                    $img = Image::make($request->file('image'));
+                    $img->crop(200, 200);
+                    $img->save(storage_path('app/public/uploads/' . $new_file));
+                    $img = Image::make($request->file('image'));
+                    $img->resize(600, 315);
+                    $img->save(storage_path('app/public/uploads/fb-' . $new_file));
+                    $post->image = $new_file;
                 }
+                if ($request->has("category")) {
+                    $post->category_id = $request->input("category");
+                }
+                $post->publish = $request->has("publish");
+                $post->save();
+                $new_tags = [];
+                if ($request->has("tags")) {
+                    $tags = $request->input("tags");
+                    foreach ($tags as $tag) {
+                        array_push($new_tags, $tag);
+                    }
+                }
+                $post->tags()->sync($new_tags);
+                return redirect()->route('admin_posts');
             } else {
                 $categories = Category::getCategories();
                 $tags = Tag::getTags();
@@ -168,12 +163,18 @@ class PostController extends Controller
             foreach ($request->input('posts') as $post) {
                 $post = Post::getPostById($post);
                 if (!empty($post)) {
+                    if (Storage::exists('uploads/' . $post->image) && Storage::exists('uploads/fb-' . $post->image)) {
+                        Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                    }
                     $post->delete();
                 }
             }
         } else {
             $post = Post::getPostById($id);
             if (!empty($post)) {
+                if (Storage::exists('uploads/' . $post->image) && Storage::exists('uploads/fb-' . $post->image)) {
+                    Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                }
                 $post->delete();
             }
             return redirect()->back();
