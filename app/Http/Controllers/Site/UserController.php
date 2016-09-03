@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
@@ -34,34 +34,34 @@ class UserController extends Controller
                 'pass_confirmation' => 'min:6|max:12|same:pass',
                 'image' => 'mimes:jpeg,png',
             ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator);
-            } else {
-                $user->first_name = $request->input('first_name');
-                $user->last_name = $request->input('last_name');
-                $user->position = $request->input('position');
-                if ($request->has('phone')) {
-                    $user->phone = $request->input('phone');
-                }
-                if (!empty($request->file("image"))) {
-                    $generated_string = str_random(12);
-                    $extension = $request->file("image")->getClientOriginalExtension();
-                    $new_file = "uploads/" . $generated_string . "." . $extension;
-                    File::move($request->file("image"), $new_file);
-                    $img = Image::make($new_file);
-                    $img->save("uploads/" . $generated_string . $img->crop(100, 100) . "." . $extension);
-                    $user->image = $generated_string . '.' . $extension;
-                }
-                $user->username = $request->input('username');
-                $user->email = $request->input('email');
-                $user->notification = $request->has('notification');
-                if ($request->has('pass')) {
-                    $user->password = Hash::make($request->input('pass'));
-                }
-                $user->save();
-                return redirect('/');
+            Validator::make($request->all(), $rules)->validate();
+            $user->first_name = $request->input('first_name');
+            $user->last_name = $request->input('last_name');
+            $user->position = $request->input('position');
+            if ($request->has('phone')) {
+                $user->phone = $request->input('phone');
             }
+            if (!empty($request->file("image"))) {
+                if (Storage::exists('uploads/' . $user->image)) {
+                    Storage::delete('uploads/' . $user->image);
+                }
+                $generated_string = str_random(32);
+                $file = $request->file("image")->store('uploads');
+                $new_file = $generated_string . '.' . $request->file("image")->getClientOriginalExtension();
+                Storage::move($file, 'uploads/' . $new_file);
+                $img = Image::make($request->file('image'));
+                $img->crop(200, 200);
+                $img->save(storage_path('app/public/uploads/' . $new_file));
+                $user->image = $new_file;
+            }
+            $user->username = $request->input('username');
+            $user->email = $request->input('email');
+            $user->notification = $request->has('notification');
+            if ($request->has('pass')) {
+                $user->password = Hash::make($request->input('pass'));
+            }
+            $user->save();
+            return redirect('/');
         } else {
             return view('site.user.edit', compact('user'));
         }
