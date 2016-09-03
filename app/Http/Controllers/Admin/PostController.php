@@ -27,14 +27,14 @@ class PostController extends Controller
     {
         $posts = Post::getPosts(4, $request->input('search'));
         $request->flash();
-        return view('admin.post.index')->with(compact('posts'));
+        return view('admin.post.index', compact('posts'));
     }
 
     /**
      * Create post
      *
      * @param Request $request
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -93,7 +93,7 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function edit(Request $request, $id = 0)
     {
