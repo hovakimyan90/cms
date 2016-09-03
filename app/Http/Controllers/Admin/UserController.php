@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,20 +18,20 @@ class UserController extends Controller
      * Show all users
      *
      * @param Request $request
-     * @return $this
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
         $users = User::getUsers(10, $request->input('search'));
         $request->flash();
-        return view('admin.user.index')->with(compact('users'));
+        return view('admin.user.index', compact('users'));
     }
 
     /**
      * Create user
      *
      * @param Request $request
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -48,43 +48,41 @@ class UserController extends Controller
                 'pass_confirmation' => 'required|min:6|max:12|same:pass',
                 'image' => 'mimes:jpeg,png',
             ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput($request->except('pass'));
-            } else {
-                $user = new User();
-                $user->first_name = $request->input('first_name');
-                $user->last_name = $request->input('last_name');
-                $user->position = $request->input('position');
-                $user->role_id = $request->input('type');
-                if ($request->has('phone')) {
-                    $user->phone = $request->input('phone');
-                }
-                if (!empty($request->file("image"))) {
-                    $generated_string = str_random(12);
-                    $extension = $request->file("image")->getClientOriginalExtension();
-                    $new_file = "uploads/" . $generated_string . "." . $extension;
-                    File::move($request->file("image"), $new_file);
-                    $img = Image::make($new_file);
-                    $img->save("uploads/" . $generated_string . $img->crop(100, 100) . "." . $extension);
-                    $user->image = $generated_string . '.' . $extension;
-                }
-                $user->username = $request->input('username');
-                $user->email = $request->input('email');
-                $user->notification = $request->has('notification');
-                $user->password = Hash::make($request->input('pass'));
-                $user->approve = 1;
-                $user->verify = 1;
-                $user->save();
-                if ($user->role_id == 1) {
-                    $notification = new Notification();
-                    $notification->from = 1;
-                    $notification->to = $user->id;
-                    $notification->type = 1;
-                    $notification->save();
-                }
-                return redirect()->route('users');
+            Validator::make($request->all(), $rules)->validate();
+
+            $user = new User();
+            $user->first_name = $request->input('first_name');
+            $user->last_name = $request->input('last_name');
+            $user->position = $request->input('position');
+            $user->role_id = $request->input('type');
+            if ($request->has('phone')) {
+                $user->phone = $request->input('phone');
             }
+            if (!empty($request->file("image"))) {
+                $generated_string = str_random(32);
+                $file = $request->file("image")->store('uploads');
+                $new_file = $generated_string . '.' . $request->file("image")->getClientOriginalExtension();
+                Storage::move($file, 'uploads/' . $new_file);
+                $img = Image::make($request->file('image'));
+                $img->crop(200, 200);
+                $img->save(storage_path('app/public/uploads/' . $new_file));
+                $user->image = $new_file;
+            }
+            $user->username = $request->input('username');
+            $user->email = $request->input('email');
+            $user->notification = $request->has('notification');
+            $user->password = Hash::make($request->input('pass'));
+            $user->approve = 1;
+            $user->verify = 1;
+            $user->save();
+            if ($user->role_id == 1) {
+                $notification = new Notification();
+                $notification->from = 1;
+                $notification->to = $user->id;
+                $notification->type = 1;
+                $notification->save();
+            }
+            return redirect()->route('users');
         } else {
             return view('admin.user.create');
         }
@@ -95,7 +93,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param $id
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function edit(Request $request, $id)
     {
@@ -114,55 +112,53 @@ class UserController extends Controller
                     'pass_confirmation' => 'min:6|max:12|same:pass',
                     'image' => 'mimes:jpeg,png',
                 ];
-                $validator = Validator::make($request->all(), $rules);
-                if ($validator->fails()) {
-                    return redirect()->back()->withErrors($validator)->withInput($request->except('pass'));
-                } else {
-                    $user->first_name = $request->input('first_name');
-                    $user->last_name = $request->input('last_name');
-                    $user->position = $request->input('position');
-                    $user->role_id = $request->input('type');
-                    if ($request->has('phone')) {
-                        $user->phone = $request->input('phone');
-                    }
-                    if (!empty($request->file("image"))) {
-                        File::delete('/uploads/' . $user->image);
-                        $generated_string = str_random(12);
-                        $extension = $request->file("image")->getClientOriginalExtension();
-                        $new_file = "uploads/" . $generated_string . "." . $extension;
-                        File::move($request->file("image"), $new_file);
-                        $img = Image::make($new_file);
-                        $img->save("uploads/" . $generated_string . $img->crop(100, 100) . "." . $extension);
-                        $user->image = $generated_string . '.' . $extension;
-                    }
-                    $user->username = $request->input('username');
-                    $user->email = $request->input('email');
-                    $user->notification = $request->has('notification');
-                    if ($request->has('pass')) {
-                        $user->password = Hash::make($request->input('pass'));
-                    }
-                    $user->approve = 1;
-                    $user->verify = 1;
-                    $user->save();
-                    $notifications = Notification::getNotificationBySenderId($user->id);
-                    foreach ($notifications as $notification) {
-                        $notification->delete();
-                    }
-                    $notifications = Notification::getNotificationByReaderId($user->id);
-                    foreach ($notifications as $notification) {
-                        $notification->delete();
-                    }
-                    if ($user->role_id == 1) {
-                        $notification = new Notification();
-                        $notification->from = 1;
-                        $notification->to = $user->id;
-                        $notification->type = 1;
-                        $notification->save();
-                    }
-                    return redirect()->route('users');
+                Validator::make($request->all(), $rules)->validate();
+
+                $user->first_name = $request->input('first_name');
+                $user->last_name = $request->input('last_name');
+                $user->position = $request->input('position');
+                $user->role_id = $request->input('type');
+                if ($request->has('phone')) {
+                    $user->phone = $request->input('phone');
                 }
+                if (!empty($request->file("image"))) {
+                    Storage::delete('/uploads/' . $user->image);
+                    $generated_string = str_random(32);
+                    $file = $request->file("image")->store('uploads');
+                    $new_file = $generated_string . '.' . $request->file("image")->getClientOriginalExtension();
+                    Storage::move($file, 'uploads/' . $new_file);
+                    $img = Image::make($request->file('image'));
+                    $img->crop(200, 200);
+                    $img->save(storage_path('app/public/uploads/' . $new_file));
+                    $user->image = $new_file;
+                }
+                $user->username = $request->input('username');
+                $user->email = $request->input('email');
+                $user->notification = $request->has('notification');
+                if ($request->has('pass')) {
+                    $user->password = Hash::make($request->input('pass'));
+                }
+                $user->approve = 1;
+                $user->verify = 1;
+                $user->save();
+                $notifications = Notification::getNotificationBySenderId($user->id);
+                foreach ($notifications as $notification) {
+                    $notification->delete();
+                }
+                $notifications = Notification::getNotificationByReaderId($user->id);
+                foreach ($notifications as $notification) {
+                    $notification->delete();
+                }
+                if ($user->role_id == 1) {
+                    $notification = new Notification();
+                    $notification->from = 1;
+                    $notification->to = $user->id;
+                    $notification->type = 1;
+                    $notification->save();
+                }
+                return redirect()->route('users');
             } else {
-                return view('admin.user.edit')->with(compact('user'));
+                return view('admin.user.edit', compact('user'));
             }
         } else {
             return redirect()->back();
@@ -182,12 +178,18 @@ class UserController extends Controller
             foreach ($request->input('users') as $user) {
                 $user = User::getUserById($user);
                 if (!empty($user)) {
+                    if (Storage::exists('uploads/' . $user->image)) {
+                        Storage::delete('uploads/' . $user->image);
+                    }
                     $user->delete();
                 }
             }
         } else {
             $user = User::getUserById($id);
             if (!empty($user)) {
+                if (Storage::exists('uploads/' . $user->image)) {
+                    Storage::delete('uploads/' . $user->image);
+                }
                 $user->delete();
             }
             return redirect()->back();
@@ -195,7 +197,7 @@ class UserController extends Controller
     }
 
     /**
-     * Export user
+     * Export post
      */
     public function export()
     {
