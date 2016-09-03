@@ -99,7 +99,7 @@
                                     @if(empty($settings['logo']))
                                         <img src="/assets/admin/images/default_logo.png">
                                     @else
-                                        <img src="/uploads/{{$settings['logo']}}">
+                                        <img src="{{asset('storage/uploads/'.$settings['logo'])}}">
                                     @endif
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
@@ -125,7 +125,7 @@
                                     @if(empty($settings['favicon']))
                                         <img src="/assets/admin/images/default_favicon.png">
                                     @else
-                                        <img src="/uploads/{{$settings['favicon']}}">
+                                        <img src="{{asset('uploads/'.$settings['favicon'])}}">
                                     @endif
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail"
