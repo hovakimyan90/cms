@@ -124,7 +124,7 @@
                                     @if(empty($user['image']))
                                         <img src="/assets/admin/images/320x160.png">
                                     @else
-                                        <img src="/uploads/{{$user['image']}}">
+                                        <img src="{{asset('storage/uploads/'.$user['image'])}}">
                                     @endif
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail">
