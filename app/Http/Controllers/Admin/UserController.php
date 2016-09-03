@@ -122,7 +122,9 @@ class UserController extends Controller
                     $user->phone = $request->input('phone');
                 }
                 if (!empty($request->file("image"))) {
-                    Storage::delete('/uploads/' . $user->image);
+                    if (Storage::exists('uploads/' . $user->image)) {
+                        Storage::delete('uploads/' . $user->image);
+                    }
                     $generated_string = str_random(32);
                     $file = $request->file("image")->store('uploads');
                     $new_file = $generated_string . '.' . $request->file("image")->getClientOriginalExtension();

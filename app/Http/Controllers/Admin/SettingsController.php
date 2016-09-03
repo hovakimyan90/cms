@@ -38,7 +38,9 @@ class SettingsController extends Controller
             $settings->desc = $request->input('desc');
             $settings->keys = $request->input('keys');
             if (!empty($request->file("logo"))) {
-                Storage::delete('uploads/' . $settings->logo);
+                if (Storage::exists('uploads/' . $settings->logo)) {
+                    Storage::delete('uploads/' . $settings->logo);
+                }
                 $generated_string = str_random(32);
                 $file = $request->file("logo")->store('uploads');
                 $new_file = $generated_string . '.' . $request->file("logo")->getClientOriginalExtension();
@@ -49,7 +51,9 @@ class SettingsController extends Controller
                 $settings->logo = $new_file;
             }
             if (!empty($request->file("favicon"))) {
-                Storage::delete('uploads/' . $settings->favicon);
+                if (Storage::exists('uploads/' . $settings->favicon)) {
+                    Storage::delete('uploads/' . $settings->favicon);
+                }
                 $generated_string = str_random(32);
                 $file = $request->file("favicon")->store('uploads');
                 $new_file = $generated_string . '.' . $request->file("favicon")->getClientOriginalExtension();

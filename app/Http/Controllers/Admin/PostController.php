@@ -115,7 +115,9 @@ class PostController extends Controller
                 $post->meta_keys = $request->input("meta_keys");
                 $post->meta_desc = $request->input("meta_desc");
                 if (!empty($request->file("image"))) {
-                    Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                    if (Storage::exists('uploads/' . $post->image) && Storage::exists('uploads/fb-' . $post->image)) {
+                        Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                    }
                     $generated_string = str_random(32);
                     $file = $request->file("image")->store('uploads');
                     $new_file = $generated_string . '.' . $request->file("image")->getClientOriginalExtension();
