@@ -14,20 +14,20 @@ class CategoryController extends Controller
      * Show all categories
      *
      * @param Request $request
-     * @return $this
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
         $categories = Category::getCategories(10, $request->input('search'));
         $request->flash();
-        return view('admin.category.index')->with(compact('categories'));
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
      * Create category
      *
      * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -36,29 +36,24 @@ class CategoryController extends Controller
                 'name' => 'required|unique:categories,name',
                 'alias' => 'required|unique:categories,alias'
             ];
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
+            Validator::make($request->all(), $rules)->validate();
+            $category = new Category();
+            $category->name = $request->input('name');
+            $category->alias = $request->input('alias');
+            $category->meta_keys = $request->input('meta_keys');
+            $category->meta_desc = $request->input('meta_desc');
+            if ($request->has('parent')) {
+                $category->parent_id = $request->input('parent');
+                $category->type = 'sub';
             } else {
-                $category = new Category();
-                $category->name = $request->input('name');
-                $category->alias = $request->input('alias');
-                $category->meta_keys = $request->input('meta_keys');
-                $category->meta_desc = $request->input('meta_desc');
-                if ($request->has('parent')) {
-                    $category->parent_id = $request->input('parent');
-                    $category->type = 'sub';
-                } else {
-                    $category->type = 'parent';
-                }
-                $category->publish = $request->has('publish');
-                $category->save();
-                return redirect()->route('categories');
+                $category->type = 'parent';
             }
+            $category->publish = $request->has('publish');
+            $category->save();
+            return redirect()->route('categories');
         } else {
             $categories = Category::getParentCategories();
-            return view('admin.category.create')->with(compact('categories'));
+            return view('admin.category.create', compact('categories'));
         }
     }
 
@@ -67,7 +62,7 @@ class CategoryController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function edit(Request $request, $id = 0)
     {
@@ -76,33 +71,28 @@ class CategoryController extends Controller
                 'name' => 'required|unique:categories,name,' . $id,
                 'alias' => 'required|unique:categories,alias,' . $id
             ];
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator);
+            Validator::make($request->all(), $rules)->validate();
+            $category = Category::find($id);
+            $category->name = $request->input('name');
+            $category->alias = $request->input('alias');
+            $category->meta_keys = $request->input('meta_keys');
+            $category->meta_desc = $request->input('meta_desc');
+            if ($request->has('parent')) {
+                $category->parent_id = $request->input('parent');
+                $category->type = 'sub';
             } else {
-                $category = Category::find($id);
-                $category->name = $request->input('name');
-                $category->alias = $request->input('alias');
-                $category->meta_keys = $request->input('meta_keys');
-                $category->meta_desc = $request->input('meta_desc');
-                if ($request->has('parent')) {
-                    $category->parent_id = $request->input('parent');
-                    $category->type = 'sub';
-                } else {
-                    $category->type = 'parent';
-                }
-                $category->publish = $request->has('publish');
-                $category->save();
-                return redirect()->route('categories');
+                $category->type = 'parent';
             }
+            $category->publish = $request->has('publish');
+            $category->save();
+            return redirect()->route('categories');
         } else {
             $category = Category::getCategoryById($id);
             if (empty($category)) {
                 return redirect()->back();
             } else {
                 $categories = Category::getParentCategories($id);
-                return view('admin.category.edit')->with(compact('categories', 'category'));
+                return view('admin.category.edit', compact('categories', 'category'));
             }
         }
     }

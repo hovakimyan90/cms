@@ -9,7 +9,7 @@ class Category extends Model
     protected $table = "categories";
 
     /**
-     * Get categories by id
+     * Get category by id
      *
      * @param $id
      * @return mixed

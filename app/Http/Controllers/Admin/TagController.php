@@ -14,20 +14,20 @@ class TagController extends Controller
      * Show all tags
      *
      * @param Request $request
-     * @return $this
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
         $tags = Tag::getTags(10, $request->input('search'));
         $request->flash();
-        return view('admin.tag.index')->with(compact('tags'));
+        return view('admin.tag.index', compact('tags'));
     }
 
     /**
      * Create tag
      *
      * @param Request $request
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function create(Request $request)
     {
@@ -35,15 +35,11 @@ class TagController extends Controller
             $rules = [
                 'name' => 'required|unique:tags,name'
             ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator->errors());
-            } else {
-                $tag = new Tag();
-                $tag->name = $request->input('name');
-                $tag->save();
-                return redirect()->route('tags');
-            }
+            Validator::make($request->all(), $rules)->validate();
+            $tag = new Tag();
+            $tag->name = $request->input('name');
+            $tag->save();
+            return redirect()->route('tags');
         } else {
             return view('admin.tag.create');
         }
@@ -66,14 +62,10 @@ class TagController extends Controller
                 $rules = [
                     'name' => 'required|unique:tags,name,' . $id
                 ];
-                $validator = Validator::make($request->all(), $rules);
-                if ($validator->fails()) {
-                    return redirect()->back()->withErrors($validator->errors());
-                } else {
-                    $tag->name = $request->input('name');
-                    $tag->save();
-                    return redirect()->route('tags');
-                }
+                Validator::make($request->all(), $rules)->validate();
+                $tag->name = $request->input('name');
+                $tag->save();
+                return redirect()->route('tags');
             } else {
                 return view('admin.tag.edit', compact('tag'));
             }

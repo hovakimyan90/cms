@@ -34,7 +34,7 @@ class SiteController extends Controller
             }
             $posts = Category::getCategoryApprovedPosts($category['id'], 5, $request->input('search'), $request->input('tag'));
             $request->flash();
-            return view('site.category')->with(compact('category', 'posts', 'tags'));
+            return view('site.category', compact('category', 'posts', 'tags'));
         }
     }
 

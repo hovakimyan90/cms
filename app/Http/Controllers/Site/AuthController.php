@@ -7,8 +7,8 @@ use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
@@ -18,7 +18,7 @@ class AuthController extends Controller
      * User registration
      *
      * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function register(Request $request)
     {
@@ -34,34 +34,31 @@ class AuthController extends Controller
                 'pass_confirmation' => 'required|min:6|max:12|same:pass',
                 'image' => 'mimes:jpeg,png',
             ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput($request->except('pass'));
-            } else {
-                $user = new User();
-                $user->first_name = $request->input('first_name');
-                $user->last_name = $request->input('last_name');
-                $user->position = $request->input('position');
-                $user->role_id = 2;
-                if ($request->has('phone')) {
-                    $user->phone = $request->input('phone');
-                }
-                if (!empty($request->file("image"))) {
-                    $generated_string = str_random(12);
-                    $extension = $request->file("image")->getClientOriginalExtension();
-                    $new_file = "uploads/" . $generated_string . "." . $extension;
-                    File::move($request->file("image"), $new_file);
-                    $img = Image::make($new_file);
-                    $img->save("uploads/" . $generated_string . $img->crop(100, 100) . "." . $extension);
-                    $user->image = $generated_string . '.' . $extension;
-                }
-                $user->username = $request->input('username');
-                $user->email = $request->input('email');
-                $user->password = Hash::make($request->input('pass'));
-                $user->verify_token = str_random(32);
-                $user->save();
-                return redirect('/');
+            Validator::make($request->all(), $rules)->validate();
+            $user = new User();
+            $user->first_name = $request->input('first_name');
+            $user->last_name = $request->input('last_name');
+            $user->position = $request->input('position');
+            $user->role_id = 2;
+            if ($request->has('phone')) {
+                $user->phone = $request->input('phone');
             }
+            if (!empty($request->file("image"))) {
+                $generated_string = str_random(32);
+                $file = $request->file("image")->store('uploads');
+                $new_file = $generated_string . '.' . $request->file("image")->getClientOriginalExtension();
+                Storage::move($file, 'uploads/' . $new_file);
+                $img = Image::make($request->file('image'));
+                $img->crop(200, 200);
+                $img->save(storage_path('app/public/uploads/' . $new_file));
+                $user->image = $new_file;
+            }
+            $user->username = $request->input('username');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('pass'));
+            $user->verify_token = str_random(32);
+            $user->save();
+            return redirect('/');
         } else {
             return view('site.auth.register');
         }
@@ -98,10 +95,10 @@ class AuthController extends Controller
     }
 
     /**
-     * User forgot password
+     * User forget password
      *
      * @param Request $request
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function forget(Request $request)
     {
@@ -109,17 +106,13 @@ class AuthController extends Controller
             $rules = [
                 'email' => 'required|email|exists:users,email'
             ];
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput($request->all());
-            } else {
-                $email = $request->input('email');
-                $user = User::getUserByEmail($email);
-                $user->reset_password_token = str_random(32);
-                $user->save();
-                $request->session()->flash('success', 'success');
-                return redirect()->back();
-            }
+            Validator::make($request->all(), $rules)->validate();
+            $email = $request->input('email');
+            $user = User::getUserByEmail($email);
+            $user->reset_password_token = str_random(32);
+            $user->save();
+            $request->session()->flash('success', 'success');
+            return redirect()->back();
         } else {
             return view('site.auth.forget');
         }
@@ -130,7 +123,7 @@ class AuthController extends Controller
      *
      * @param Request $request
      * @param $token
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function reset(Request $request, $token)
     {
@@ -141,15 +134,11 @@ class AuthController extends Controller
                     'pass' => 'required|min:6|max:12',
                     'pass_confirmation' => 'required|min:6|max:12|same:pass'
                 ];
-                $validator = Validator::make($request->all(), $rules);
-                if ($validator->fails()) {
-                    return redirect()->back()->withErrors($validator);
-                } else {
-                    $user->password = Hash::make($request->input('pass'));
-                    $user->reset_password_token = '';
-                    $user->save();
-                    return redirect()->route('home');
-                }
+                Validator::make($request->all(), $rules)->validate();
+                $user->password = Hash::make($request->input('pass'));
+                $user->reset_password_token = '';
+                $user->save();
+                return redirect()->route('home');
             } else {
                 return view('site.auth.reset');
             }
@@ -162,7 +151,7 @@ class AuthController extends Controller
      * User login
      *
      * @param Request $request
-     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function login(Request $request)
     {
@@ -177,7 +166,8 @@ class AuthController extends Controller
                 return redirect()->route('posts');
             } else {
                 $request->session()->flash('error', 'error');
-                return redirect()->back()->withInput($request->except('pass'));
+                $request->flashExcept('pass');
+                return redirect()->back();
             }
         } else {
             if (Auth::check() && Auth::user()->role_id == 2) {

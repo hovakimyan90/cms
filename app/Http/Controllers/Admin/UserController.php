@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -84,7 +85,8 @@ class UserController extends Controller
             }
             return redirect()->route('users');
         } else {
-            return view('admin.user.create');
+            $user_roles = UserRole::getRoles();
+            return view('admin.user.create', compact('user_roles'));
         }
     }
 
@@ -160,7 +162,8 @@ class UserController extends Controller
                 }
                 return redirect()->route('users');
             } else {
-                return view('admin.user.edit', compact('user'));
+                $user_roles = UserRole::getRoles();
+                return view('admin.user.edit', compact('user', 'user_roles'));
             }
         } else {
             return redirect()->back();

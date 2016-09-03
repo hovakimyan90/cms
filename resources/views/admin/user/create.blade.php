@@ -56,8 +56,10 @@
                             <div class="col-sm-5">
                                 <select name="type" class="form-control">
                                     <option value="">Select User role</option>
-                                    <option value="1" @if(old('type')=='1') selected @endif>Admin</option>
-                                    <option value="2" @if(old('type')=='2') selected @endif>User</option>
+                                    @foreach($user_roles as $role)
+                                        <option value="{{$role['id']}}"
+                                                @if(old('type')==$role['id']) selected @endif>{{$role['role']}}</option>
+                                    @endforeach
                                 </select>
                                 <p class="error">{{$errors->first('type')}}</p>
                             </div>

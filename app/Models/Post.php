@@ -101,7 +101,7 @@ class Post extends Model
     }
 
     /**
-     * Create relationship for post visits
+     * Create relationship for visits
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
