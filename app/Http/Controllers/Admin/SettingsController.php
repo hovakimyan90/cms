@@ -31,7 +31,7 @@ class SettingsController extends Controller
                 'logo' => 'mimes:jpeg,png',
                 'favicon' => 'mimes:jpeg,png',
             ];
-            Validator::make($request->all(), $rules);
+            Validator::make($request->all(), $rules)->validate();
             $settings->url = $request->input('url');
             $settings->email = $request->input('email');
             $settings->title = $request->input('title');
