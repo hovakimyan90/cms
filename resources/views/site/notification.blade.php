@@ -14,5 +14,4 @@
                 </span>
     </li>
     <li role="separator" class="divider"></li>
-    @endforeach
-    </ul>
+@endforeach

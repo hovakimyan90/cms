@@ -31,7 +31,8 @@
                 <h1>{{$post['title']}}</h1>
             </a>
             @if($post['image'])
-                <img src="/uploads/{{$post['image']}}" alt="{{$post['title']}}" title="{{$post['title']}}"/>
+                <img src="{{asset('storage/uploads/fb-'.$post['image'])}}" alt="{{$post['title']}}"
+                     title="{{$post['title']}}"/>
             @else
                 <img src="/assets/site/images/320x160.png" alt="GH CMS" title="GH CMS"/>
             @endif

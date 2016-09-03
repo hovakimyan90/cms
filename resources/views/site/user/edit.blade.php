@@ -95,7 +95,7 @@
                     <div class="fileinput-new thumbnail" style="max-width: 310px;"
                          data-trigger="fileinput">
                         @if(!empty($user->image))
-                            <img src="/uploads/{{$user->image}}">
+                            <img src="{{asset('storage/uploads/'.$user['image'])}}">
                         @else
                             <img src="/assets/site/images/320x160.png">
                         @endif

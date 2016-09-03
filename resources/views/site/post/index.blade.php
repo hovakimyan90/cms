@@ -51,7 +51,7 @@
                     <td>{{$post['alias']}}</td>
                     <td>
                         @if(!empty($post['image']))
-                            <img src="/uploads/{{$post['image']}}"/>
+                            <img src="{{asset('storage/uploads/'.$post['image'])}}"/>
                         @else
                             <p>None</p>
                         @endif

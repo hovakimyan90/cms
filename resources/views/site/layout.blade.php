@@ -2,7 +2,8 @@
 <head>
     <title>@yield('title','GH CMS')</title>
     @if(!empty(\App\Models\Settings::getSettings()['favicon']))
-        <link rel="icon" type="img/ico" href="/uploads/<?= \App\Models\Settings::getSettings()['favicon'] ?>">
+        <link rel="icon" type="img/ico"
+              href="{{asset('storage/uploads/'.\App\Models\Settings::getSettings()['favicon'])}}">
     @else
         <link rel="icon" type="img/ico" href="/assets/admin/images/default_favicon.png">
     @endif
@@ -35,7 +36,7 @@
                 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
             <a class="navbar-brand" href="#">
                 @if(!empty(\App\Models\Settings::getSettings()['logo']))
-                    <img src="/uploads/<?= \App\Models\Settings::getSettings()['logo'] ?>"/>
+                    <img src="{{asset('storage/uploads/'.\App\Models\Settings::getSettings()['logo'])}}"/>
                 @else
                     <img src="/assets/admin/images/default_logo.png"/>
                 @endif
