@@ -22,6 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('parent_id')->default(0);
             $table->boolean('publish');
             $table->string('type');
+            $table->integer('content_type')->integer(1);
             $table->timestamps();
         });
     }
