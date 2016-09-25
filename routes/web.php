@@ -17,7 +17,7 @@ Route::get('/' . config('app.admin_route_name'), 'Admin\AuthController@login');
 Route::post('/' . config('app.admin_route_name'), 'Admin\AuthController@login');
 Route::get('/' . config('app.admin_route_name') . '/logout', 'Admin\AuthController@logout');
 Route::group(['middleware' => 'visit'], function () {
-    Route::get('/', ['as' => 'home', 'uses' => 'Site\HomeController@index']);
+    Route::get('/', 'Site\HomeController@index')->name('home');
     Route::get('/register', 'Site\AuthController@register');
     Route::post('/register', 'Site\AuthController@register');
     Route::get('/user/activation/{token}', 'Site\AuthController@activation');
@@ -34,8 +34,8 @@ Route::group(['middleware' => 'visit'], function () {
     Route::group(['middleware' => 'site_auth'], function () {
         Route::get('/edit', 'Site\UserController@edit');
         Route::post('/edit', 'Site\UserController@edit');
-        Route::get('/posts', ['as' => 'posts', 'uses' => 'Site\PostController@index']);
-        Route::post('/posts', ['as' => 'posts', 'uses' => 'Site\PostController@index']);
+        Route::get('/posts', 'Site\PostController@index')->name('posts');
+        Route::post('/posts', 'Site\PostController@index')->name('posts');
         Route::get('/post/create', 'Site\PostController@create');
         Route::post('/post/create', 'Site\PostController@create');
         Route::get('/post/edit/{id}', 'Site\PostController@edit');
@@ -50,7 +50,7 @@ Route::group(['middleware' => 'visit'], function () {
 });
 Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/dashboard', 'Admin\DashboardController@index');
-    Route::get('/' . config('app.admin_route_name') . '/categories', ['as' => 'categories', 'uses' => 'Admin\CategoryController@index']);
+    Route::get('/' . config('app.admin_route_name') . '/categories', 'Admin\CategoryController@index')->name('categories');
     Route::get('/' . config('app.admin_route_name') . '/category/create', 'Admin\CategoryController@create');
     Route::post('/' . config('app.admin_route_name') . '/category/create', 'Admin\CategoryController@create');
     Route::get('/' . config('app.admin_route_name') . '/category/edit/{id}', 'Admin\CategoryController@edit');
@@ -58,7 +58,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/category/delete/{id}', 'Admin\CategoryController@delete');
     Route::post('/' . config('app.admin_route_name') . '/category/delete', 'Admin\CategoryController@delete');
     Route::get('/' . config('app.admin_route_name') . '/category/export', 'Admin\CategoryController@export');
-    Route::get('/' . config('app.admin_route_name') . '/tags', ['as' => 'tags', 'uses' => 'Admin\TagController@index']);
+    Route::get('/' . config('app.admin_route_name') . '/tags', 'Admin\TagController@index')->name('tags');
     Route::get('/' . config('app.admin_route_name') . '/tag/create', 'Admin\TagController@create');
     Route::post('/' . config('app.admin_route_name') . '/tag/create', 'Admin\TagController@create');
     Route::get('/' . config('app.admin_route_name') . '/tag/edit/{id}', 'Admin\TagController@edit');
@@ -66,7 +66,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/tag/delete/{id}', 'Admin\TagController@delete');
     Route::post('/' . config('app.admin_route_name') . '/tag/delete', 'Admin\TagController@delete');
     Route::get('/' . config('app.admin_route_name') . '/tag/export', 'Admin\TagController@export');
-    Route::get('/' . config('app.admin_route_name') . '/posts', ['as' => 'admin_posts', 'uses' => 'Admin\PostController@index']);
+    Route::get('/' . config('app.admin_route_name') . '/posts', 'Admin\PostController@index')->name('admin_posts');
     Route::get('/' . config('app.admin_route_name') . '/post/create', 'Admin\PostController@create');
     Route::post('/' . config('app.admin_route_name') . '/post/create', 'Admin\PostController@create');
     Route::get('/' . config('app.admin_route_name') . '/post/edit/{id}', 'Admin\PostController@edit');
@@ -76,7 +76,7 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/post/approve/{id}', 'Admin\PostController@approve');
     Route::get('/' . config('app.admin_route_name') . '/post/disapprove/{id}', 'Admin\PostController@disapprove');
     Route::get('/' . config('app.admin_route_name') . '/post/export', 'Admin\PostController@export');
-    Route::get('/' . config('app.admin_route_name') . '/users', ['as' => 'users', 'uses' => 'Admin\UserController@index']);
+    Route::get('/' . config('app.admin_route_name') . '/users', 'Admin\UserController@index')->name('users');
     Route::get('/' . config('app.admin_route_name') . '/user/create', 'Admin\UserController@create');
     Route::post('/' . config('app.admin_route_name') . '/user/create', 'Admin\UserController@create');
     Route::get('/' . config('app.admin_route_name') . '/user/edit/{id}', 'Admin\UserController@edit');
@@ -89,4 +89,12 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/notifications', 'Admin\NotificationController@index');
     Route::get('/' . config('app.admin_route_name') . '/notifications/count', 'Admin\NotificationController@count');
     Route::get('/' . config('app.admin_route_name') . '/notifications/seen', 'Admin\NotificationController@seen');
+    Route::get('/' . config('app.admin_route_name') . '/pages', 'Admin\PageController@index')->name('pages');
+    Route::get('/' . config('app.admin_route_name') . '/page/create', 'Admin\PageController@create');
+    Route::post('/' . config('app.admin_route_name') . '/page/create', 'Admin\PageController@create');
+    Route::get('/' . config('app.admin_route_name') . '/page/edit/{id}', 'Admin\PageController@edit');
+    Route::post('/' . config('app.admin_route_name') . '/page/edit/{id}', 'Admin\PageController@edit');
+    Route::get('/' . config('app.admin_route_name') . '/page/delete/{id}', 'Admin\PageController@delete');
+    Route::post('/' . config('app.admin_route_name') . '/page/delete', 'Admin\PageController@delete');
+    Route::get('/' . config('app.admin_route_name') . '/page/export', 'Admin\PageController@export');
 });

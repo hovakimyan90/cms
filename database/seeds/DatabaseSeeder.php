@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
         $this->call(NotificationTableSeeder::class);
-        $this->call(ContentTypesSeeder::class);
+        $this->call(CategoryTypeTableSeeder::class);
+        $this->call(ContentTypeTableSeeder::class);
 
         Model::reguard();
     }

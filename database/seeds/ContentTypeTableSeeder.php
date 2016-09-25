@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\ContentTypes;
+use App\Models\ContentType;
 use Illuminate\Database\Seeder;
 
-class ContentTypesSeeder extends Seeder
+class ContentTypeTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,13 +12,13 @@ class ContentTypesSeeder extends Seeder
      */
     public function run()
     {
-        ContentTypes::create([
+        ContentType::create([
             'type' => 'posts'
         ]);
-        ContentTypes::create([
+        ContentType::create([
             'type' => 'static content'
         ]);
-        ContentTypes::create([
+        ContentType::create([
             'type' => 'gallery'
         ]);
     }

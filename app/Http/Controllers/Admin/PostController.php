@@ -82,7 +82,7 @@ class PostController extends Controller
             }
             return redirect()->route('admin_posts');
         } else {
-            $categories = Category::getCategories();
+            $categories = Category::getCategoriesByContentType(1);
             $tags = Tag::getTags();
             return view("admin.post.create", compact("categories", "tags", "post"));
         }
@@ -145,7 +145,7 @@ class PostController extends Controller
                 $post->tags()->sync($new_tags);
                 return redirect()->route('admin_posts');
             } else {
-                $categories = Category::getCategories();
+                $categories = Category::getCategoriesByContentType(1);
                 $tags = Tag::getTags();
                 return view("admin.post.edit", compact("post", "categories", "tags"));
             }

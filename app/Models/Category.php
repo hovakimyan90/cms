@@ -37,6 +37,16 @@ class Category extends Model
         return $categories;
     }
 
+    public static function getCategoriesByContentType($content_type, $length = 0, $search = "")
+    {
+        if ($length > 0) {
+            $categories = self::orderBy("id", "desc")->where("name", "like", "%" . $search . "%")->whereContentType($content_type)->paginate($length);
+        } else {
+            $categories = self::orderBy("id", "desc")->whereContentType($content_type)->get();
+        }
+        return $categories;
+    }
+
     /**
      * Get parent categories
      *
@@ -46,26 +56,35 @@ class Category extends Model
     public static function getParentCategories($id = 0)
     {
         if ($id > 0) {
-            $categories = self::whereType("parent")->where("id", "!=", $id)->get();
+            $categories = self::whereType(1)->where("id", "!=", $id)->get();
         } else {
-            $categories = self::whereType("parent")->get();
+            $categories = self::whereType(1)->get();
         }
         return $categories;
     }
 
     /**
-     * Get category by publish
+     * Get categories by publish
      *
      * @param int $publish
-     * @param bool $sub
+     * @param bool $all
+     * @param bool $pages
      * @return mixed
      */
-    public static function getCategoriesByPublish($publish = 1, $sub = true)
+    public static function getCategoriesByPublish($publish = 1, $all = true, $pages = false)
     {
-        if ($sub) {
-            $categories = self::wherePublish($publish)->get();
+        if ($all) {
+            if ($pages) {
+                $categories = self::wherePublish($publish)->get();
+            } else {
+                $categories = self::wherePublish($publish)->whereContentType(1)->get();
+            }
         } else {
-            $categories = self::wherePublish($publish)->whereType('parent')->get();
+            if ($pages) {
+                $categories = self::wherePublish($publish)->whereType(1)->get();
+            } else {
+                $categories = self::wherePublish($publish)->whereType(1)->whereContentType(1)->get();
+            }
         }
         return $categories;
     }
@@ -138,5 +157,15 @@ class Category extends Model
     public function visits()
     {
         return $this->belongsTo('App\Models\CategoryVisit', "id", "category_id");
+    }
+
+    /**
+     * Create relationship for page content
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function content()
+    {
+        return $this->hasOne('App\Models\PageContent', 'page_id', 'id');
     }
 }

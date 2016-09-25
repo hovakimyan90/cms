@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::getCategories(10, $request->input('search'));
+        $categories = Category::getCategoriesByContentType(1, 10, $request->input('search'));
         $request->flash();
         return view('admin.category.index', compact('categories'));
     }
@@ -44,9 +44,9 @@ class CategoryController extends Controller
             $category->meta_desc = $request->input('meta_desc');
             if ($request->has('parent')) {
                 $category->parent_id = $request->input('parent');
-                $category->type = 'sub';
+                $category->type = 2;
             } else {
-                $category->type = 'parent';
+                $category->type = 1;
             }
             $category->publish = $request->has('publish');
             $category->save();
@@ -79,9 +79,9 @@ class CategoryController extends Controller
             $category->meta_desc = $request->input('meta_desc');
             if ($request->has('parent')) {
                 $category->parent_id = $request->input('parent');
-                $category->type = 'sub';
+                $category->type = 2;
             } else {
-                $category->type = 'parent';
+                $category->type = 1;
             }
             $category->publish = $request->has('publish');
             $category->save();
@@ -128,7 +128,7 @@ class CategoryController extends Controller
     public function export()
     {
         $data = array(array('Name', 'Alias', 'Meta keywords', 'Meta description', 'Parent', 'Publish', 'Posts Count', 'Views', 'Type'));
-        $categories = Category::getCategories();
+        $categories = Category::getCategoriesByContentType(1);
         foreach ($categories as $category) {
             $category_array = array();
             $name = $category['name'];
@@ -147,7 +147,7 @@ class CategoryController extends Controller
                 $meta_desc = $category['meta_desc'];
             }
             array_push($category_array, $meta_desc);
-            if ($category['type'] == 'parent') {
+            if ($category['type'] == 1) {
                 $parent = 'None';
             } else {
                 $parent = Category::getCategoryById($category['parent_id'])['name'];
@@ -163,7 +163,7 @@ class CategoryController extends Controller
             array_push($category_array, $posts_count);
             $views = (string)$category->visits()->count();
             array_push($category_array, $views);
-            if ($category['type'] == 'parent') {
+            if ($category['type'] == 1) {
                 $type = 'Parent';
             } else {
                 $type = 'Sub category';
@@ -178,7 +178,7 @@ class CategoryController extends Controller
 
                 $sheet->fromArray($data, null, 'A1', false, false);
 
-                $sheet->cells('A1:H1', function ($cells) {
+                $sheet->cells('A1:I1', function ($cells) {
                     $cells->setFontWeight('bold');
                 });
             });

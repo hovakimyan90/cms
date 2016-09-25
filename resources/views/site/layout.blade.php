@@ -57,7 +57,8 @@
                     @endif
                     <li><a href="/logout">Log out</a></li>
                 @endif
-                @foreach(App\Models\Category::getCategoriesByPublish(1,0) as $category)
+
+                @foreach(App\Models\Category::getCategoriesByPublish(1,0,1) as $category)
                     @if(!\App\Models\Category::getSubcategoriesByParentId($category['id'])->isEmpty())
                         <li class="dropdown">
                             <a href="/category/{{$category['alias']}}" class="dropdown-toggle"

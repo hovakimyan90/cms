@@ -64,6 +64,21 @@ function deleteUsers(users) {
 }
 
 /**
+ * Delete selected pages
+ * @param pages
+ */
+function deletePages(pages) {
+    $.ajax({
+        url: admin_path + "/page/delete",
+        type: 'POST',
+        data: {_token: $("input[name='_token']").val(), pages: pages},
+        success: function () {
+            window.location.reload();
+        }
+    });
+}
+
+/**
  * Get notifications count
  */
 function getNotificationsCount() {

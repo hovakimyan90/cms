@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ContentTypes extends Model
+class PageContent extends Model
 {
-    protected $table = 'content_types';
+    protected $table = 'pages_content';
 }

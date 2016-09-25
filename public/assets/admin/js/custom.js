@@ -4,6 +4,7 @@ $(document).ready(function () {
     var tags;
     var posts;
     var users;
+    var pages;
 
     if ($('li.notifications.dropdown').length >= 1) {
         getNotificationsCount();
@@ -155,6 +156,35 @@ $(document).ready(function () {
         }
     });
 
+    $('button.pages_delete_all').click(function () {
+        pages = [];
+        $('table.pages input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                pages.push($(this).data('id'));
+            }
+        });
+        if (pages.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            deletePages(pages);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
     /**
      * Delete category
      */
@@ -233,6 +263,9 @@ $(document).ready(function () {
         $('.post_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
+    /**
+     * Delete users
+     */
     $('table.users button.delete').click(function () {
         bootbox.dialog({
             message: "I am a custom dialog",
@@ -256,6 +289,35 @@ $(document).ready(function () {
         $('.user_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
+    /**
+     * Delete pages
+     */
+    $('table.pages button.delete').click(function () {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Conform delete?",
+            className: "page_delete_confirm",
+            buttons: {
+                success: {
+                    label: "Cancel",
+                    callback: function () {
+                    }
+                },
+                danger: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function () {
+                        window.location = admin_path + '/page/delete/' + $(this).data('id');
+                    }
+                }
+            }
+        });
+        $('.page_delete_confirm').attr('data-id', $(this).data('id'));
+    });
+
+    /**
+     * User image upload
+     */
     $('#user_image_btn').click(function () {
         $('input#user_image').click();
     });
@@ -267,6 +329,33 @@ $(document).ready(function () {
      */
     tinymce.init({
         selector: '#post_content',
+        height: 500,
+        theme: 'modern',
+        plugins: [
+            'advlist autolink lists link image moxiemanager charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern'
+        ],
+        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'print preview media | forecolor backcolor emoticons',
+        image_advtab: true,
+        relative_urls: false,
+        templates: [
+            {title: 'Test template 1', content: 'Test 1'},
+            {title: 'Test template 2', content: 'Test 2'}
+        ],
+        content_css: [
+            '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+            '//www.tinymce.com/css/codepen.min.css'
+        ]
+    });
+
+    /**
+     * Initialize TinyMCE editor for page content editor
+     */
+    tinymce.init({
+        selector: '#page_content',
         height: 500,
         theme: 'modern',
         plugins: [
