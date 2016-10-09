@@ -1,22 +1,5 @@
 @extends('admin.layout')
 @section('content')
-    <h1 class="margin-bottom">Settings</h1>
-    <ol class="breadcrumb 2">
-        <li>
-            <a href="index.html"><i class="fa-home"></i>Home</a>
-        </li>
-        <li>
-
-            <a href="extra-icons.html">Extra</a>
-        </li>
-        <li class="active">
-
-            <strong>Settings</strong>
-        </li>
-    </ol>
-
-    <br/>
-
     <form role="form" method="post" class="form-horizontal form-groups-bordered site_settings_form" action=""
           enctype="multipart/form-data">
         {!! csrf_field() !!}

@@ -3,7 +3,7 @@
     <h1 class="margin-bottom">Create New Post</h1>
     <ol class="breadcrumb bc-3">
         <li>
-            <a href="/{{config('app.admin_route_name')}}/posts">Posts</a>
+            <a href="{{route('admin_posts')}}">Posts</a>
         </li>
         <li class="active">
             <strong>Create Post</strong>

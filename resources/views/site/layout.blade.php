@@ -1,9 +1,9 @@
 <html>
 <head>
     <title>@yield('title','GH CMS')</title>
-    @if(!empty(\App\Models\Settings::getSettings()['favicon']))
+    @if(!empty($favicon))
         <link rel="icon" type="img/ico"
-              href="{{asset('storage/uploads/'.\App\Models\Settings::getSettings()['favicon'])}}">
+              href="{{asset('storage/uploads/'.$favicon)}}">
     @else
         <link rel="icon" type="img/ico" href="/assets/admin/images/default_favicon.png">
     @endif
@@ -35,8 +35,8 @@
                     data-target="#bs-example-navbar-collapse-9" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
             <a class="navbar-brand" href="#">
-                @if(!empty(\App\Models\Settings::getSettings()['logo']))
-                    <img src="{{asset('storage/uploads/'.\App\Models\Settings::getSettings()['logo'])}}"/>
+                @if(!empty($logo))
+                    <img src="{{asset('storage/uploads/'.$logo)}}"/>
                 @else
                     <img src="/assets/admin/images/default_logo.png"/>
                 @endif
@@ -58,21 +58,41 @@
                     <li><a href="/logout">Log out</a></li>
                 @endif
 
-                @foreach(App\Models\Category::getCategoriesByPublish(1,0,1) as $category)
-                    @if(!\App\Models\Category::getSubcategoriesByParentId($category['id'])->isEmpty())
+                @foreach($parent_categories as $category)
+                    @if(count($category->subCategories)>0)
                         <li class="dropdown">
-                            <a href="/category/{{$category['alias']}}" class="dropdown-toggle"
-                               data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">{{$category['name']}}</a>
+                            @if($category['content_type']=='1')
+                                <a href="/category/{{$category['alias']}}" class="dropdown-toggle"
+                                   data-toggle="dropdown" role="button"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">{{$category['name']}}</a>
+                            @else
+                                <a href="/page/{{$category['alias']}}" class="dropdown-toggle"
+                                   data-toggle="dropdown" role="button"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">{{$category['name']}}</a>
+                            @endif
                             <ul class="dropdown-menu">
-                                @foreach(\App\Models\Category::getSubcategoriesByParentId($category['id']) as $subcategory)
-                                    <li><a href="/category/{{$subcategory['alias']}}">{{$subcategory['name']}}</a></li>
+                                @foreach($category->subCategories as $subcategory)
+                                    <li>
+                                        @if($subcategory['content_type']=='1')
+                                            <a href="/category/{{$subcategory['alias']}}">{{$subcategory['name']}}</a>
+                                        @else
+                                            <a href="/page/{{$subcategory['alias']}}">{{$subcategory['name']}}</a>
+                                        @endif
+
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>
                     @else
-                        <li><a href="/category/{{$category['alias']}}">{{$category['name']}}</a></li>
+                        <li>
+                            @if($category['content_type']=='1')
+                                <a href="/category/{{$category['alias']}}">{{$category['name']}}</a>
+                            @else
+                                <a href="/page/{{$category['alias']}}">{{$category['name']}}</a>
+                            @endif
+                        </li>
                     @endif
                 @endforeach
             </ul>

@@ -166,6 +166,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/{{config('app.admin_route_name')}}/pages">
+                        <i class="entypo-newspaper"></i>
+                        <span class="title">Pages</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/{{config('app.admin_route_name')}}/posts">
                         <i class="entypo-menu"></i>
                         <span class="title">Posts</span>
@@ -173,7 +179,7 @@
                 </li>
                 <li>
                     <a href="/{{config('app.admin_route_name')}}/tags">
-                        <i class="entypo-menu"></i>
+                        <i class="entypo-tag"></i>
                         <span class="title">Tags</span>
                     </a>
                 </li>

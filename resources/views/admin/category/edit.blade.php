@@ -2,7 +2,7 @@
 @section('content')
     <ol class="breadcrumb bc-3">
         <li>
-            <a href="/{{config('app.admin_route_name')}}/categories">Categories</a>
+            <a href="{{route('categories')}}">Categories</a>
         </li>
         <li class="active">
             <strong>Edit Category</strong>

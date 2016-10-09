@@ -29,7 +29,7 @@ Route::group(['middleware' => 'visit'], function () {
     Route::post('/login', 'Site\AuthController@login');
     Route::get('/logout', 'Site\AuthController@logout');
     Route::get('/category/{alias}', 'Site\SiteController@category');
-    Route::post('/category/{alias}', 'Site\SiteController@category');
+    Route::get('/page/{alias}', 'Site\SiteController@page');
     Route::get('/news/{alias}', 'Site\SiteController@post');
     Route::group(['middleware' => 'site_auth'], function () {
         Route::get('/edit', 'Site\UserController@edit');

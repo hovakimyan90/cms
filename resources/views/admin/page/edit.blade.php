@@ -2,7 +2,7 @@
 @section('content')
     <ol class="breadcrumb bc-3">
         <li>
-            <a href="/{{config('app.admin_route_name')}}/pages">Pages</a>
+            <a href="{{route('pages')}}">Pages</a>
         </li>
         <li class="active">
             <strong>Edit Page</strong>
