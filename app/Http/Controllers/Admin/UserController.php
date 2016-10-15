@@ -16,16 +16,29 @@ use Maatwebsite\Excel\Facades\Excel;
 class UserController extends Controller
 {
     /**
-     * Show all users
+     * Show all approved user
      *
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function approved(Request $request)
     {
-        $users = User::getUsers(10, $request->input('search'));
+        $users = User::getApprovedUsers(10, $request->input('search'));
         $request->flash();
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.approved', compact('users'));
+    }
+
+    /**
+     * Show all disapproved users
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function disapproved(Request $request)
+    {
+        $users = User::getDisapprovedUsers(10, $request->input('search'));
+        $request->flash();
+        return view('admin.user.disapproved', compact('users'));
     }
 
     /**
@@ -168,6 +181,36 @@ class UserController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    /**
+     * Approve user
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function approve($id) {
+        $user=User::getUserById($id);
+        if(!empty($user)) {
+            $user->approve=1;
+            $user->save();
+        }
+        return redirect()->back();
+    }
+
+    /**
+     * Disapprove user
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function disapprove($id) {
+        $user=User::getUserById($id);
+        if(!empty($user)) {
+            $user->approve=0;
+            $user->save();
+        }
+        return redirect()->back();
     }
 
     /**

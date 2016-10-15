@@ -77,7 +77,7 @@ class AuthController extends Controller
             $user->verify = 1;
             $user->verify_token = "";
             $user->save();
-            $admins = User::getUsers(0, '', 1);
+            $admins = User::getAdmins();
             foreach ($admins as $admin) {
                 $notification = new Notification();
                 $notification->from = $user->id;
@@ -159,7 +159,7 @@ class AuthController extends Controller
             $email = $request->input('email');
             $password = $request->input('pass');
             $remember = $request->has('remember');
-            if (Auth::attempt(['email' => $email, 'password' => $password, 'role_id' => 2, 'verify' => 1], $remember)) {
+            if (Auth::attempt(['email' => $email, 'password' => $password, 'role_id' => 2, 'approve'=>1,'verify' => 1], $remember)) {
                 $user = User::getUserById(Auth::user()->id);
                 $user->online = 1;
                 $user->save();

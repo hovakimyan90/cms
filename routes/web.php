@@ -76,11 +76,14 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/post/approve/{id}', 'Admin\PostController@approve');
     Route::get('/' . config('app.admin_route_name') . '/post/disapprove/{id}', 'Admin\PostController@disapprove');
     Route::get('/' . config('app.admin_route_name') . '/post/export', 'Admin\PostController@export');
-    Route::get('/' . config('app.admin_route_name') . '/users', 'Admin\UserController@index')->name('users');
+    Route::get('/' . config('app.admin_route_name') . '/users/approved', 'Admin\UserController@approved')->name('users');
+    Route::get('/' . config('app.admin_route_name') . '/users/disapproved', 'Admin\UserController@disapproved')->name('users');
     Route::get('/' . config('app.admin_route_name') . '/user/create', 'Admin\UserController@create');
     Route::post('/' . config('app.admin_route_name') . '/user/create', 'Admin\UserController@create');
     Route::get('/' . config('app.admin_route_name') . '/user/edit/{id}', 'Admin\UserController@edit');
     Route::post('/' . config('app.admin_route_name') . '/user/edit/{id}', 'Admin\UserController@edit');
+    Route::get('/' . config('app.admin_route_name') . '/user/approve/{id}', 'Admin\UserController@approve');
+    Route::get('/' . config('app.admin_route_name') . '/user/disapprove/{id}', 'Admin\UserController@disapprove');
     Route::get('/' . config('app.admin_route_name') . '/user/delete/{id}', 'Admin\UserController@delete');
     Route::post('/' . config('app.admin_route_name') . '/user/delete', 'Admin\UserController@delete');
     Route::get('/' . config('app.admin_route_name') . '/user/export', 'Admin\UserController@export');

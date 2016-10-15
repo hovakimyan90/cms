@@ -64,6 +64,8 @@
                     <td>
                         <a href="/{{config('app.admin_route_name')}}/user/edit/{{$user['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                        <a href="/{{config('app.admin_route_name')}}/user/disapprove/{{$user['id']}}"
+                           class="btn btn-danger"><i class="glyphicon glyphicon-ok"></i> Disapprove</a>
                         <button class="btn btn-danger delete" data-id="{{$user['id']}}"><i
                                     class="glyphicon glyphicon-trash"></i> Delete
                         </button>

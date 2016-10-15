@@ -32,20 +32,62 @@ class User extends Model implements AuthenticatableContract,
     }
 
     /**
-     * Search and get users
+     * Search and get user
      *
      * @param int $length
      * @param string $search
-     * @param int $role_id
      * @return mixed
      */
-    public static function getUsers($length = 0, $search = "", $role_id = 2)
+    public static function getUsers($length = 0, $search = "")
     {
         if ($length > 0) {
             $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereVerify(1)->paginate($length);
         } else {
-            $users = self::orderBy("id", "desc")->whereRole_id($role_id)->whereVerify(1)->get();
+            $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereVerify(1)->get();
         }
+        return $users;
+    }
+
+    /**
+     * Search and get approved users
+     *
+     * @param int $length
+     * @param string $search
+     * @return mixed
+     */
+    public static function getApprovedUsers($length = 0, $search = "") {
+        if ($length > 0) {
+            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove('1')->whereVerify(1)->paginate($length);
+        } else {
+            $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove(1)->whereVerify(1)->get();
+        }
+        return $users;
+    }
+
+    /**
+     * Search and get disapproved users
+     *
+     * @param int $length
+     * @param string $search
+     * @return mixed
+     */
+    public static function getDisapprovedUsers($length = 0, $search = "") {
+        if ($length > 0) {
+            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove('0')->whereVerify(1)->paginate($length);
+        } else {
+            $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove(0)->whereVerify(1)->get();
+        }
+        return $users;
+    }
+
+
+    /**
+     * Get admins
+     *
+     * @return mixed
+     */
+    public static function getAdmins() {
+        $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereRole_id(1)->whereVerify(1)->get();
         return $users;
     }
 

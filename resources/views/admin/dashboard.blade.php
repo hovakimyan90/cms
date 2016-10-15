@@ -54,7 +54,25 @@
                      data-duration="1400" data-delay="0">{{$disapproved_posts_count}}
                 </div>
 
-                <h3>Approved Posts</h3>
+                <h3>Disapproved Posts</h3>
+            </div>
+
+            <div class="tile-stats tile-green">
+                <div class="icon"><i class="entypo-check"></i></div>
+                <div class="num" data-start="0" data-end="{{$approved_users_count}}" data-postfix=""
+                     data-duration="1400" data-delay="0">{{$approved_users_count}}
+                </div>
+
+                <h3>Approved Users</h3>
+            </div>
+
+            <div class="tile-stats tile-red">
+                <div class="icon"><i class="entypo-cancel"></i></div>
+                <div class="num" data-start="0" data-end="{{$disapproved_users_count}}" data-postfix=""
+                     data-duration="1400" data-delay="0">{{$disapproved_users_count}}
+                </div>
+
+                <h3>Disapproved Users</h3>
             </div>
 
 

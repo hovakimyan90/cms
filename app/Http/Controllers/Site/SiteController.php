@@ -59,4 +59,21 @@ class SiteController extends Controller
             return view('site.post', compact('post'));
         }
     }
+
+    public function page($alias)
+    {
+        $page = Category::getCategoryByAlias($alias);
+        if (empty($page)) {
+            return redirect()->back();
+        } else {
+            if (!session()->get($page['id'])) {
+                $category_visit = new CategoryVisit();
+                $category_visit->category_id = $page['id'];
+                $category_visit->save();
+                session([$page['id'] => $page['id']]);
+            }
+            $content = $page->content;
+            return view('site.page', compact('page', 'content'));
+        }
+    }
 }

@@ -90,18 +90,6 @@ class Category extends Model
     }
 
     /**
-     * Get subcategories by parent id
-     *
-     * @param $parent_id
-     * @return mixed
-     */
-    public static function getSubcategoriesByParentId($parent_id)
-    {
-        $categories = self::whereParent_id($parent_id)->wherePublish(1)->get();
-        return $categories;
-    }
-
-    /**
      * Get category by alias
      *
      * @param $alias
@@ -122,21 +110,34 @@ class Category extends Model
      * @param int $tag
      * @return mixed
      */
-    public static function getCategoryApprovedPosts($category_id, $length = 0, $search = "", $tag = 0)
+    public static function getCategoryApprovedPosts($category_id, $length = 0, $search = " ", $tag = 0)
     {
         if ($length > 0) {
-            if (empty($search)) {
-                $search = "";
-            }
-            $posts = self::find($category_id)->posts()->whereApprove(1)->wherePublish(1)->where("title", "like", "%" . $search . "%")->with('tags')->orWhereHas('tags', function ($query) use ($tag) {
-                if ($tag > 0) {
-                    $query->where('tag_id', $tag);
+            if(!empty($search) || !empty($tag)) {
+                if(empty($search)) {
+                    $search=" ";
                 }
-            })->paginate($length);
+                $posts = self::find($category_id)->posts()->whereApprove(1)->wherePublish(1)->where('title','like','%'.$search.'%')->with('tags')->orWhereHas('tags', function ($query) use ($tag) {
+                    if ($tag > 0) {
+                        $query->where('tag_id', $tag);
+                    }
+                })->paginate($length);
+            }else {
+                $posts = self::find($category_id)->posts()->whereApprove(1)->wherePublish(1)->paginate($length);
+            }
         } else {
             $posts = self::find($category_id)->posts()->whereApprove(1)->wherePublish(1)->get();
         }
         return $posts;
+    }
+
+    /**
+     * Create relationship for category subcategories
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subCategories() {
+        return $this->hasMany(static::class,"parent_id")->wherePublish('1');
     }
 
     /**
