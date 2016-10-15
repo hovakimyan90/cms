@@ -24,7 +24,7 @@
     @else
         {!! csrf_field() !!}
         <button class="btn btn-danger users_delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
-        <a href="/{{config('app.admin_route_name')}}/user/export" class="btn btn-primary export_excel"><i
+        <a href="/{{config('app.admin_route_name')}}/user/export/0" class="btn btn-primary export_excel"><i
                     class="entypo-export"></i>
             Export Excel</a>
         <table class="table table-striped users">

@@ -247,10 +247,14 @@ class UserController extends Controller
     /**
      * Export post
      */
-    public function export()
+    public function export($type = 1)
     {
         $data = array(array('First name', 'Last name', 'Phone number', 'Position', 'Type', 'Username', 'E-mail'));
-        $users = User::getUsers();
+        if ($type = 1) {
+            $users = User::getApprovedUsers();
+        } else {
+            $users = User::getDisapprovedUsers();
+        }
         foreach ($users as $user) {
             $users_array = array();
             $first_name = $user['first_name'];
