@@ -60,7 +60,7 @@ class UserController extends Controller
                 'email' => 'required|email|unique:users,email',
                 'pass' => 'required|min:6|max:12',
                 'pass_confirmation' => 'required|min:6|max:12|same:pass',
-                'image' => 'mimes:jpeg,png',
+                'image' => 'mimes:jpeg,jpg,png',
             ];
             Validator::make($request->all(), $rules)->validate();
 
@@ -96,7 +96,7 @@ class UserController extends Controller
                 $notification->type = 1;
                 $notification->save();
             }
-            return redirect()->route('users');
+            return redirect()->route('approved_users');
         } else {
             $user_roles = UserRole::getRoles();
             return view('admin.user.create', compact('user_roles'));
@@ -125,7 +125,7 @@ class UserController extends Controller
                     'email' => 'required|email|unique:users,email,' . $id,
                     'pass' => 'min:6|max:12',
                     'pass_confirmation' => 'min:6|max:12|same:pass',
-                    'image' => 'mimes:jpeg,png',
+                    'image' => 'mimes:jpeg,jpg,png',
                 ];
                 Validator::make($request->all(), $rules)->validate();
 
@@ -137,8 +137,10 @@ class UserController extends Controller
                     $user->phone = $request->input('phone');
                 }
                 if (!empty($request->file("image"))) {
-                    if (Storage::exists('uploads/' . $user->image)) {
-                        Storage::delete('uploads/' . $user->image);
+                    if (!empty($user->image)) {
+                        if (Storage::exists('uploads/' . $user->image)) {
+                            Storage::delete('uploads/' . $user->image);
+                        }
                     }
                     $generated_string = str_random(32);
                     $file = $request->file("image")->store('uploads');
@@ -173,7 +175,7 @@ class UserController extends Controller
                     $notification->type = 1;
                     $notification->save();
                 }
-                return redirect()->route('users');
+                return redirect()->route('approved_users');
             } else {
                 $user_roles = UserRole::getRoles();
                 return view('admin.user.edit', compact('user', 'user_roles'));
@@ -226,8 +228,10 @@ class UserController extends Controller
             foreach ($request->input('users') as $user) {
                 $user = User::getUserById($user);
                 if (!empty($user)) {
-                    if (Storage::exists('uploads/' . $user->image)) {
-                        Storage::delete('uploads/' . $user->image);
+                    if (!empty($user->image)) {
+                        if (Storage::exists('uploads/' . $user->image)) {
+                            Storage::delete('uploads/' . $user->image);
+                        }
                     }
                     $user->delete();
                 }
@@ -235,8 +239,10 @@ class UserController extends Controller
         } else {
             $user = User::getUserById($id);
             if (!empty($user)) {
-                if (Storage::exists('uploads/' . $user->image)) {
-                    Storage::delete('uploads/' . $user->image);
+                if (!empty($user->image)) {
+                    if (Storage::exists('uploads/' . $user->image)) {
+                        Storage::delete('uploads/' . $user->image);
+                    }
                 }
                 $user->delete();
             }
@@ -245,7 +251,9 @@ class UserController extends Controller
     }
 
     /**
-     * Export post
+     * Export users
+     *
+     * @param int $type
      */
     public function export($type = 1)
     {

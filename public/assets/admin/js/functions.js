@@ -79,6 +79,36 @@ function deletePages(pages) {
 }
 
 /**
+ * Delete selected albums
+ * @param albums
+ */
+function deleteAlbums(albums) {
+    $.ajax({
+        url: admin_path + "/album/delete",
+        type: 'POST',
+        data: {_token: $("input[name='_token']").val(), albums: albums},
+        success: function () {
+            window.location.reload();
+        }
+    });
+}
+
+/**
+ * Delete selected gallery images
+ * @param images
+ */
+function deleteGalleryImages(images) {
+    $.ajax({
+        url: admin_path + "/gallery/delete",
+        type: 'POST',
+        data: {_token: $("input[name='_token']").val(), images: images},
+        success: function () {
+            window.location.reload();
+        }
+    });
+}
+
+/**
  * Get notifications count
  */
 function getNotificationsCount() {

@@ -2,7 +2,7 @@
 @section('content')
     <ol class="breadcrumb bc-3">
         <li>
-            <a href="{{route('users')}}">Users</a>
+            <a href="{{route('approved_users')}}">Users</a>
         </li>
         <li class="active">
             <strong>Edit User</strong>

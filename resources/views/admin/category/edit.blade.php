@@ -61,7 +61,7 @@
                         </div>
                         @if(!$categories->isEmpty())
                             <div class="form-group">
-                                <label for="parent" class="col-sm-3 control-label">Select parent category</label>
+                                <label for="parent" class="col-sm-3 control-label">Select parent</label>
 
                                 <div class="col-sm-5">
                                     <select name="parent" id="parent" class="form-control">

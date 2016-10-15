@@ -5,6 +5,8 @@ $(document).ready(function () {
     var posts;
     var users;
     var pages;
+    var albums;
+    var images;
 
     if ($('li.notifications.dropdown').length >= 1) {
         getNotificationsCount();
@@ -156,6 +158,9 @@ $(document).ready(function () {
         }
     });
 
+    /**
+     * Delete selected pages
+     */
     $('button.pages_delete_all').click(function () {
         pages = [];
         $('table.pages input[type="checkbox"]').each(function () {
@@ -178,6 +183,70 @@ $(document).ready(function () {
                         className: "btn-danger",
                         callback: function () {
                             deletePages(pages);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    /**
+     * Delete selected albums
+     */
+    $('button.albums_delete_all').click(function () {
+        albums = [];
+        $('table.albums input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                albums.push($(this).data('id'));
+            }
+        });
+        if (albums.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            deleteAlbums(albums);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    /**
+     * Delete selected gallery images
+     */
+    $('button.gallery_delete_all').click(function () {
+        images = [];
+        $('table.gallery_images input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                images.push($(this).data('id'));
+            }
+        });
+        if (images.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            deleteGalleryImages(images);
                         }
                     }
                 }
@@ -264,7 +333,7 @@ $(document).ready(function () {
     });
 
     /**
-     * Delete users
+     * Delete user
      */
     $('table.users button.delete').click(function () {
         bootbox.dialog({
@@ -290,7 +359,7 @@ $(document).ready(function () {
     });
 
     /**
-     * Delete pages
+     * Delete page
      */
     $('table.pages button.delete').click(function () {
         bootbox.dialog({
@@ -313,6 +382,58 @@ $(document).ready(function () {
             }
         });
         $('.page_delete_confirm').attr('data-id', $(this).data('id'));
+    });
+
+    /**
+     * Delete album
+     */
+    $('table.albums button.delete').click(function () {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Conform delete?",
+            className: "album_delete_confirm",
+            buttons: {
+                success: {
+                    label: "Cancel",
+                    callback: function () {
+                    }
+                },
+                danger: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function () {
+                        window.location = admin_path + '/album/delete/' + $(this).data('id');
+                    }
+                }
+            }
+        });
+        $('.album_delete_confirm').attr('data-id', $(this).data('id'));
+    });
+
+    /**
+     * Delete gallery image
+     */
+    $('table.gallery_images button.delete').click(function () {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Conform delete?",
+            className: "gallery_delete_confirm",
+            buttons: {
+                success: {
+                    label: "Cancel",
+                    callback: function () {
+                    }
+                },
+                danger: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function () {
+                        window.location = admin_path + '/gallery/delete/' + $(this).data('id');
+                    }
+                }
+            }
+        });
+        $('.gallery_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
     /**

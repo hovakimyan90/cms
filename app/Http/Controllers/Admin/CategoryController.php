@@ -42,6 +42,7 @@ class CategoryController extends Controller
             $category->alias = $request->input('alias');
             $category->meta_keys = $request->input('meta_keys');
             $category->meta_desc = $request->input('meta_desc');
+            $category->content_type = 1;
             if ($request->has('parent')) {
                 $category->parent_id = $request->input('parent');
                 $category->type = 2;

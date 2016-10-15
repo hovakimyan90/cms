@@ -47,7 +47,7 @@
                     <td><input type="checkbox" data-id="{{$category['id']}}" class="item"></td>
                     <td>{{$category['name']}}</td>
                     <td>{{$category['alias']}}</td>
-                    <td>@if($category['type']=='parent')
+                    <td>@if($category['type']=='1')
                             None @else {{\App\Models\Category::getCategoryById($category['parent_id'])['name']}} @endif</td>
                     <td>@if($category['publish']==1) Published  @else Unpublished @endif</td>
                     <td>{{$category->posts()->count()}}</td>

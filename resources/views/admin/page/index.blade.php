@@ -46,7 +46,7 @@
                     <td><input type="checkbox" data-id="{{$page['id']}}" class="item"></td>
                     <td>{{$page['name']}}</td>
                     <td>{{$page['alias']}}</td>
-                    <td>@if($page['type']=='parent')
+                    <td>@if($page['type']=='1')
                             None @else {{\App\Models\Category::getCategoryById($page['parent_id'])['name']}} @endif</td>
                     <td>@if($page['publish']==1) Published  @else Unpublished @endif</td>
                     <td>{{$page->visits()->count()}}</td>

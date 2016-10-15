@@ -132,6 +132,24 @@ class Category extends Model
     }
 
     /**
+     * Search and get album images
+     *
+     * @param $album_id
+     * @param int $length
+     * @param string $search
+     * @return mixed
+     */
+    public static function getAlbumImages($album_id, $length = 0, $search = "")
+    {
+        if ($length > 0) {
+            $images = self::find($album_id)->images()->wherePublish(1)->where('title', 'like', '%' . $search . '%')->paginate($length);
+        } else {
+            $images = self::find($album_id)->posts()->wherePublish(1)->get();
+        }
+        return $images;
+    }
+
+    /**
      * Create relationship for category subcategories
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -168,5 +186,15 @@ class Category extends Model
     public function content()
     {
         return $this->hasOne('App\Models\PageContent', 'page_id', 'id');
+    }
+
+    /**
+     * Create relationship for album images
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function images()
+    {
+        return $this->belongsTo('App\Models\AlbumImage', 'id', 'album_id');
     }
 }

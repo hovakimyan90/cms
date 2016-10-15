@@ -60,6 +60,12 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * Get page
+     *
+     * @param $alias
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function page($alias)
     {
         $page = Category::getCategoryByAlias($alias);
@@ -74,6 +80,25 @@ class SiteController extends Controller
             }
             $content = $page->content;
             return view('site.page', compact('page', 'content'));
+        }
+    }
+
+    /**
+     * Get album images
+     *
+     * @param Request $request
+     * @param $alias
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function album(Request $request, $alias)
+    {
+        $album = Category::getCategoryByAlias($alias);
+        if (empty($album)) {
+            return redirect()->back();
+        } else {
+            $images = Category::getAlbumImages($album['id'], 5, $request->input('search'));
+            $request->flash();
+            return view('site.album', compact('album', 'images'));
         }
     }
 }

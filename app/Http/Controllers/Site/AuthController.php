@@ -32,7 +32,7 @@ class AuthController extends Controller
                 'email' => 'required|email|unique:users,email',
                 'pass' => 'required|min:6|max:12',
                 'pass_confirmation' => 'required|min:6|max:12|same:pass',
-                'image' => 'mimes:jpeg,png',
+                'image' => 'mimes:jpeg,jpg,png',
             ];
             Validator::make($request->all(), $rules)->validate();
             $user = new User();

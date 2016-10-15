@@ -102,6 +102,18 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/{{config('app.admin_route_name')}}/albums">
+                        <i class="entypo-folder"></i>
+                        <span class="title">Albums</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/{{config('app.admin_route_name')}}/gallery">
+                        <i class="entypo-camera"></i>
+                        <span class="title">Gallery</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/{{config('app.admin_route_name')}}/tags">
                         <i class="entypo-tag"></i>
                         <span class="title">Tags</span>

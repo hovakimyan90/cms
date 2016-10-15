@@ -68,3 +68,17 @@ p.error {
 #site_settings_favicon_upload_block p.error {
     text-align: right;
 }
+
+#gallery_profile_image_upload_block label {
+    float: left;
+}
+
+#gallery_profile_image_upload_block .fileinput {
+    width: 310px;
+    float: left;
+    margin-left: 15px;
+}
+
+#gallery_profile_image_upload_block p.error {
+    text-align: right;
+}

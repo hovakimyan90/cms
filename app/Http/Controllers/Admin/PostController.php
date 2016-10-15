@@ -43,7 +43,7 @@ class PostController extends Controller
                 "title" => "required",
                 "alias" => "required|unique:posts,alias",
                 "content" => "required",
-                'image' => 'mimes:jpeg,png'
+                'image' => 'mimes:jpeg,jpg,png'
             ];
             Validator::make($request->all(), $rules)->validate();
             $post = new Post();
@@ -106,7 +106,7 @@ class PostController extends Controller
                     "title" => "required",
                     "alias" => "required|unique:posts,alias," . $id,
                     "content" => "required",
-                    'image' => 'mimes:jpeg,png'
+                    'image' => 'mimes:jpeg,jpg,png'
                 ];
                 Validator::make($request->all(), $rules)->validate();
                 $post->title = $request->input("title");
@@ -115,8 +115,10 @@ class PostController extends Controller
                 $post->meta_keys = $request->input("meta_keys");
                 $post->meta_desc = $request->input("meta_desc");
                 if (!empty($request->file("image"))) {
-                    if (Storage::exists('uploads/' . $post->image) && Storage::exists('uploads/fb-' . $post->image)) {
-                        Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                    if (!empty($post->image)) {
+                        if (Storage::exists('uploads/' . $post->image) && Storage::exists('uploads/fb-' . $post->image)) {
+                            Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                        }
                     }
                     $generated_string = str_random(32);
                     $file = $request->file("image")->store('uploads');
@@ -165,8 +167,10 @@ class PostController extends Controller
             foreach ($request->input('posts') as $post) {
                 $post = Post::getPostById($post);
                 if (!empty($post)) {
-                    if (Storage::exists('uploads/' . $post->image) && Storage::exists('uploads/fb-' . $post->image)) {
-                        Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                    if (!empty($post->image)) {
+                        if (Storage::exists('uploads/' . $post->image) && Storage::exists('uploads/fb-' . $post->image)) {
+                            Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                        }
                     }
                     $post->delete();
                 }
@@ -174,8 +178,10 @@ class PostController extends Controller
         } else {
             $post = Post::getPostById($id);
             if (!empty($post)) {
-                if (Storage::exists('uploads/' . $post->image) && Storage::exists('uploads/fb-' . $post->image)) {
-                    Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                if (!empty($post->image)) {
+                    if (Storage::exists('uploads/' . $post->image) && Storage::exists('uploads/fb-' . $post->image)) {
+                        Storage::delete('uploads/' . $post->image, 'uploads/fb-' . $post->image);
+                    }
                 }
                 $post->delete();
             }

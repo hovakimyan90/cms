@@ -66,8 +66,15 @@
                                    data-toggle="dropdown" role="button"
                                    aria-haspopup="true"
                                    aria-expanded="false">{{$category['name']}}</a>
-                            @else
+                            @endif
+                            @if($category['content_type']=='2')
                                 <a href="/page/{{$category['alias']}}" class="dropdown-toggle"
+                                   data-toggle="dropdown" role="button"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">{{$category['name']}}</a>
+                            @endif
+                            @if($category['content_type']=='3')
+                                <a href="/album/{{$category['alias']}}" class="dropdown-toggle"
                                    data-toggle="dropdown" role="button"
                                    aria-haspopup="true"
                                    aria-expanded="false">{{$category['name']}}</a>
@@ -77,8 +84,12 @@
                                     <li>
                                         @if($subcategory['content_type']=='1')
                                             <a href="/category/{{$subcategory['alias']}}">{{$subcategory['name']}}</a>
-                                        @else
+                                        @endif
+                                        @if($subcategory['content_type']=='2')
                                             <a href="/page/{{$subcategory['alias']}}">{{$subcategory['name']}}</a>
+                                        @endif
+                                        @if($subcategory['content_type']=='3')
+                                            <a href="/album/{{$subcategory['alias']}}">{{$subcategory['name']}}</a>
                                         @endif
 
                                     </li>
@@ -89,8 +100,12 @@
                         <li>
                             @if($category['content_type']=='1')
                                 <a href="/category/{{$category['alias']}}">{{$category['name']}}</a>
-                            @else
+                            @endif
+                            @if($category['content_type']=='2')
                                 <a href="/page/{{$category['alias']}}">{{$category['name']}}</a>
+                            @endif
+                            @if($category['content_type']=='3')
+                                <a href="/album/{{$category['alias']}}">{{$category['name']}}</a>
                             @endif
                         </li>
                     @endif

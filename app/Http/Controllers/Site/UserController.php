@@ -32,7 +32,7 @@ class UserController extends Controller
                 'email' => 'required|email|unique:users,email,' . $user->id,
                 'pass' => 'min:6|max:12',
                 'pass_confirmation' => 'min:6|max:12|same:pass',
-                'image' => 'mimes:jpeg,png',
+                'image' => 'mimes:jpeg,jpg,png',
             ];
             Validator::make($request->all(), $rules)->validate();
             $user->first_name = $request->input('first_name');
@@ -42,8 +42,10 @@ class UserController extends Controller
                 $user->phone = $request->input('phone');
             }
             if (!empty($request->file("image"))) {
-                if (Storage::exists('uploads/' . $user->image)) {
-                    Storage::delete('uploads/' . $user->image);
+                if (!empty($user->image)) {
+                    if (Storage::exists('uploads/' . $user->image)) {
+                        Storage::delete('uploads/' . $user->image);
+                    }
                 }
                 $generated_string = str_random(32);
                 $file = $request->file("image")->store('uploads');
