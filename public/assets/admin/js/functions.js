@@ -64,6 +64,38 @@ function deleteUsers(users) {
 }
 
 /**
+ * Approve selected users
+ *
+ * @param users
+ */
+function approveUsers(users) {
+    $.ajax({
+        url: admin_path + "/user/approve",
+        type: 'POST',
+        data: {_token: $("input[name='_token']").val(), users: users},
+        success: function () {
+            window.location.reload();
+        }
+    });
+}
+
+/**
+ * Disapprove selected users
+ *
+ * @param users
+ */
+function disapproveUsers(users) {
+    $.ajax({
+        url: admin_path + "/user/disapprove",
+        type: 'POST',
+        data: {_token: $("input[name='_token']").val(), users: users},
+        success: function () {
+            window.location.reload();
+        }
+    });
+}
+
+/**
  * Delete selected pages
  * @param pages
  */

@@ -159,6 +159,70 @@ $(document).ready(function () {
     });
 
     /**
+     * Approve selected users
+     */
+    $('button.users_approve_all').click(function () {
+        users = [];
+        $('table.users input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                users.push($(this).data('id'));
+            }
+        });
+        if (users.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            approveUsers(users);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    /**
+     * Disapprove selected users
+     */
+    $('button.users_disapprove_all').click(function () {
+        users = [];
+        $('table.users input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                users.push($(this).data('id'));
+            }
+        });
+        if (users.length > 0) {
+            bootbox.dialog({
+                message: "I am a custom dialog",
+                title: "Confirm delete?",
+                buttons: {
+                    success: {
+                        label: "Cancel",
+                        callback: function () {
+                        }
+                    },
+                    danger: {
+                        label: "Delete",
+                        className: "btn-danger",
+                        callback: function () {
+                            disapproveUsers(users);
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    /**
      * Delete selected pages
      */
     $('button.pages_delete_all').click(function () {
@@ -356,6 +420,58 @@ $(document).ready(function () {
             }
         });
         $('.user_delete_confirm').attr('data-id', $(this).data('id'));
+    });
+
+    /**
+     * Approve user
+     */
+    $('table.users button.approve').click(function () {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Conform delete?",
+            className: "user_approve_confirm",
+            buttons: {
+                success: {
+                    label: "Cancel",
+                    callback: function () {
+                    }
+                },
+                danger: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function () {
+                        window.location = admin_path + '/user/approve/' + $(this).data('id');
+                    }
+                }
+            }
+        });
+        $('.gallery_delete_confirm').attr('data-id', $(this).data('id'));
+    });
+
+    /**
+     * Disapprove user
+     */
+    $('table.users button.disapprove').click(function () {
+        bootbox.dialog({
+            message: "I am a custom dialog",
+            title: "Conform delete?",
+            className: "user_disapprove_confirm",
+            buttons: {
+                success: {
+                    label: "Cancel",
+                    callback: function () {
+                    }
+                },
+                danger: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function () {
+                        window.location = admin_path + '/user/disapprove/' + $(this).data('id');
+                    }
+                }
+            }
+        });
+        $('.gallery_delete_confirm').attr('data-id', $(this).data('id'));
     });
 
     /**

@@ -12,12 +12,12 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        Settings::create([
-            'url' => 'http://localhost',
-            'email' => 'john@doe.com',
-            'title' => 'CMS',
-            'desc' => 'CMS',
-            'keys' => 'CMS'
-        ]);
+        $settings = new Settings();
+        $settings->url = 'http://localhost';
+        $settings->email = 'john@doe.com';
+        $settings->title = 'CMS';
+        $settings->desc = 'CMS';
+        $settings->keys = 'CMS';
+        $settings->save();
     }
 }

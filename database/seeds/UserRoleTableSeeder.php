@@ -12,11 +12,12 @@ class UserRoleTableSeeder extends Seeder
      */
     public function run()
     {
-        UserRole::create([
-            'role' => 'User'
-        ]);
-        UserRole::create([
-            'role' => 'Admin'
-        ]);
+        $user_role = new UserRole();
+        $user_role->role = 'User';
+        $user_role->save();
+
+        $user_role = new UserRole();
+        $user_role->role = 'Admin';
+        $user_role->save();
     }
 }

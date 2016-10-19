@@ -12,14 +12,16 @@ class ContentTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        ContentType::create([
-            'type' => 'posts'
-        ]);
-        ContentType::create([
-            'type' => 'static content'
-        ]);
-        ContentType::create([
-            'type' => 'gallery'
-        ]);
+        $content_type = new ContentType();
+        $content_type->type = "posts";
+        $content_type->save();
+
+        $content_type = new ContentType();
+        $content_type->type = "static content";
+        $content_type->save();
+
+        $content_type = new ContentType();
+        $content_type->type = "gallery";
+        $content_type->save();
     }
 }

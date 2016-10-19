@@ -188,31 +188,55 @@ class UserController extends Controller
     /**
      * Approve user
      *
-     * @param $id
+     * @param Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function approve($id) {
-        $user=User::getUserById($id);
-        if(!empty($user)) {
-            $user->approve=1;
-            $user->save();
+    public function approve(Request $request, $id = 0)
+    {
+        if ($request->isMethod('post')) {
+            foreach ($request->input('users') as $user) {
+                $user = User::getUserById($user);
+                if (!empty($user)) {
+                    $user->approve = 1;
+                    $user->save();
+                }
+            }
+        } else {
+            $user = User::getUserById($id);
+            if (!empty($user)) {
+                $user->approve = 1;
+                $user->save();
+            }
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 
     /**
      * Disapprove user
      *
-     * @param $id
+     * @param Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function disapprove($id) {
-        $user=User::getUserById($id);
-        if(!empty($user)) {
-            $user->approve=0;
-            $user->save();
+    public function disapprove(Request $request, $id = 0)
+    {
+        if ($request->isMethod('post')) {
+            foreach ($request->input('users') as $user) {
+                $user = User::getUserById($user);
+                if (!empty($user)) {
+                    $user->approve = 0;
+                    $user->save();
+                }
+            }
+        } else {
+            $user = User::getUserById($id);
+            if (!empty($user)) {
+                $user->approve = 0;
+                $user->save();
+            }
+            return redirect()->back();
         }
-        return redirect()->back();
     }
 
     /**

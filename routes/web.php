@@ -88,7 +88,9 @@ Route::group(['middleware' => 'admin_auth'], function () {
     Route::get('/' . config('app.admin_route_name') . '/user/edit/{id}', 'Admin\UserController@edit');
     Route::post('/' . config('app.admin_route_name') . '/user/edit/{id}', 'Admin\UserController@edit');
     Route::get('/' . config('app.admin_route_name') . '/user/approve/{id}', 'Admin\UserController@approve');
+    Route::post('/' . config('app.admin_route_name') . '/user/approve', 'Admin\UserController@approve');
     Route::get('/' . config('app.admin_route_name') . '/user/disapprove/{id}', 'Admin\UserController@disapprove');
+    Route::post('/' . config('app.admin_route_name') . '/user/disapprove', 'Admin\UserController@disapprove');
     Route::get('/' . config('app.admin_route_name') . '/user/delete/{id}', 'Admin\UserController@delete');
     Route::post('/' . config('app.admin_route_name') . '/user/delete', 'Admin\UserController@delete');
     Route::get('/' . config('app.admin_route_name') . '/user/export/{type}', 'Admin\UserController@export');

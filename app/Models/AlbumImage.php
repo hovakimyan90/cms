@@ -37,6 +37,11 @@ class AlbumImage extends Model
         return $images;
     }
 
+    /**
+     * Create relationship for image album
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function album()
     {
         return $this->hasOne('App\Models\Category', 'id', 'album_id');

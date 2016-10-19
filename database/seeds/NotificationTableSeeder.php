@@ -12,10 +12,10 @@ class NotificationTableSeeder extends Seeder
      */
     public function run()
     {
-        Notification::create([
-            'from' => 1,
-            'to' => 1,
-            'type' => 1
-        ]);
+        $notification = new Notification();
+        $notification->from = 1;
+        $notification->to = 1;
+        $notification->type = 1;
+        $notification->save();
     }
 }

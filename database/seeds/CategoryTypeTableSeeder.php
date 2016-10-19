@@ -12,11 +12,12 @@ class CategoryTypeTableSeeder extends Seeder
      */
     public function run()
     {
-        CategoryType::create([
-            'type' => 'parent'
-        ]);
-        CategoryType::create([
-            'type' => 'sub'
-        ]);
+        $category_type = new CategoryType();
+        $category_type->type = "parent";
+        $category_type->save();
+
+        $category_type = new CategoryType();
+        $category_type->type = "sub";
+        $category_type->save();
     }
 }

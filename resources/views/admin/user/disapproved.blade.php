@@ -24,6 +24,8 @@
     @else
         {!! csrf_field() !!}
         <button class="btn btn-danger users_delete_all"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+        <button class="btn btn-success users_approve_all"><i class="glyphicon glyphicon-ok"></i> Approve
+        </button>
         <a href="/{{config('app.admin_route_name')}}/user/export/0" class="btn btn-primary export_excel"><i
                     class="entypo-export"></i>
             Export Excel</a>
@@ -64,8 +66,9 @@
                     <td>
                         <a href="/{{config('app.admin_route_name')}}/user/edit/{{$user['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                        <a href="/{{config('app.admin_route_name')}}/user/approve/{{$user['id']}}"
-                           class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</a>
+                        <button class="btn btn-success danger approve" data-id="{{$user['id']}}"><i
+                                    class="glyphicon glyphicon-ok"></i> Approve
+                        </button>
                         <button class="btn btn-danger delete" data-id="{{$user['id']}}"><i
                                     class="glyphicon glyphicon-trash"></i> Delete
                         </button>
