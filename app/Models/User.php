@@ -41,9 +41,9 @@ class User extends Model implements AuthenticatableContract,
     public static function getUsers($length = 0, $search = "")
     {
         if ($length > 0) {
-            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereVerify(1)->paginate($length);
+            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->paginate($length);
         } else {
-            $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereVerify(1)->get();
+            $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->get();
         }
         return $users;
     }
@@ -57,9 +57,9 @@ class User extends Model implements AuthenticatableContract,
      */
     public static function getApprovedUsers($length = 0, $search = "") {
         if ($length > 0) {
-            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove('1')->whereVerify(1)->paginate($length);
+            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove(1)->paginate($length);
         } else {
-            $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove(1)->whereVerify(1)->get();
+            $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove(1)->get();
         }
         return $users;
     }
@@ -73,7 +73,7 @@ class User extends Model implements AuthenticatableContract,
      */
     public static function getDisapprovedUsers($length = 0, $search = "") {
         if ($length > 0) {
-            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove('0')->whereVerify(1)->paginate($length);
+            $users = self::orderBy("id", "desc")->where("username", "like", "%" . $search . "%")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove(0)->whereVerify(1)->paginate($length);
         } else {
             $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereApprove(0)->whereVerify(1)->get();
         }
@@ -87,7 +87,7 @@ class User extends Model implements AuthenticatableContract,
      * @return mixed
      */
     public static function getAdmins() {
-        $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereRole_id(1)->whereVerify(1)->get();
+        $users = self::orderBy("id", "desc")->where("id", "!=", 1)->where("id", "!=", Auth::user()->id)->whereRole_id(1)->whereApprove(1)->get();
         return $users;
     }
 
@@ -97,9 +97,9 @@ class User extends Model implements AuthenticatableContract,
      * @param $token
      * @return mixed
      */
-    public static function getUserByVerifyToken($token)
+    public static function getUserByActivationToken($token)
     {
-        $user = self::whereVerify_token($token)->first();
+        $user = self::whereActivation_token($token)->first();
         return $user;
     }
 

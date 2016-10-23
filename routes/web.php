@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/' . config('app.admin_route_name'), 'Admin\AuthController@login');
 Route::post('/' . config('app.admin_route_name'), 'Admin\AuthController@login');
-Route::get('/' . config('app.admin_route_name') . '/logout', 'Admin\AuthController@logout');
 Route::group(['middleware' => 'visit'], function () {
     Route::get('/', 'Site\HomeController@index')->name('home');
     Route::get('/register', 'Site\AuthController@register');
@@ -27,14 +26,16 @@ Route::group(['middleware' => 'visit'], function () {
     Route::post('/reset/password/{token}', 'Site\AuthController@reset');
     Route::get('/login', 'Site\AuthController@login');
     Route::post('/login', 'Site\AuthController@login');
-    Route::get('/logout', 'Site\AuthController@logout');
     Route::get('/category/{alias}', 'Site\SiteController@category');
     Route::get('/page/{alias}', 'Site\SiteController@page');
     Route::get('/news/{alias}', 'Site\SiteController@post');
     Route::get('/album/{id}', 'Site\SiteController@album');
     Route::group(['middleware' => 'site_auth'], function () {
+        Route::get('/logout', 'Site\AuthController@logout');
+
         Route::get('/edit', 'Site\UserController@edit');
         Route::post('/edit', 'Site\UserController@edit');
+
         Route::get('/posts', 'Site\PostController@index')->name('posts');
         Route::post('/posts', 'Site\PostController@index')->name('posts');
         Route::get('/post/create', 'Site\PostController@create');
@@ -44,12 +45,14 @@ Route::group(['middleware' => 'visit'], function () {
         Route::get('/post/delete/{id}', 'Site\PostController@delete');
         Route::post('/post/delete', 'Site\PostController@delete');
         Route::get('/post/export', 'Site\PostController@export');
+
         Route::get('/notifications', 'Site\NotificationController@index');
         Route::get('/notifications/count', 'Site\NotificationController@count');
         Route::get('/notifications/seen', 'Site\NotificationController@seen');
     });
 });
 Route::group(['middleware' => 'admin_auth'], function () {
+    Route::get('/' . config('app.admin_route_name') . '/logout', 'Admin\AuthController@logout');
     Route::get('/' . config('app.admin_route_name') . '/dashboard', 'Admin\DashboardController@index');
 
     Route::get('/' . config('app.admin_route_name') . '/categories', 'Admin\CategoryController@index')->name('categories');

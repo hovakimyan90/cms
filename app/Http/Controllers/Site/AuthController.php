@@ -56,7 +56,7 @@ class AuthController extends Controller
             $user->username = $request->input('username');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('pass'));
-            $user->verify_token = str_random(32);
+            $user->activation_token = str_random(32);
             $user->save();
             return redirect('/');
         } else {
@@ -72,10 +72,10 @@ class AuthController extends Controller
      */
     public function activation($token)
     {
-        $user = User::getUserByVerifyToken($token);
+        $user = User::getUserByActivationToken($token);
         if (!empty($user)) {
-            $user->verify = 1;
-            $user->verify_token = "";
+            $user->approve = 1;
+            $user->activation_token = "";
             $user->save();
             $admins = User::getAdmins();
             foreach ($admins as $admin) {
@@ -159,7 +159,7 @@ class AuthController extends Controller
             $email = $request->input('email');
             $password = $request->input('pass');
             $remember = $request->has('remember');
-            if (Auth::attempt(['email' => $email, 'password' => $password, 'role_id' => 2, 'approve'=>1,'verify' => 1], $remember)) {
+            if (Auth::attempt(['email' => $email, 'password' => $password, 'role_id' => 2, 'approve' => 1], $remember)) {
                 $user = User::getUserById(Auth::user()->id);
                 $user->online = 1;
                 $user->save();

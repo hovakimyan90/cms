@@ -108,7 +108,7 @@
                                 <p class="error">{{$errors->first('pass')}}</p>
                             </div>
                         </div>
-                        <div class="form-group @if($errors->has('pass')) has-error @endif">
+                        <div class="form-group @if($errors->has('pass_confirmation')) has-error @endif">
                             <label for="user_pass_confirmation" class="col-sm-3 control-label">Confirm Password</label>
 
                             <div class="col-sm-5">

@@ -87,7 +87,6 @@ class UserController extends Controller
             $user->notification = $request->has('notification');
             $user->password = Hash::make($request->input('pass'));
             $user->approve = 1;
-            $user->verify = 1;
             $user->save();
             if ($user->role_id == 1) {
                 $notification = new Notification();
@@ -158,7 +157,6 @@ class UserController extends Controller
                     $user->password = Hash::make($request->input('pass'));
                 }
                 $user->approve = 1;
-                $user->verify = 1;
                 $user->save();
                 $notifications = Notification::getNotificationBySenderId($user->id);
                 foreach ($notifications as $notification) {

@@ -27,8 +27,7 @@ class CreateUsersTable extends Migration
             $table->boolean('online');
             $table->boolean('notification');
             $table->boolean('approve');
-            $table->string('verify_token')->nullable();
-            $table->boolean('verify');
+            $table->string('activation_token')->nullable();
             $table->string('reset_password_token')->nullable();
             $table->rememberToken();
             $table->timestamps();

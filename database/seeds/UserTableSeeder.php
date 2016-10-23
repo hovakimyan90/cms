@@ -21,7 +21,6 @@ class UserTableSeeder extends Seeder
         $user->password = Hash::make('123456');
         $user->role_id = 1;
         $user->approve = 1;
-        $user->verify = 1;
         $user->save();
 
         $user = new User();
@@ -32,7 +31,6 @@ class UserTableSeeder extends Seeder
         $user->password = Hash::make('123456');
         $user->role_id = 2;
         $user->approve = 1;
-        $user->verify = 1;
         $user->save();
     }
 }
