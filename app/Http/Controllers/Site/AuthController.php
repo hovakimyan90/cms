@@ -104,7 +104,7 @@ class AuthController extends Controller
     {
         if ($request->isMethod('post')) {
             $rules = [
-                'email' => 'required|email|exists:users,email'
+                'email' => 'required|email|exists:users,email,approve,1'
             ];
             Validator::make($request->all(), $rules)->validate();
             $email = $request->input('email');

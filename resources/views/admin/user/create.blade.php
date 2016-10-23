@@ -96,7 +96,7 @@
 
                             <div class="col-sm-5">
                                 <input type="checkbox" id="user_notification"
-                                       name="notification">
+                                       name="notification" @if(old('notification')) checked @endif>
                             </div>
                         </div>
                         <div class="form-group @if($errors->has('pass')) has-error @endif">
@@ -104,7 +104,7 @@
 
                             <div class="col-sm-5">
                                 <input type="password" class="form-control" id="user_pass"
-                                       placeholder="Password" name="pass">
+                                       placeholder="Password" name="pass" value="{{old('pass')}}">
                                 <p class="error">{{$errors->first('pass')}}</p>
                             </div>
                         </div>
@@ -113,7 +113,8 @@
 
                             <div class="col-sm-5">
                                 <input type="password" class="form-control" id="user_pass_confirmation"
-                                       placeholder="Confirm Password" name="pass_confirmation">
+                                       placeholder="Confirm Password" name="pass_confirmation"
+                                       value="{{old('pass_confirmation')}}">
                                 <p class="error">{{$errors->first('pass_confirmation')}}</p>
                             </div>
                         </div>
