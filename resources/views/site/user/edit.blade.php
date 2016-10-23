@@ -12,7 +12,8 @@
 
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="register_first_name"
-                       placeholder="First name" name="first_name" value="{{$user->first_name}}">
+                       placeholder="First name" name="first_name"
+                       value="@if(empty(old('first_name'))){{$user['first_name']}}@else{{old('first_name')}}@endif">
                 <p class="error">{{$errors->first('first_name')}}</p>
             </div>
         </div>
@@ -21,7 +22,8 @@
 
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="register_last_name"
-                       placeholder="Last name" name="last_name" value="{{$user->last_name}}">
+                       placeholder="Last name" name="last_name"
+                       value="@if(empty(old('last_name'))){{$user['last_name']}}@else{{old('last_name')}}@endif">
                 <p class="error">{{$errors->first('last_name')}}</p>
             </div>
         </div>
@@ -30,7 +32,8 @@
 
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="register_position"
-                       placeholder="Position" name="position" value="{{$user->position}}">
+                       placeholder="Position" name="position"
+                       value="@if(empty(old('position'))){{$user['position']}}@else{{old('position')}}@endif">
                 <p class="error">{{$errors->first('position')}}</p>
             </div>
         </div>
@@ -39,7 +42,8 @@
 
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="register_phone"
-                       placeholder="Phone number" name="phone" value="{{$user->phone}}">
+                       placeholder="Phone number" name="phone"
+                       value="@if(empty(old('phone'))){{$user['phone']}}@else{{old('phone')}}@endif">
                 <p class="error">{{$errors->first('phone')}}</p>
             </div>
         </div>
@@ -48,7 +52,8 @@
 
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="register_username"
-                       placeholder="Username" name="username" value="{{$user->username}}">
+                       placeholder="Username" name="username"
+                       value="@if(empty(old('username'))){{$user['username']}}@else{{old('username')}}@endif">
                 <p class="error">{{$errors->first('username')}}</p>
             </div>
         </div>
@@ -57,7 +62,8 @@
 
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="register_email"
-                       placeholder="E-mail" name="email" value="{{$user->email}}">
+                       placeholder="E-mail" name="email"
+                       value="@if(empty(old('email'))){{$user['email']}}@else{{old('email')}}@endif">
                 <p class="error">{{$errors->first('email')}}</p>
             </div>
         </div>
@@ -66,7 +72,7 @@
 
             <div class="col-sm-5">
                 <input type="checkbox" id="register_notification"
-                       name="notification" @if($user->notification==1) checked @endif>
+                       name="notification" @if($user['notification']=='1') checked @endif>
             </div>
         </div>
         <div class="form-group @if($errors->has('pass')) has-error @endif">
@@ -74,7 +80,8 @@
 
             <div class="col-sm-5">
                 <input type="password" class="form-control" id="register_pass"
-                       placeholder="Password" name="pass">
+                       placeholder="Password" name="pass"
+                       value="@if(empty(old('pass'))){{$user['pass']}}@else{{old('pass')}}@endif">
                 <p class="error">{{$errors->first('pass')}}</p>
             </div>
         </div>
@@ -83,7 +90,8 @@
 
             <div class="col-sm-5">
                 <input type="password" class="form-control" id="register_pass_confirmation"
-                       placeholder="Confirm Password" name="pass_confirmation">
+                       placeholder="Confirm Password" name="pass_confirmation"
+                       value="@if(empty(old('pass_confirmation'))){{$user['pass_confirmation']}}@else{{old('pass_confirmation')}}@endif">
                 <p class="error">{{$errors->first('pass_confirmation')}}</p>
             </div>
         </div>

@@ -103,7 +103,7 @@
                             <div class="col-sm-5">
                                 <input type="checkbox" id="user_notification"
                                        name="notification"
-                                       @if($user['notification']==1 || old('notification')==1) checked @endif>
+                                       @if($user['notification']=='1') checked @endif>
                             </div>
                         </div>
                         <div class="form-group @if($errors->has('pass')) has-error @endif">

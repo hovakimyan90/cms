@@ -17,7 +17,7 @@
             <label for="login_pass" class="col-sm-3 control-label">Password</label>
 
             <div class="col-sm-5">
-                <input type="password" class="form-control" id="login_pass" name="pass">
+                <input type="password" class="form-control" id="login_pass" name="pass" value="{{old('pass')}}">
             </div>
         </div>
         <div class="form-group">

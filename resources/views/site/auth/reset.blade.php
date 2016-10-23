@@ -10,7 +10,7 @@
             <label for="reset_pass" class="col-sm-3 control-label">Password</label>
 
             <div class="col-sm-5">
-                <input type="password" class="form-control" id="reset_pass" name="pass">
+                <input type="password" class="form-control" id="reset_pass" name="pass" value="{{old('pass')}}">
                 <p class="error">{{$errors->first('pass')}}</p>
             </div>
         </div>
@@ -18,7 +18,8 @@
             <label for="reset_pass_confirmation" class="col-sm-3 control-label">Confirm Password</label>
 
             <div class="col-sm-5">
-                <input type="password" class="form-control" id="reset_pass_confirmation" name="pass_confirmation">
+                <input type="password" class="form-control" id="reset_pass_confirmation" name="pass_confirmation"
+                       value="{{old('pass_confirmation')}}">
                 <p class="error">{{$errors->first('pass_confirmation')}}</p>
             </div>
             <input type="submit" class="btn btn-default" value="Reset Password">

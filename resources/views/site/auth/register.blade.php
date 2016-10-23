@@ -66,7 +66,7 @@
 
             <div class="col-sm-5">
                 <input type="password" class="form-control" id="register_pass"
-                       placeholder="Password" name="pass">
+                       placeholder="Password" name="pass" value="{{old('pass')}}">
                 <p class="error">{{$errors->first('pass')}}</p>
             </div>
         </div>
@@ -75,7 +75,7 @@
 
             <div class="col-sm-5">
                 <input type="password" class="form-control" id="register_pass_confirmation"
-                       placeholder="Confirm Password" name="pass_confirmation">
+                       placeholder="Confirm Password" name="pass_confirmation" value="{{old('pass_confirmation')}}">
                 <p class="error">{{$errors->first('pass_confirmation')}}</p>
             </div>
         </div>
