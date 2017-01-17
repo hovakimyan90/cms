@@ -42,12 +42,16 @@
             </div>
 
             <div class="col-sm-10 @if(!empty($errors->first('title'))) has-error @endif">
-                <input type="text" value="{{$post->title}}" class="form-control input-lg" id="post_title"
+                <input type="text"
+                       value="@if(empty(old()) && !isset(old()['title'])){{$post->title}}@else{{old('title')}}@endif"
+                       class="form-control input-lg" id="post_title"
                        name="title" placeholder="Post title"/>
                 <p class="error">{{$errors->first('title')}}</p>
             </div>
             <div class="col-sm-10 post_alias_block @if(!empty($errors->first('alias'))) has-error @endif">
-                <input type="text" value="{{$post->alias}}" class="form-control input-lg" id="post_alias"
+                <input type="text"
+                       value="@if(empty(old()) && !isset(old()['alias'])){{$post->alias}}@else{{old('alias')}}@endif"
+                       class="form-control input-lg" id="post_alias"
                        name="alias" placeholder="Post Alias"/>
                 <p class="error">{{$errors->first('alias')}}</p>
             </div>
@@ -59,7 +63,8 @@
         <div class="row">
             <div class="col-sm-12 @if(!empty($errors->first('content'))) has-error @endif">
                 <textarea class="form-control wysihtml5" rows="18" data-stylesheet-url="assets/css/wysihtml5-color.css"
-                          name="content" id="post_content">{{$post->content}}</textarea>
+                          name="content"
+                          id="post_content">@if(empty(old()) && !isset(old()['content'])){{$post->content}}@else{{old('content')}}@endif</textarea>
                 <p class="error">{{$errors->first('content')}}</p>
             </div>
         </div>

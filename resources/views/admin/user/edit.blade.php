@@ -29,7 +29,7 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_first_name"
                                        placeholder="First name" name="first_name"
-                                       value="@if(empty(old('first_name'))){{$user['first_name']}}@else{{old('first_name')}}@endif">
+                                       value="@if(empty(old()) && !isset(old()['first_name'])){{$user->first_name}}@else{{old('first_name')}}@endif">
                                 <p class="error">{{$errors->first('first_name')}}</p>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_last_name"
                                        placeholder="Last name" name="last_name"
-                                       value="@if(empty(old('last_name'))){{$user['last_name']}}@else{{old('last_name')}}@endif">
+                                       value="@if(empty(old()) && !isset(old()['last_name'])){{$user->last_name}}@else{{old('last_name')}}@endif">
                                 <p class="error">{{$errors->first('last_name')}}</p>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_position"
                                        placeholder="Position" name="position"
-                                       value="@if(empty(old('position'))){{$user['position']}}@else{{old('position')}}@endif">
+                                       value="@if(empty(old()) && !isset(old()['position'])){{$user->position}}@else{{old('position')}}@endif">
                                 <p class="error">{{$errors->first('position')}}</p>
                             </div>
                         </div>
@@ -58,10 +58,11 @@
 
                             <div class="col-sm-5">
                                 <select name="type" class="form-control">
-                                    <option value="">Select User role</option>
+                                    <option value="" @if(!empty(old()) && isset(old()['type'])) selected @endif>Select User role</option>
                                     @foreach($user_roles as $role)
+                                        @if(empty(old()) && !isset(old()['first_name'])){{$user->first_name}}@else{{old('first_name')}}@endif
                                         <option value="{{$role['id']}}"
-                                                @if($user['role_id']==$role['id'] || old('role_id')==$role['id']) selected @endif>{{$role['role']}}</option>
+                                                @if(empty(old()) && !isset(old()['first_name'])) @if($user['role_id']==$role['id'] || old('role_id')==$role['id']) selected @endif @endif>{{$role['role']}}</option>
                                     @endforeach
                                 </select>
                                 <p class="error">{{$errors->first('type')}}</p>
@@ -73,7 +74,7 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_phone"
                                        placeholder="Phone number" name="phone"
-                                       value="@if(empty(old('phone'))){{$user['phone']}}@else{{old('phone')}}@endif">
+                                       value="@if(empty(old()) && !isset(old()['phone'])){{$user->phone}}@else{{old('phone')}}@endif">
                                 <p class="error">{{$errors->first('phone')}}</p>
                             </div>
                         </div>
@@ -83,7 +84,7 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_username"
                                        placeholder="Username" name="username"
-                                       value="@if(empty(old('username'))){{$user['username']}}@else{{old('username')}}@endif">
+                                       value="@if(empty(old()) && !isset(old()['username'])){{$user->username}}@else{{old('username')}}@endif">
                                 <p class="error">{{$errors->first('username')}}</p>
                             </div>
                         </div>
@@ -93,7 +94,7 @@
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="user_email"
                                        placeholder="E-mail" name="email"
-                                       value="@if(empty(old('email'))){{$user['email']}}@else{{old('email')}}@endif">
+                                       value="@if(empty(old()) && !isset(old()['email'])){{$user->email}}@else{{old('email')}}@endif">
                                 <p class="error">{{$errors->first('email')}}</p>
                             </div>
                         </div>
@@ -111,8 +112,7 @@
 
                             <div class="col-sm-5">
                                 <input type="password" class="form-control" id="user_pass"
-                                       placeholder="Password" name="pass"
-                                       value="@if(empty(old('pass'))){{$user['pass']}}@else{{old('pass')}}@endif">
+                                       placeholder="Password" name="pass">
                                 <p class="error">{{$errors->first('pass')}}</p>
                             </div>
                         </div>
@@ -121,8 +121,7 @@
 
                             <div class="col-sm-5">
                                 <input type="password" class="form-control" id="user_pass_confirmation"
-                                       placeholder="Confirm Password" name="pass_confirmation"
-                                       value="@if(empty(old('pass_confirmation'))){{$user['pass_confirmation']}}@else{{old('pass_confirmation')}}@endif">
+                                       placeholder="Confirm Password" name="pass_confirmation">
                                 <p class="error">{{$errors->first('pass_confirmation')}}</p>
                             </div>
                         </div>

@@ -26,7 +26,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="page_name"
-                                       placeholder="Page name" name="name" value="{{$page->name}}">
+                                       placeholder="Page name" name="name" value="@if(empty(old()) && !isset(old()['name'])){{$page->name}}@else{{old('name')}}@endif">
                                 <p class="error">{{$errors->first('name')}}</p>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="page_alias"
-                                       placeholder="Page alias" name="alias" value="{{$page->alias}}">
+                                       placeholder="Page alias" name="alias" value="@if(empty(old()) && !isset(old()['alias'])){{$page->alias}}@else{{old('alias')}}@endif">
                                 <p class="error">{{$errors->first('alias')}}</p>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                         <div class="row">
                             <div class="col-sm-12 @if(!empty($errors->first('content'))) has-error @endif">
                 <textarea class="form-control wysihtml5" rows="18" data-stylesheet-url="assets/css/wysihtml5-color.css"
-                          name="content" id="page_content">{{$page->content->content}}</textarea>
+                          name="content" id="page_content">@if(empty(old()) && !isset(old()['content'])){{$page->content->content}}@else{{old('content')}}@endif</textarea>
                                 <p class="error">{{$errors->first('content')}}</p>
                             </div>
                         </div>

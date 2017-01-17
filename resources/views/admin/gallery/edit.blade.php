@@ -35,7 +35,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="gallery_link"
-                                       placeholder="Link" name="link" value="{{$gallery['link']}}">
+                                       placeholder="Link" name="link" value="@if(empty(old()) && !isset(old()['link'])){{$gallery->link}}@else{{old('link')}}@endif">
                                 <p class="error">{{$errors->first('link')}}</p>
                             </div>
                         </div>

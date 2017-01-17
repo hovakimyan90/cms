@@ -51,7 +51,7 @@ class AlbumController extends Controller
             }
             $album->publish = $request->has('publish');
             $album->save();
-            return redirect()->route('categories');
+            return redirect()->route('albums');
         } else {
             $albums = Category::getParentCategories();
             return view('admin.album.create', compact('albums'));
@@ -86,7 +86,7 @@ class AlbumController extends Controller
             }
             $album->publish = $request->has('publish');
             $album->save();
-            return redirect()->route('categories');
+            return redirect()->route('albums');
         } else {
             $album = Category::getCategoryById($id);
             if (empty($album)) {

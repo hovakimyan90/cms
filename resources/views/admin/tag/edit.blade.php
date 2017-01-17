@@ -26,7 +26,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="tag_name"
-                                       placeholder="Tag name" name="name" value="{{$tag->name}}">
+                                       placeholder="Tag name" name="name" value="@if(empty(old()) && !isset(old()['name'])){{$tag->name}}@else{{old('name')}}@endif">
                                 <p class="error">{{$errors->first('name')}}</p>
                             </div>
                         </div>

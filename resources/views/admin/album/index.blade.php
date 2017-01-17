@@ -53,7 +53,7 @@
                     <td>{{$album->images()->count()}}</td>
                     <td>{{$album->visits()->count()}}</td>
                     <td>@if($album['type']=='1') Parent  @else Sub category @endif</td>
-                    <td><a href="/{{config('app.admin_route_name')}}/category/edit/{{$album['id']}}"
+                    <td><a href="/{{config('app.admin_route_name')}}/album/edit/{{$album['id']}}"
                            class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                         <button class="btn btn-danger delete" data-id="{{$album['id']}}"><i
                                     class="glyphicon glyphicon-trash"></i> Delete

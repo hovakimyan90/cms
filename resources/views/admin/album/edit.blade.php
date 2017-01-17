@@ -26,7 +26,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="category_name"
-                                       placeholder="Album name" name="name" value="{{$album->name}}">
+                                       placeholder="Album name" name="name" value="@if(empty(old()) && !isset(old()['name'])){{$album->name}}@else{{old('name')}}@endif">
                                 <p class="error">{{$errors->first('name')}}</p>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
 
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="category_alias"
-                                       placeholder="Album alias" name="alias" value="{{$album->alias}}">
+                                       placeholder="Album alias" name="alias" value="@if(empty(old()) && !isset(old()['alias'])){{$album->alias}}@else{{old('alias')}}@endif">
                                 <p class="error">{{$errors->first('alias')}}</p>
                             </div>
                         </div>
